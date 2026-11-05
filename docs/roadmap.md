@@ -38,6 +38,16 @@ Informação definitiva: SysAla não oferece API, webhooks ou sincronização au
 - Testes com dados exclusivamente fictícios, incluindo codificações/separadores, venda online não lançada no ERP e reserva física.
 - Amostras reais autorizadas, modelo oficial, registro de alocação e responsáveis ainda são necessários para homologar o uso comercial. Sem deploy administrativo ou alteração de estoque real.
 
+## Etapa 5 — consolidação e homologação preparada
+
+- Auditar o commit local a40552a e o lote de consolidação, comparar com GitHub e preparar envio apenas com autorização válida.
+- Gate de pacote público, teste de rotas 404 e verificações de exclusão do utilitário/dados privados, preservando as funções locais existentes.
+- [Mapeamento dos arquivos reais](mapeamento-csv-reais.md) sem inventar cabeçalhos; aguardar amostras, modelo oficial e alocações aprovadas.
+- [Checklist comercial](implantacao-comercial-etapa5.md) de 14 etapas com papéis, pré-requisitos e aceite; varejo e revenda têm homologação própria.
+- Recursos Nuvemshop ainda precisam de comprovação por fonte oficial atual; central bloqueada pela rede. Não presumir recurso/plano ou reproduzir funções comerciais no site.
+
+A primeira compra depende de loja/URLs, produtos, recurso B2B e frete/pagamento comprovados, responsáveis e autorização financeira específica. Nenhuma operação real foi feita nesta preparação.
+
 ## Próximo marco — ativar a Nuvemshop
 
 1. Receber a URL oficial de varejo e o acesso autorizado à loja; confirmar plano/recurso B2B e sua URL pública.

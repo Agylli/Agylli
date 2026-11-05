@@ -36,6 +36,16 @@ python3 -m unittest discover -s tools/conciliacao/tests -p 'test_*.py' -v
 
 Procedimento e papéis: [conciliação manual](docs/conciliacao-manual.md). O utilitário é administrativo local, excluído do pacote de deploy. Não expor pelo site. Originais, custos, relatórios e arquivos finais ficam fora de Git e `public/`, em `dados-comerciais/` ou armazenamento privado aprovado. Relatórios antigos são históricos; não representam autorização ou possibilidade de integração automática SysAla.
 
+## Etapa 5 — consolidação e homologação comercial
+
+- [Relatório de consolidação, auditoria e testes](docs/etapa5.md).
+- [Plano de implantação com responsáveis e critérios de conclusão](docs/implantacao-comercial-etapa5.md).
+- [Recebimento e mapeamento dos CSVs reais](docs/mapeamento-csv-reais.md), mantendo os adaptadores sem cabeçalhos presumidos e a geração final bloqueada até comprovar o modelo oficial.
+- Modelos de [checklist](docs/modelos/checklist-implantacao-etapa5.csv), [fontes oficiais](docs/modelos/fontes-nuvemshop-etapa5.csv) e [recebimento de arquivos](docs/modelos/recebimento-arquivos-etapa5.csv), sem dados comerciais preenchidos.
+- `npm run check:public-build`, após `npm run build`, verifica os traces, rotas e arquivos públicos para bloquear a inclusão do utilitário/dados privados. O gate foi incluído no CI e há testes de acesso 404 aos caminhos administrativos.
+
+O material está preparado localmente. Envio ao GitHub depende da autorização do lote; a integração Git da Vercel exige revisar o pacote público antes do push. Configuração de loja, importação, pagamento e alteração de estoque precisam das autorizações específicas. A documentação oficial Nuvemshop segue bloqueada pela rede; os recursos e passos de painel ainda não comprovados não foram apresentados como homologados.
+
 ## Executar
 
 Requisitos: Node.js 24 LTS (fixado em `.nvmrc`), npm e Git. Editor recomendado: Visual Studio Code; extensões e tarefas estão em `.vscode/`.
@@ -69,6 +79,7 @@ npm run lint        # ESLint, sem avisos permitidos
 npm test            # testes unitários do site, Vitest
 npm run test:conciliacao # testes do utilitário local, Python 3.11+
 npm run build       # produção, incluindo checagem TypeScript do Next
+npm run check:public-build # gate de exclusão de conteúdo privado/administrativo
 npm run typecheck   # TypeScript; execute o build antes em um checkout novo
 npm run start       # servir o build de produção
 npm run test:e2e    # Playwright, contra o build de produção

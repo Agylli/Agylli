@@ -116,3 +116,11 @@ npm run test:conciliacao
 ```
 
 Fixtures em `tests/fixtures/` são exclusivamente fictícios para testes, com SKUs/referências `FICT-*`. Nunca usar seus cabeçalhos como especificação real de ERP/importador. Procedimento diário: [conciliação manual](../../docs/conciliacao-manual.md).
+
+## Consolidação da Etapa 5
+
+O recebimento de exemplos reais está detalhado em [mapeamento dos CSVs](../../docs/mapeamento-csv-reais.md). A configuração genérica permanece sem nomes presumidos de colunas e `final_format: null`; a conferência de pedidos/reservas e a aprovação manual continuam obrigatórias.
+
+Depois de construir o site, executar `npm run check:public-build` ou `python3 -m tools.conciliacao.check_build`. O gate lê os traces/manifesto e a pasta pública, recusando referências a `tools/conciliacao/`, `dados-comerciais/`, rotas desses caminhos e arquivos Python/CSV/ambiente ou links simbólicos em `public/`. Ele só confere artefatos locais; não envia conteúdo à Vercel nem substitui a revisão do lote a publicar. O workflow executa esse gate após o build.
+
+O site foi testado também para retornar 404 nos caminhos administrativos/comerciais. Nenhum comando de simulação/revisão/exportação passou a integrar o runtime público.

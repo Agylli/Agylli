@@ -132,3 +132,14 @@ test("links internos e âncoras das seis páginas possuem destinos válidos", as
     }
   }
 });
+
+
+test("arquivos administrativos e comerciais não são servidos pelo site", async ({ request }) => {
+  for (const path of ["/tools/conciliacao/audit.py", "/tools/conciliacao/config.example.json", "/dados-comerciais/conciliacao/config.json"]) {
+    const response = await request.get(path);
+    expect(response.status(), path).toBe(404);
+    const body = await response.text();
+    expect(body).not.toContain("def export_final(");
+    expect(body).not.toContain('"final_format":');
+  }
+});

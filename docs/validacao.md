@@ -1,5 +1,13 @@
 # Validação — Agylli Cosméticos
 
+## Etapa 5 — consolidação e proteção do pacote público
+
+Em 5 de novembro de 2026, passaram 45 testes Python (incluindo os 40 do utilitário preservados), 14 testes unitários do site e 36 testes de navegador: 95 testes locais. Lint, build, TypeScript e o gate `check:public-build` passaram. Foram conferidos 13 traces sem referências ao utilitário/dados privados; os caminhos administrativos/comerciais retornaram 404 no servidor local.
+
+O commit a40552a foi comparado ao remoto 386fb83: um à frente, nenhum atrás no início. A auditoria não encontrou arquivos privados versionados, credenciais ou CSVs reais no lote; os modelos originais seguem vazios e os fixtures são fictícios. O push e o CI remoto da revisão consolidada ainda não foram realizados. O gate pós-build foi preparado no workflow.
+
+A central Nuvemshop continua bloqueada pela rede. Nenhum recurso/plano ou passo de painel foi declarado comprovado por documentação atual; compra, pagamento, importação e aprovação B2B reais não foram executados. Relatório e dependências: [Etapa 5](etapa5.md).
+
 ## Revisão da Etapa 3 e preparação da Etapa 4
 
 Em 5 de novembro de 2026, passaram 40 testes do utilitário local de conciliação, 14 testes unitários do site e 33 testes de navegador, além de lint, build e TypeScript. O build foi inspecionado: os traces não incluem `tools/conciliacao/` ou `dados-comerciais/`. Nenhum deploy administrativo foi realizado.

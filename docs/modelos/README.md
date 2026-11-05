@@ -36,3 +36,11 @@ cp docs/modelos/*.csv dados-comerciais/etapa3/
 5. Gerar o arquivo definitivo fora desta pasta somente depois da confirmação do modelo oficial e aceite do lote. Os modelos de preparação e de testes não devem ser importados diretamente na loja.
 
 Roteiros: [ativação](../ativacao-comercial.md), [catálogo](../catalogo-piloto.md), [homologação](../homologacao-comercial.md) e [primeira venda](../primeira-venda.md).
+
+## Preparação da Etapa 5
+
+- `checklist-implantacao-etapa5.csv`: 14 etapas com papéis, dependências e critérios; resultados inicialmente `nao_executado`.
+- `fontes-nuvemshop-etapa5.csv`: oito grupos de recursos aguardando artigo oficial vigente, plano e procedimento confirmados; não há URLs de artigos presumidas.
+- `recebimento-arquivos-etapa5.csv`: modelo vazio de inventário privado para fonte, autorização, unidade, corte, encoding, separador, significado do saldo e hash.
+
+Preencher somente cópias privadas. Plano: [implantação da Etapa 5](../implantacao-comercial-etapa5.md). Campos: [mapeamento real](../mapeamento-csv-reais.md).

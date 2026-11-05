@@ -33,6 +33,14 @@ A preparação operacional não altera URLs ou parâmetros de produção. Quando
 
 O êxito do CI e do build não valida cadastro, tabela, frete ou pagamento na Nuvemshop. Não cadastrar gateway, banco, dados de clientes ou transportadoras pelo deploy. Custos, preços privados, dados pessoais, arquivo definitivo de importação e comprovantes permanecem fora do Git/deploy em `dados-comerciais/` ou armazenamento privado aprovado. Não liberar a operação comercial enquanto houver bloqueio crítico nos roteiros.
 
+## Consolidação e autorização — Etapa 5
+
+Antes de enviar o lote local, executar testes e `npm run build` seguido de `npm run check:public-build`. O CI também verifica esse gate, além de testes de conciliação e de navegador. Revisar arquivos versionados e confirmar que `dados-comerciais/`, originais, aprovações reais, custos e credenciais não estão no índice nem no pacote público.
+
+A main dispara publicação automática na Vercel. Envio de código ao GitHub não autoriza publicar um painel administrativo: a ferramenta continua fora do runtime, sem rotas públicas, com exclusão de tracing e de pacote. Se o gate falhar, não realizar o envio/publicação do lote até corrigir. O push deve usar autorização válida, destino confirmado e histórico preservado, sem force push.
+
+As verificações locais não comprovam a disponibilidade de recursos comerciais na Nuvemshop. Plano e critérios de liberação: [Etapa 5](implantacao-comercial-etapa5.md). Não executar importação, cobrança, Pix, estorno ou alteração de saldo como parte do deploy.
+
 ## Deployment verificado antes da Etapa 2
 
 - URL permanente: **https://agylli.vercel.app/**
