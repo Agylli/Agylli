@@ -5,6 +5,8 @@
 - Prefira Server Components. Use Client Components apenas para interatividade (menu e filtros). Não faça chamadas a serviços opcionais para renderizar o site.
 - Interface e conteúdo em português brasileiro. Reutilize `src/config/brand.ts`, `marketing.ts`, `content.ts` e `src/data/products.ts`. Tokens visuais ficam em `src/app/globals.css`.
 - Não invente condições comerciais, contatos, URLs reais, preços, avaliações, margens, certificações ou características dos produtos. Identifique os dados demonstrativos. Preserve os fallbacks seguros.
+- Os CSVs em `docs/modelos/` são modelos de preparação, não o formato nativo confirmado do importador Nuvemshop. Dados reais de custos, preços e estoque ficam fora do Git e do deploy, em `dados-comerciais/` ou armazenamento privado aprovado.
+- Não ativar GA4, GTM, Google Ads ou Meta Pixel sem IDs, consentimento e configuração aprovados. Clique de saída para a loja não representa compra; seguir `docs/mensuracao.md`.
 - O varejo e futuramente o B2B são operados pela Nuvemshop. Não crie checkout, pagamentos ou sistema de estoque paralelo nesta etapa.
 - Supabase é opcional; use apenas chave publicável no cliente. Nunca versione segredos nem use `service_role` no navegador. APIs privadas são futuras integrações exclusivamente no servidor.
 - Toda imagem precisa de procedência; não reutilize ativos da Sallve. Use `next/image` com dimensões/sizes, alt adequado e preload apenas para conteúdo prioritário. Prefira arquivos locais otimizados.

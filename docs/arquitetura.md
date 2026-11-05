@@ -2,7 +2,7 @@
 
 ## Limite do sistema
 
-Este projeto é o site principal e de marketing da Agylli. A Nuvemshop será responsável pela jornada de compra, checkout, pagamento e operação B2B. O site apresenta a marca e encaminha os públicos. O catálogo de quatro itens é exclusivamente demonstrativo; não representa o catálogo real de 101 a 500 itens.
+Este projeto é o site principal e de marketing da Agylli. A Nuvemshop será responsável pela jornada de compra, checkout, pagamento e operação B2B. O site apresenta a marca e encaminha os públicos. O catálogo de quatro itens é exclusivamente demonstrativo; não representa o catálogo comercial completo.
 
 ## Camadas
 
@@ -17,7 +17,7 @@ Este projeto é o site principal e de marketing da Agylli. A Nuvemshop será res
 - Next.js App Router, TypeScript estrito e Server Components por padrão. Menu e filtros são os únicos componentes interativos no cliente.
 - Filtros usam query string (`?categoria=...`) e links reais, permitindo compartilhamento, voltar/avançar e navegação acessível. Não simulam uma busca no catálogo real.
 - Tailwind CSS v4 com `@theme` centralizado e classes semânticas de composição para manter a identidade legível. Fontes servidas localmente por Fontsource.
-- Imagem hero em WebP local e `next/image` para otimização e preload. Ilustrações SVG locais para categorias e produtos. Sem imagens ou fontes externas no runtime.
+- Fotografias reais de referência em WebP local e `next/image` para otimização e preload do hero. Logos originais em arquivos locais. Os fornecedores não são consultados em runtime; a seleção ilustrativa não sincroniza estoque, preços ou pedidos.
 - SEO inclui idioma, título por página, description, Open Graph, robots e sitemap. Até definir `NEXT_PUBLIC_SITE_URL`, o site permanece `noindex`. A Vercel também deve proteger previews de indexação.
 - Cabeçalhos básicos incluem `nosniff`, `DENY`, política de referência e bloqueio de câmera/microfone/geolocalização. Não há analytics nem cookies de autenticação nesta etapa.
 - Sem formulários de dados pessoais, banco, migrações, sessões, checkout, carrinho ou APIs privadas. Nenhum botão informa um envio que não aconteceu.
@@ -27,3 +27,11 @@ Este projeto é o site principal e de marketing da Agylli. A Nuvemshop será res
 Campanhas podem entrar em `src/app/(marketing)/campanhas/...`, reutilizando os componentes atuais. Adicionar um CMS ou API de catálogo somente após definir autoria, atualização, cache e direitos de acesso. Não transformar dados demonstrativos em catálogo de produção sem validação comercial.
 
 Antes de coletar leads, aprovar finalidade, política de privacidade, retenção, consentimento quando aplicável, antispam e destino de atendimento. Antes de ativar autenticação ou tabelas no Supabase, definir autorização e RLS e adicionar testes para esses limites.
+
+## Unidades e atendimento
+
+`src/config/locations.ts` centraliza as duas unidades, suas regiões, endereços, links `tel:`/WhatsApp e o mapa institucional. `LocationCards` é reutilizado nas rotas `/contato` e `/onde-atuamos`; o rodapé consome a mesma configuração. Canais gerais adicionais continuam opcionais via ambiente, sem substituir os contatos das unidades. Solicitação de revenda direciona aos canais das equipes enquanto não há área B2B; não há coleta de documentos ou confirmação de cadastro.
+
+## Preparação comercial da Etapa 2
+
+`WholesaleAccess` define o espaço de cadastro B2B sem banco ou formulário local. A URL é a mesma dos demais CTAs de acesso. `docs/modelos/` contém somente modelos de preparação; não é carregado pela aplicação nem mantém estoque. Dados reais ficam fora do Git/deploy em `dados-comerciais/`. Mensuração está especificada em `mensuracao.md`, sem tags, listeners, cookies ou IDs adicionados ao runtime.

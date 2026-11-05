@@ -6,6 +6,7 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { brand } from "@/config/brand";
 import { marketing } from "@/config/marketing";
+import { BrandLogo } from "@/components/ui/brand-logo";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ export function Header() {
     <div className="announcement"><span>{marketing.announcement}</span><Link href="/atacado">{marketing.announcementLink} <ArrowUpRight size={13} aria-hidden="true" /></Link></div>
     <header className="site-header">
       <div className="container header-inner">
-        <Link href="/" className="wordmark" aria-label="Agylli Cosméticos — início" onClick={() => setOpen(false)}>{brand.wordmark}<span>COSMÉTICOS</span></Link>
+        <Link href="/" className="wordmark" aria-label="Agylli Cosméticos — início" onClick={() => setOpen(false)}><BrandLogo /></Link>
         <nav aria-label="Navegação principal" className="desktop-nav">
           {brand.navigation.map(item => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</Link>)}
         </nav>

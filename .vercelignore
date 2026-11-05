@@ -1,0 +1,16 @@
+.git
+.github
+.vscode
+.vercel
+node_modules
+.next
+.env*
+!.env.example
+docs
+tests
+test-results
+playwright-report
+coverage
+*.tsbuildinfo
+*.log
+dados-comerciais

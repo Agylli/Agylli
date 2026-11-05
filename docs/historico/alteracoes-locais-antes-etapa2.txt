@@ -1,0 +1,67 @@
+ M .env.example
+ M .gitignore
+ M README.md
+ M docs/arquitetura.md
+ M docs/conteudo-institucional-recebido.md
+ M docs/deploy.md
+ M docs/referencias-da-marca.md
+ M docs/screenshots/atacado-1440.png
+ M docs/screenshots/atacado-375.png
+ M docs/screenshots/atacado-768.png
+ M docs/screenshots/contato-1440.png
+ M docs/screenshots/contato-375.png
+ M docs/screenshots/contato-768.png
+ M docs/screenshots/home-1440.png
+ M docs/screenshots/home-375.png
+ M docs/screenshots/home-768.png
+ M docs/screenshots/loja-em-breve-1440.png
+ M docs/screenshots/loja-em-breve-375.png
+ M docs/screenshots/loja-em-breve-768.png
+ M docs/screenshots/sobre-1440.png
+ M docs/screenshots/sobre-375.png
+ M docs/screenshots/sobre-768.png
+ M docs/validacao.md
+ M eslint.config.mjs
+ M public/images/README.md
+ D public/images/haircare.svg
+ D public/images/hero-cosmetics.webp
+ D public/images/makeup.svg
+ D public/images/perfume.svg
+ D public/images/skincare.svg
+ M src/app/atacado/page.tsx
+ M src/app/contato/page.tsx
+ M src/app/globals.css
+ D src/app/icon.svg
+ M src/app/layout.tsx
+ M src/app/loja-em-breve/page.tsx
+ M src/app/page.tsx
+ M src/app/sitemap.ts
+ M src/app/sobre/page.tsx
+ M src/components/layout/footer.tsx
+ M src/components/layout/header.tsx
+ M src/components/marketing/hero.tsx
+ M src/components/marketing/page-intro.tsx
+ M src/components/marketing/product-showcase.tsx
+ M src/components/marketing/wholesale-banner.tsx
+ M src/config/brand.ts
+ M src/config/content.ts
+ M src/config/marketing.ts
+ M src/data/products.ts
+ M tests/e2e/storefront.spec.ts
+?? .vercelignore
+?? docs/relatorio-status-2026-11-05.html
+?? docs/relatorio-status-2026-11-05.md
+?? docs/relatorio-status-2026-11-05.pdf
+?? docs/screenshots/onde-atuamos-1440.png
+?? docs/screenshots/onde-atuamos-375.png
+?? docs/screenshots/onde-atuamos-768.png
+?? public/images/brand/
+?? public/images/history/
+?? public/images/locations/
+?? public/images/products/
+?? src/app/icon.png
+?? src/app/onde-atuamos/
+?? src/components/marketing/brand-selection.tsx
+?? src/components/marketing/location-cards.tsx
+?? src/components/ui/brand-logo.tsx
+?? src/config/locations.ts

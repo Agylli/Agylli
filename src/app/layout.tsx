@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   robots: { index: !!brand.links.site, follow: !!brand.links.site },
 };
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#faf8f4" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#fcf9f6" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="pt-BR"><body><a href="#conteudo" className="skip-link">Pular para o conteúdo</a><Header /><main id="conteudo" tabIndex={-1}>{children}</main><Footer /></body></html>;

@@ -1,5 +1,7 @@
 # Conteúdo institucional recebido
 
+Registro da etapa anterior à liberação da rede. A identidade, as fotografias e a história foram posteriormente revisadas pelas fontes oficiais; consulte `referencias-da-marca.md` para o estado atual.
+
 Fonte: texto enviado diretamente pelo usuário em 5 de novembro de 2026, associado ao site Agylli e à página https://www.agylli.com.br/revendedores/. Não houve leitura independente dessas páginas, pois o proxy bloqueia o domínio no ambiente atual.
 
 ## Informações utilizadas

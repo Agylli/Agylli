@@ -3,7 +3,8 @@ import { emailAddress, publicHttpsUrl, retailUrl, whatsappUrl, wholesaleUrl } fr
 export const brand = {
   name: "Agylli Cosméticos",
   wordmark: "AGYLLI",
-  tagline: "Sua beleza. Suas possibilidades.",
+  logo: { src: "/images/brand/agylli-logo.png", width: 356, height: 92 },
+  tagline: "Conectando pessoas a produtos.",
   description: "Cosméticos para o seu cuidado e novas possibilidades para o seu negócio. Conheça o universo Agylli, para consumidores e revendedores.",
   hero: {
     eyebrow: "SEU PRÓXIMO MOMENTO DE CUIDADO",
@@ -14,7 +15,6 @@ export const brand = {
   contact: {
     email: emailAddress(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
     whatsapp: whatsappUrl(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER),
-    pending: "Nossos canais digitais estão sendo preparados. Em breve, você encontrará aqui os contatos oficiais e as informações de atendimento da Agylli.",
   },
   links: {
     retail: retailUrl(process.env.NEXT_PUBLIC_NUVEMSHOP_URL),
@@ -26,8 +26,9 @@ export const brand = {
     { label: "Produtos", href: "/#produtos" },
     { label: "Seja Revendedor", href: "/atacado" },
     { label: "Sobre Nós", href: "/sobre" },
+    { label: "Onde atuamos", href: "/onde-atuamos" },
     { label: "Contato", href: "/contato" },
   ],
   labels: { retail: "Comprar no varejo", wholesale: "Comprar no atacado", request: "Solicitar acesso ao atacado" },
-  provisional: "Identidade e imagens provisórias. Produtos ilustrativos, sem oferta comercial.",
+  provisional: "Seleção ilustrativa. Consulte catálogo, preços e disponibilidade nos canais oficiais.",
 } as const;

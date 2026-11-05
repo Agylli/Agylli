@@ -5,7 +5,7 @@ import tseslint from "typescript-eslint";
 import hooks from "eslint-plugin-react-hooks";
 
 export default defineConfig([
-  globalIgnores([".next/**", "out/**", "next-env.d.ts", "playwright-report/**", "test-results/**"]),
+  globalIgnores([".next/**", ".vercel/**", "out/**", "next-env.d.ts", "playwright-report/**", "test-results/**"]),
   js.configs.recommended,
   ...tseslint.configs.recommended,
   { ...next.configs["core-web-vitals"], files: ["**/*.{ts,tsx}"] },

@@ -1,6 +1,16 @@
 # Agylli Cosméticos
 
-Primeira versão do site institucional e comercial da Agylli. Apresenta a marca, separa varejo e atacado e prepara as futuras integrações. **Não há checkout, pagamentos, gestão de estoque ou coleta de cadastros neste projeto.**
+Site institucional e comercial da Agylli, com a Etapa 1 entregue e preparação comercial da Etapa 2. Apresenta a marca, separa varejo e atacado e prepara as futuras integrações. **Não há checkout, pagamentos, gestão de estoque ou coleta de cadastros neste projeto.**
+
+## Etapa 2 — preparação comercial
+
+- Jornadas de varejo e revenda preservadas, com ponto de cadastro em `/atacado#cadastro-atacado` e destinos provisórios funcionais.
+- [Consolidação do Git e verificação de CI](docs/consolidacao-etapa2.md).
+- [Ativação da Nuvemshop](docs/nuvemshop.md), mantendo `NEXT_PUBLIC_NUVEMSHOP_URL`, `NEXT_PUBLIC_NUVEMSHOP_B2B_URL` e `NEXT_PUBLIC_SITE_URL`.
+- [Piloto de aproximadamente 10 produtos reais](docs/catalogo-piloto.md), com modelos em `docs/modelos/` para produtos, precificação e atacado. São arquivos de preparação, não o formato nativo homologado do importador.
+- [Plano de medição e consentimento](docs/mensuracao.md), com GA4/GTM/Ads/Meta e UTMs documentados, sem rastreadores ativos.
+
+Dados comerciais preenchidos ficam em `dados-comerciais/` ou armazenamento privado aprovado, fora do Git/deploy. Nenhum preço, SKU, GTIN ou estoque foi inventado.
 
 ## Executar
 
@@ -22,8 +32,9 @@ Para configurar serviços reais, copie `.env.example` para `.env.local`, preench
 | --- | --- |
 | `/` | Homepage, públicos, categorias e produtos demonstrativos filtráveis |
 | `/atacado` | Proposta de revenda, CPF/CNPJ, etapas e perguntas frequentes |
-| `/sobre` | Apresentação institucional provisória |
-| `/contato` | Canais oficiais quando configurados; estado informativo quando ausentes |
+| `/sobre` | História revisada pelo site oficial e apresentação do portfólio |
+| `/contato` | Endereços, telefones e WhatsApp das duas unidades |
+| `/onde-atuamos` | Regiões, mapa institucional e contatos por unidade |
 | `/contato?assunto=revenda` | Orientação para quem solicita acesso B2B |
 | `/loja-em-breve` | Destino seguro enquanto a loja de varejo não foi configurada |
 
@@ -40,7 +51,7 @@ npm run test:e2e    # Playwright, contra o build de produção
 
 O Playwright usa Chromium. No ambiente na nuvem, `/usr/bin/chromium` já está disponível e é detectado automaticamente. Em outras máquinas, execute `npx playwright install chromium`; no Linux, `npx playwright install --with-deps chromium` instala também bibliotecas do sistema quando autorizado. Pode-se selecionar um binário compatível com `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. O teste inicia e encerra seu próprio servidor, ou reutiliza o servidor existente na porta 3000 fora do CI. Use o build sem variáveis comerciais para testar os fallbacks padrão.
 
-Os testes de navegador cobrem as cinco páginas em 375, 768 e 1440 px, axe WCAG A/AA, menu móvel e Escape, teclado, filtros com histórico, imagens, 404 e os caminhos comerciais sem URLs configuradas. Capturas da execução ficam em `test-results/screenshots/`. Não substituem uma auditoria humana nem medição de Core Web Vitals em produção.
+Os testes de navegador cobrem as seis páginas em 375, 768 e 1440 px, axe WCAG A/AA, menu móvel e Escape, teclado, filtros com histórico, imagens, contatos por unidade, links internos/âncoras, 404 e os caminhos comerciais sem URLs configuradas. Capturas da execução ficam em `test-results/screenshots/`. Não substituem uma auditoria humana nem medição de Core Web Vitals em produção.
 
 ## Estrutura
 
@@ -55,7 +66,7 @@ src/
   data/                catálogo e categorias demonstrativos
   integrations/        cliente Supabase opcional
   lib/                 validação e construção de URLs
-public/images/         imagens locais e ilustrações próprias
+public/images/         logos originais, fotos locais e procedência dos ativos
 tests/{unit,e2e}/      testes funcionais
 docs/                  arquitetura, integrações, deploy, roadmap e evidências
 .github/workflows/     CI
@@ -64,16 +75,21 @@ docs/                  arquitetura, integrações, deploy, roadmap e evidências
 
 ## Personalizar a marca
 
-- Cores: tokens `@theme` em `src/app/globals.css`. As cores das ilustrações são parte dos próprios SVGs.
+- Cores: tokens `@theme` em `src/app/globals.css`. Bordô `#a92d30` e preto `#282828` foram obtidos do CSS oficial; os tons claros são cores de apoio da interface.
 - Nome, links, navegação e canais: `src/config/brand.ts` e `.env.local`.
+- Unidades, endereços, telefones, WhatsApp e área de atuação: `src/config/locations.ts`.
 - Textos da homepage e banners: `src/config/marketing.ts`.
 - Benefícios, etapas e FAQ: `src/config/content.ts`.
-- Nomes e ilustrações demonstrativos: `src/data/products.ts`.
+- Marcas, nomes e fotografias da seleção ilustrativa: `src/data/products.ts`.
 - Fontes locais: DM Sans e DM Serif Display, distribuídas via Fontsource com suas licenças OFL. Sem dependência de Google Fonts em runtime/build.
 
-As imagens são conceitos visuais originais; a composição fotográfica foi gerada para este protótipo, e os quatro SVGs foram criados para a Agylli. Não são fotografias de produtos reais nem imagens da Sallve. Ver `public/images/README.md`.
+As imagens ativas agora são fotografias reais de produtos Suave Fragrance e D’Bianco, a foto da loja publicada pela Agylli e as logos originais das marcas indicadas. A composição sintética e as embalagens fictícias da primeira versão foram substituídas. As imagens são usadas como seleção ilustrativa, sem preços, oferta ou estoque local. A Facinatus está representada por sua logo publicada no site da Agylli; seu CDN de fotos de produtos ainda bloqueia o acesso deste ambiente. Ver [procedência dos ativos](public/images/README.md).
 
-A revisão de legibilidade usa corpo de 16 px, textos auxiliares/botões de 14 px e legendas de pelo menos 12 px, com unidades relativas para acompanhar a preferência do navegador. O conteúdo institucional e de revendedores enviado pelo usuário foi incorporado às páginas “Sobre” e “Atacado”; as condições comerciais são apresentadas com orientação de confirmação. A procedência está em [docs/referencias-da-marca.md](docs/referencias-da-marca.md). Logo, cores e fotografias oficiais continuam pendentes de acesso à rede ou do envio dos arquivos.
+A revisão de legibilidade mantém corpo de 16 px, textos auxiliares/botões de 14 px e legendas de pelo menos 12 px, com unidades relativas para acompanhar a preferência do navegador. A história e o conteúdo de revenda foram conferidos no site oficial após a liberação da rede. As condições comerciais continuam acompanhadas de orientação para confirmar a vigência. A procedência está em [docs/referencias-da-marca.md](docs/referencias-da-marca.md).
+
+Os asteriscos e as estrelas decorativas foram retirados de todas as páginas.
+
+Os contatos das unidades de Cândido Sales e Ipatinga estão disponíveis sem variáveis de ambiente. Foram conferidos na página oficial de atendimento e no mapa de atuação. Links de mapa abrem uma busca pelo endereço; não representam coordenadas verificadas. E-mail, horário e CNPJ continuam sem publicação enquanto não forem confirmados.
 
 ## Variáveis opcionais
 
@@ -82,7 +98,7 @@ A revisão de legibilidade usa corpo de 16 px, textos auxiliares/botões de 14 p
 | `NEXT_PUBLIC_NUVEMSHOP_URL` | URL HTTPS confirmada da loja. Vazio/inválido usa `/loja-em-breve` |
 | `NEXT_PUBLIC_NUVEMSHOP_B2B_URL` | URL HTTPS pública da área de revendedores. Vazio/inválido usa contato de revenda |
 | `NEXT_PUBLIC_SITE_URL` | Origem HTTPS oficial para SEO. Vazio mantém `noindex` e robots bloqueado |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | País + DDD + número, 10 a 15 dígitos; sem espaços ou símbolos |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Canal geral adicional opcional; país + DDD + número, 10 a 15 dígitos |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | E-mail oficial confirmado; sem valor, não há link de e-mail |
 | `NEXT_PUBLIC_SUPABASE_URL` | URL HTTPS do projeto Supabase, apenas para uso futuro |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Chave `sb_publishable_*`, nunca uma chave secreta ou `service_role` |
@@ -91,9 +107,11 @@ O Supabase não é chamado durante a renderização e não bloqueia o site. Não
 
 ## GitHub e Vercel
 
-O código está em `Agylli/Agylli`, na branch `main`, preservando o origin e a visibilidade existentes. O pacote chama-se `agylli-cosmeticos`. O envio foi autorizado pelo usuário; não foi criado ou renomeado outro repositório. O usuário também autorizou o deploy na Vercel, que aguarda autenticação e liberação de acesso à API no ambiente de execução.
+O repositório associado é `Agylli/Agylli`, branch `main`, preservando origin e histórico. A produção está em **https://agylli.vercel.app/**, na conta e projeto Vercel `agylli`. O domínio próprio e DNS são uma etapa separada; os registros de `agylli.com.br` não foram alterados.
 
-Para obter o código no computador, use **Code → Download ZIP** no GitHub ou execute:
+A Etapa 2 reúne os arquivos anteriormente publicados a partir do checkout local e a preparação comercial. O procedimento para comparar commits, sincronizar sem force push e identificar o CI da revisão está em [consolidação](docs/consolidacao-etapa2.md). Para comparar o deployment, usar SHA/metadata e estado READY; o HTTP direto de `agylli.vercel.app` é bloqueado pelo proxy deste ambiente e não substitui as validações locais.
+
+Para obter o código no computador:
 
 ```sh
 git clone https://github.com/Agylli/Agylli.git
@@ -102,10 +120,10 @@ npm ci
 npm run dev
 ```
 
-O CI está preparado para lint, testes, build, TypeScript e Playwright a cada push e pull request. Os resultados locais estão documentados; a execução remota deve ser acompanhada na aba Actions. Procedimento de deploy e variáveis por ambiente: [docs/deploy.md](docs/deploy.md).
+O CI verifica lint, testes, build, TypeScript e Playwright a cada push/PR. Conferir a execução associada ao commit na [aba Actions](https://github.com/Agylli/Agylli/actions), usando a interface web se a API estiver indisponível. Procedimento de publicação e variáveis por ambiente: [deploy](docs/deploy.md).
 
 ## Próximas etapas
 
-Validar identidade, textos, dados institucionais, contatos e condições comerciais; fornecer catálogo e fotografias reais; conectar varejo/B2B à Nuvemshop. Os próximos marcos e limites estão no [roadmap](docs/roadmap.md) e os pontos de conexão em [integrações](docs/integracoes.md).
+Sincronizar e conferir a revisão consolidada; receber URLs e acesso Nuvemshop, validar plano B2B e aproximadamente 10 produtos reais; finalizar políticas, domínio e SEO. Os próximos marcos estão no [roadmap](docs/roadmap.md); preparação de plataformas em [integrações](docs/integracoes.md).
 
-Arquitetura: [docs/arquitetura.md](docs/arquitetura.md). Convenções para tarefas futuras: [AGENTS.md](AGENTS.md). Evidências desta etapa: [docs/validacao.md](docs/validacao.md).
+Arquitetura: [docs/arquitetura.md](docs/arquitetura.md). Convenções: [AGENTS.md](AGENTS.md). Evidências históricas da Etapa 1 e validações locais: [docs/validacao.md](docs/validacao.md). Os relatórios anteriores à consolidação são snapshots da situação naquele momento.
