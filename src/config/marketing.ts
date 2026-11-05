@@ -13,7 +13,7 @@ export const marketing = {
     title: "Acreditamos na beleza que cuida.",
     subtitle: "E nas possibilidades que",
     accent: "ela cria.",
-    description: "Da nossa loja física para um novo universo digital. Reunimos cosméticos de marca própria e outras marcas para fazer parte dos seus rituais e abrir caminhos para o seu negócio.",
+    description: "Há mais de uma década no universo dos cosméticos. Da nossa loja física a este novo espaço digital, reunimos marca própria e outras marcas para fazer parte dos seus rituais e apoiar quem revende.",
     action: "Conheça nossa história",
   },
   categories: { eyebrow: "UM UNIVERSO DE POSSIBILIDADES", title: "Qual é o seu cuidado de hoje?", aside: "Encontre seu próximo ritual." },
@@ -24,7 +24,7 @@ export const marketing = {
   },
   wholesale: {
     eyebrow: "PARA QUEM ENXERGA ALÉM", title: "Seu próximo passo", subtitle: "pode ser", accent: "com a gente.",
-    description: "Leve o universo da beleza para o seu negócio. Conheça a proposta de atacado da Agylli para revendedores com CPF ou CNPJ.",
+    description: "Produtos, capacitação e apoio para quem revende. Conheça a proposta de atacado da Agylli para CPF ou CNPJ e explore novas possibilidades para o seu negócio.",
     action: "Quero ser revendedor", disclosure: "Cadastro e condições comerciais a confirmar.",
   },
   experience: { eyebrow: "MAIS DO QUE ESCOLHER COSMÉTICOS", title: "Uma experiência com a nossa essência." },

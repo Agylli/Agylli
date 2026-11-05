@@ -73,6 +73,8 @@ docs/                  arquitetura, integrações, deploy, roadmap e evidências
 
 As imagens são conceitos visuais originais; a composição fotográfica foi gerada para este protótipo, e os quatro SVGs foram criados para a Agylli. Não são fotografias de produtos reais nem imagens da Sallve. Ver `public/images/README.md`.
 
+A revisão de legibilidade usa corpo de 16 px, textos auxiliares/botões de 14 px e legendas de pelo menos 12 px, com unidades relativas para acompanhar a preferência do navegador. O conteúdo institucional e de revendedores enviado pelo usuário foi incorporado às páginas “Sobre” e “Atacado”; as condições comerciais são apresentadas com orientação de confirmação. A procedência está em [docs/referencias-da-marca.md](docs/referencias-da-marca.md). Logo, cores e fotografias oficiais continuam pendentes de acesso à rede ou do envio dos arquivos.
+
 ## Variáveis opcionais
 
 | Variável | Uso |

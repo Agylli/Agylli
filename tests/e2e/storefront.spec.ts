@@ -78,7 +78,8 @@ test("menu, teclado, FAQ e página inexistente", async ({ page }) => {
   }
   await expect(page).toHaveURL(/\/atacado$/);
   await page.getByText("Existe pedido mínimo ou desconto definido?").click();
-  await expect(page.locator("details[open]")).toContainText("Não há percentuais");
+  await expect(page.locator("details[open]")).toContainText("descontos a partir de 30%");
+  await expect(page.locator("details[open]")).toContainText("não representa lucro garantido");
   const response = await page.goto("/pagina-inexistente");
   expect(response?.status()).toBe(404);
   await expect(page.getByRole("heading", { level: 1 })).toContainText("novo caminho");

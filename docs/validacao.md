@@ -42,6 +42,12 @@ As 15 capturas em `docs/screenshots/` foram geradas pelo Chromium na execução 
 - [Contato](screenshots/contato-1440.png)
 - [Loja em preparação](screenshots/loja-em-breve-1440.png)
 
+## Revisão de legibilidade
+
+Depois do pedido de fontes maiores, a escala de texto foi ampliada: corpo em 16 px, auxiliares e botões em 14 px, legendas informativas com mínimo de 12 px, nomes dos produtos/categorias em 20 px e perguntas do FAQ em 18 px. Foram ajustados o breakpoint do menu e a quebra dos botões para preservar os rótulos. A marca textual e o selo decorativo conservam proporções próprias.
+
+Lint, build, TypeScript, os 11 testes unitários e os 24 testes de navegador passaram novamente após essa revisão. As 15 capturas foram atualizadas e os layouts de celular e tablet também foram inspecionados visualmente. A leitura dos sites de identidade, história, revendedores e marcas permanece bloqueada pela rede. O usuário forneceu diretamente conteúdo institucional e comercial, incorporado a “Sobre” e “Atacado”, com procedência em `docs/conteudo-institucional-recebido.md`.
+
 ## Limites e estado externo
 
 - Na validação inicial, não houve push, criação/renomeação de repositório remoto, execução do GitHub Actions remoto, deploy Vercel ou publicação de produção. Posteriormente, o usuário autorizou o envio ao repositório existente `Agylli/Agylli`, na branch `main`; o envio foi realizado e o commit remoto conferido. O resultado do CI remoto deve ser acompanhado separadamente na aba Actions. O usuário também autorizou o deploy, ainda bloqueado por ausência de autenticação Vercel e acesso à sua API, conforme `docs/deploy.md`.
