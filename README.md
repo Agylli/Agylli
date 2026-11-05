@@ -1,6 +1,6 @@
 # Agylli Cosméticos
 
-Site institucional e comercial da Agylli, com a Etapa 1 entregue e preparação comercial da Etapa 2. Apresenta a marca, separa varejo e atacado e prepara as futuras integrações. **Não há checkout, pagamentos, gestão de estoque ou coleta de cadastros neste projeto.**
+Site institucional e comercial da Agylli, com as Etapas 1 e 2 entregues e preparação operacional da Etapa 3. Apresenta a marca, separa varejo e atacado e prepara as futuras integrações. **Não há checkout, pagamentos, gestão de estoque ou coleta de cadastros neste projeto.**
 
 ## Etapa 2 — preparação comercial
 
@@ -11,6 +11,15 @@ Site institucional e comercial da Agylli, com a Etapa 1 entregue e preparação 
 - [Plano de medição e consentimento](docs/mensuracao.md), com GA4/GTM/Ads/Meta e UTMs documentados, sem rastreadores ativos.
 
 Dados comerciais preenchidos ficam em `dados-comerciais/` ou armazenamento privado aprovado, fora do Git/deploy. Nenhum preço, SKU, GTIN ou estoque foi inventado.
+
+## Etapa 3 — preparação para ativação
+
+- [Relatório de entrega, testes e pendências](docs/etapa3.md).
+- [Plano operacional](docs/ativacao-comercial.md): configurações de loja, B2B, Pix/cartão, frete e pedidos, com dependências e critérios de aceite.
+- [Homologação de varejo e revenda](docs/homologacao-comercial.md): 16 casos de varejo e 13 de cadastro/aprovação, com registros inicialmente não executados.
+- [Checklist da primeira venda](docs/primeira-venda.md) e [índice dos modelos](docs/modelos/README.md), incluindo dez posições vazias de validação e o mapeamento do importador.
+
+A ativação real aguarda URLs, dados dos produtos, confirmação do recurso B2B, modelo oficial de importação e autorização para configurar a loja e testar pagamentos. A central oficial da Nuvemshop retornou bloqueio do proxy neste ambiente; nenhum CSV definitivo foi gerado sem verificar o formato. Os testes locais validam o site, não uma compra ou aprovação comercial real.
 
 ## Executar
 
@@ -124,6 +133,6 @@ O CI verifica lint, testes, build, TypeScript e Playwright a cada push/PR. Confe
 
 ## Próximas etapas
 
-Sincronizar e conferir a revisão consolidada; receber URLs e acesso Nuvemshop, validar plano B2B e aproximadamente 10 produtos reais; finalizar políticas, domínio e SEO. Os próximos marcos estão no [roadmap](docs/roadmap.md); preparação de plataformas em [integrações](docs/integracoes.md).
+Receber URLs e acesso autorizado Nuvemshop, confirmar recurso B2B e modelo oficial, validar aproximadamente 10 produtos reais e executar a homologação de compra e revenda; finalizar políticas, domínio e SEO. Os próximos marcos estão no [roadmap](docs/roadmap.md); preparação de plataformas em [integrações](docs/integracoes.md).
 
 Arquitetura: [docs/arquitetura.md](docs/arquitetura.md). Convenções: [AGENTS.md](AGENTS.md). Evidências históricas da Etapa 1 e validações locais: [docs/validacao.md](docs/validacao.md). Os relatórios anteriores à consolidação são snapshots da situação naquele momento.

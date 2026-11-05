@@ -9,7 +9,7 @@
 
 Os relatórios de situação de 5/11/2026 anteriores à Etapa 2 são registros históricos; não representam a situação da sincronização depois desta consolidação.
 
-## Etapa 2 — consolidação e preparação comercial
+## Etapa 2 — consolidação e preparação comercial entregue
 
 - Consolidar a identidade, os ativos e os contatos já aprovados no repositório `Agylli/Agylli`, preservando o histórico remoto e sem force push.
 - Preservar as três variáveis de varejo, B2B e origem institucional; validar configuração ausente, parcial e completa.
@@ -17,6 +17,16 @@ Os relatórios de situação de 5/11/2026 anteriores à Etapa 2 são registros h
 - Entregar [especificação e modelos do piloto de catálogo](catalogo-piloto.md), incluindo dados cadastrais, precificação interna e regras B2B; sem importar produtos inventados.
 - Entregar [plano de medição](mensuracao.md) e modelo UTM, com consentimento e separação de clique de saída/compra concluída; sem instalar rastreadores.
 - Executar validações, sincronizar GitHub e conferir CI e revisão de produção conforme [procedimento de consolidação](consolidacao-etapa2.md).
+
+## Etapa 3 — preparação operacional e dependências
+
+- Matriz de configuração de loja, tabelas, cadastro CPF/CNPJ, aprovação, Pix/cartão, frete e gestão de pedidos em [ativação comercial](ativacao-comercial.md).
+- [Roteiros de homologação](homologacao-comercial.md), com 16 cenários de varejo e 13 de revenda; nenhum teste comercial real foi executado.
+- Controles para aproximadamente dez produtos e mapeamento ao modelo oficial, mantendo os quatro CSVs originais sem dados inventados.
+- [Checklist de primeira venda](primeira-venda.md) e planejamento das integrações posteriores, preservando a arquitetura híbrida.
+- Formato oficial de importação ainda pendente: central oficial bloqueada pelo proxy. Arquivo definitivo não gerado; obter modelo do painel autorizado e validar antes de importar.
+
+O marco de primeira venda e aprovação de revendedor permanece pendente até o fornecimento dos dados/acessos e a execução autorizada dos roteiros. Nenhuma conta, pagamento, frete, tabela ou integração externa foi configurada nesta preparação.
 
 ## Próximo marco — ativar a Nuvemshop
 

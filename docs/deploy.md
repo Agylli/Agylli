@@ -27,6 +27,12 @@ Na Vercel, abrir o projeto `agylli`, **Settings → Environment Variables**. Apl
 
 Nenhum ID de analytics é necessário nesta etapa; não adicionar tags antes do fluxo de consentimento e da configuração descritos em [mensuração](mensuracao.md). Supabase segue opcional. Não configurar segredos para APIs ainda não implementadas.
 
+## Homologação comercial da Etapa 3
+
+A preparação operacional não altera URLs ou parâmetros de produção. Quando a Agylli fornecer os destinos e autorizar a configuração, seguir [ativação](ativacao-comercial.md), [homologação](homologacao-comercial.md) e [primeira venda](primeira-venda.md). Validar primeiro Preview e depois Production com novo build; conferir a origem institucional separadamente da loja e da área B2B.
+
+O êxito do CI e do build não valida cadastro, tabela, frete ou pagamento na Nuvemshop. Não cadastrar gateway, banco, dados de clientes ou transportadoras pelo deploy. Custos, preços privados, dados pessoais, arquivo definitivo de importação e comprovantes permanecem fora do Git/deploy em `dados-comerciais/` ou armazenamento privado aprovado. Não liberar a operação comercial enquanto houver bloqueio crítico nos roteiros.
+
 ## Deployment verificado antes da Etapa 2
 
 - URL permanente: **https://agylli.vercel.app/**

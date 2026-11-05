@@ -31,3 +31,21 @@ Para evoluir: criar projeto autorizado, configurar URL e chave publicável, defi
 - [Análise de resultados, UTMs e compra concluída](mensuracao.md).
 
 Os três documentos são preparação: não significam que uma loja, API ou conta comercial tenha sido conectada.
+
+## Planejamento após a homologação comercial — Etapa 3
+
+Primeiro validar o varejo e o B2B na Nuvemshop. O institucional continua encaminhando públicos; não passa a processar pedidos, clientes ou estoque por causa de uma integração futura.
+
+| Domínio de dados | Decisão/integração a validar | Limite arquitetural |
+| --- | --- | --- |
+| Catálogo e SKUs | Identificador estável de produto/variação e mapeamento entre Nuvemshop, SysAla e eventual hub | Um SKU identifica a mesma unidade vendável; não usar nome como chave nem criar catálogo operacional paralelo no Next.js |
+| Disponibilidade | Agylli escolhe fonte oficial, unidade(s), reservas e rotina de atualização | Não presumir soma de unidades, API SysAla ou dois sistemas escrevendo o mesmo saldo sem regra |
+| Pedidos/pagamento | Definir sistema que recebe cada pedido, estados e responsáveis por conciliação | Pedido, cancelamento e estorno seguem a plataforma/provedor; não duplicar cobrança ou atendimento financeiro |
+| Clientes B2B | Validar perfil, aprovação, tabela e escopos disponíveis na Nuvemshop | Não copiar CPF/CNPJ/documentos para um segundo cadastro no Supabase/institucional |
+| Marketplaces | Comparar hub compatível com Nuvemshop/SysAla e APIs oficiais; decidir estoque, anúncios, preço/frete e atendimento por canal | Não conectar contas nem publicar anúncios antes da autorização e da consistência do piloto |
+
+Para SysAla, solicitar documentação oficial, versão, acesso e ambiente de testes; verificar recursos reais de produto/variação, unidades, disponibilidade, pedidos, autenticação, limites e atualização incremental. A escolha entre consulta, webhook, arquivo ou conector depende dessa validação, sem inferir que algum desses recursos esteja disponível.
+
+Se um conector for aprovado, especificar no servidor ou hub autorizado: validação de origem/autenticação, idempotência por evento/pedido, reprocessamento sem duplicação, tratamento de falhas, limites de API, monitoramento e reconciliação de saldos/estados. Não expor tokens em `NEXT_PUBLIC_*`; logs não devem conter documentos pessoais ou segredos. Antes de ampliar canais, testar reserva/liberação em pedido, recusa, cancelamento e estorno conforme o comportamento dos sistemas oficiais.
+
+Critério para iniciar marketplaces: catálogo piloto e jornada de compra aprovados, identificadores conciliados, fonte de disponibilidade definida e responsável por divergências. Não foi feita conexão, extração de dados, anúncio, rotina de saldo ou contratação nesta etapa.

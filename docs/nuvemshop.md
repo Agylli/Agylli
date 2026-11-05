@@ -2,6 +2,12 @@
 
 A aplicação Next.js permanece responsável pela apresentação institucional. A Nuvemshop será responsável por catálogo comercial, clientes, tabelas de preços, cadastro B2B, pedidos, checkout e pagamentos. Não criar um segundo checkout, cadastro de clientes ou estoque nesta aplicação.
 
+## Execução da Etapa 3
+
+O [plano de ativação comercial](ativacao-comercial.md) detalha loja, tabelas, CPF/CNPJ, aprovação, Pix, cartão, frete e gestão de pedidos, com dependências e evidências de aceite. Os [roteiros de homologação](homologacao-comercial.md) e o [checklist da primeira venda](primeira-venda.md) devem ser executados pela equipe autorizada antes da liberação.
+
+O formato oficial atual do importador ainda não foi verificado: a central oficial está bloqueada pelo proxy deste ambiente. Não foi gerado um arquivo definitivo. O [controle de mapeamento](modelos/mapeamento-importacao-nuvemshop.csv) aguarda o modelo obtido no painel autorizado. Os testes locais do site não comprovam venda ou aprovação B2B real.
+
 ## Contrato de configuração preservado
 
 | Variável | Destino | Sem URL HTTPS válida |

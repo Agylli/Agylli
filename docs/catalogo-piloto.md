@@ -2,6 +2,8 @@
 
 O piloto deve usar aproximadamente **10 produtos reais**, escolhidos e aprovados pela Agylli. Um produto com variações terá várias linhas, uma por SKU vendável; assim, 10 produtos podem ocupar mais de 10 linhas. Os quatro itens ilustrativos do site permanecem como estão até existir catálogo autorizado e conferido.
 
+Na Etapa 3, o acompanhamento do lote foi preparado em [validacao-piloto.csv](modelos/validacao-piloto.csv), com dez posições vazias de controle, e o mapeamento em [mapeamento-importacao-nuvemshop.csv](modelos/mapeamento-importacao-nuvemshop.csv). Nenhum produto real foi preenchido ou validado. O bloqueio de acesso à documentação oficial e as condições para gerar o arquivo definitivo estão registrados em [ativação comercial](ativacao-comercial.md).
+
 ## Modelos entregues e limite do formato
 
 | Arquivo | Finalidade |

@@ -1,5 +1,13 @@
 # Validação — Agylli Cosméticos
 
+## Etapa 3 — preparação operacional
+
+Em 5 de novembro de 2026, passaram novamente lint (sem erros/avisos), 14 testes unitários, build, TypeScript e 33 testes de navegador. A interface e as seis rotas não foram alteradas; foram conferidos CTAs/fallbacks, contatos, menu, categorias, âncoras, imagens e axe em 375, 768 e 1440 px.
+
+Os oito CSVs de preparação/controle foram conferidos: cabeçalhos únicos, número de colunas consistente, quatro modelos originais ainda sem dados, dez posições de piloto sem SKU preenchido, 16 cenários de varejo e 13 de revenda em `nao_executado`, além do mapeamento sem nomes de colunas oficiais presumidos. Cópias privadas foram preparadas na pasta ignorada `dados-comerciais/etapa3/`.
+
+A central oficial da Nuvemshop foi bloqueada pelo proxy (CONNECT 403, sem resposta da origem). O formato oficial do importador não foi verificado e o arquivo definitivo não foi gerado. Não houve compra, cadastro B2B, pagamento, frete, cancelamento ou estorno real executado. Relatório e dependências: [Etapa 3](etapa3.md).
+
 ## Etapa 2 — consolidação e preparação comercial
 
 Em 5 de novembro de 2026, passaram `npm run lint` (sem erros/avisos), `npm test` (14 testes unitários), `npm run build`, `npm run typecheck` e `npm run test:e2e` (33 testes). Foram mantidas as seis rotas e a identidade aprovada. Os testes de navegador cobrem 375, 768 e 1440 px, imagens carregadas, acessibilidade axe sem violações detectadas, fluxos provisórios, novo bloco de cadastro, contatos, categorias, menu, teclado, 404 e auditoria de links internos/âncoras.
