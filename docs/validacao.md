@@ -44,7 +44,7 @@ As 15 capturas em `docs/screenshots/` foram geradas pelo Chromium na execução 
 
 ## Limites e estado externo
 
-- Na validação inicial, não houve push, criação/renomeação de repositório remoto, execução do GitHub Actions remoto, deploy Vercel ou publicação de produção. Posteriormente, o usuário autorizou o envio do código ao repositório existente `Agylli/Agylli`, na branch `main`, para acesso pelo computador. O resultado do CI remoto deve ser acompanhado separadamente na aba Actions. O deploy não foi autorizado.
+- Na validação inicial, não houve push, criação/renomeação de repositório remoto, execução do GitHub Actions remoto, deploy Vercel ou publicação de produção. Posteriormente, o usuário autorizou o envio ao repositório existente `Agylli/Agylli`, na branch `main`; o envio foi realizado e o commit remoto conferido. O resultado do CI remoto deve ser acompanhado separadamente na aba Actions. O usuário também autorizou o deploy, ainda bloqueado por ausência de autenticação Vercel e acesso à sua API, conforme `docs/deploy.md`.
 - Não houve conexão real a Supabase, Nuvemshop, SysAla, Mercado Livre ou Shopee. O teste de destinos configurados é unitário; a jornada comercial real deve ser validada com URLs oficiais.
 - Não foi feita medição de Core Web Vitals em produção nem testes em dispositivos físicos, Safari ou Firefox. Axe e Chromium não substituem auditoria manual completa de acessibilidade.
 - O acesso à referência Sallve foi bloqueado pela política de rede. Nenhum texto ou ativo desse site foi copiado.

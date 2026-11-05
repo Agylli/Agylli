@@ -1,6 +1,12 @@
 # Publicação futura — GitHub e Vercel
 
-O usuário autorizou o envio do código ao repositório existente `Agylli/Agylli`, na branch `main`, para baixar e abrir o projeto no computador. A visibilidade e o origin são preservados. `agylli-cosmeticos` é o nome do pacote; nenhum outro repositório foi criado. A autorização de envio do código não inclui deploy na Vercel.
+O usuário autorizou o envio do código ao repositório existente `Agylli/Agylli`, na branch `main`, para baixar e abrir o projeto no computador. O envio foi realizado e o commit remoto conferido. A visibilidade e o origin foram preservados. `agylli-cosmeticos` é o nome do pacote; nenhum outro repositório foi criado. Em seguida, o usuário autorizou também a publicação do site na Vercel.
+
+## Estado do deploy autorizado
+
+A CLI oficial Vercel 65.11.0 foi instalada temporariamente e `vercel whoami` confirmou que não há sessão autenticada. Não há `VERCEL_TOKEN` injetado nem projeto `.vercel` vinculado. A chamada à API `api.vercel.com` foi bloqueada pelo proxy com HTTP 403 antes de alcançar o serviço.
+
+Foi salvo no rascunho do ambiente o requisito seguro `VERCEL_TOKEN`, destinado exclusivamente a `api.vercel.com`; esse domínio foi adicionado à lista de acesso do rascunho. O usuário deve preencher o valor nas configurações do ambiente, revisar e salvar as alterações e publicar o ambiente conforme o fluxo do produto. Salvar o rascunho não aplica credenciais nem altera a rede da máquina atual. Não inserir o token em arquivos, Git ou chat. Após a configuração, revalidar rede e autenticação antes de vincular/criar o projeto e executar o deploy de produção autorizado. Credenciais de serviços comerciais e Supabase continuam opcionais para este protótipo.
 
 ## Antes de publicar
 

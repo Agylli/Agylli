@@ -89,7 +89,7 @@ O Supabase não é chamado durante a renderização e não bloqueia o site. Não
 
 ## GitHub e Vercel
 
-O repositório de destino é `Agylli/Agylli`, na branch `main`, preservando o origin e a visibilidade existentes. O pacote chama-se `agylli-cosmeticos`. O envio do código ao repositório existente foi autorizado pelo usuário; não foi criado ou renomeado outro repositório. O deploy na Vercel continua pendente de autorização.
+O código está em `Agylli/Agylli`, na branch `main`, preservando o origin e a visibilidade existentes. O pacote chama-se `agylli-cosmeticos`. O envio foi autorizado pelo usuário; não foi criado ou renomeado outro repositório. O usuário também autorizou o deploy na Vercel, que aguarda autenticação e liberação de acesso à API no ambiente de execução.
 
 Para obter o código no computador, use **Code → Download ZIP** no GitHub ou execute:
 
