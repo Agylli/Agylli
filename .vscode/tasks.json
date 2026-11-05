@@ -1,0 +1,9 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Agylli: desenvolver", "type": "npm", "script": "dev", "isBackground": true, "problemMatcher": [] },
+    { "label": "Agylli: lint", "type": "npm", "script": "lint", "problemMatcher": ["$eslint-stylish"] },
+    { "label": "Agylli: testes", "type": "npm", "script": "test", "problemMatcher": [] },
+    { "label": "Agylli: build", "type": "npm", "script": "build", "group": { "kind": "build", "isDefault": true }, "problemMatcher": [] }
+  ]
+}
