@@ -14,7 +14,7 @@ A base da Etapa 2 foi preservada. O site institucional continua em Next.js/Verce
 | Revendedores | Roteiro CPF/CNPJ, pendência, aprovação e tabelas preparado | Recurso/plano B2B confirmado, regras e URL pública de cadastro/acesso |
 | Primeira venda | Checklist de liberação e acompanhamento preparado | Homologação aceita e liberação comercial registrada |
 
-Sequência: confirmar a loja e as capacidades → validar e importar o piloto pelo modelo oficial → homologar pagamento/frete/pedido → homologar cadastro e aprovação de revenda → configurar URLs aprovadas em Preview e Production → liberar a operação e acompanhar a primeira venda. Não é necessário aguardar SysAla ou marketplaces para preparar esses testes; a operação deve ter um procedimento de estoque oficial aprovado para o piloto.
+Sequência: confirmar a loja e as capacidades → validar e importar o piloto pelo modelo oficial → homologar pagamento/frete/pedido → homologar cadastro e aprovação de revenda → configurar URLs aprovadas em Preview e Production → liberar a operação e acompanhar a primeira venda. Não é necessário aguardar SysAla ou marketplaces para preparar esses testes; a operação deve usar CSVs manuais SysAla, conferência de pedidos e reserva física aprovada para o piloto, conforme a [conciliação manual](conciliacao-manual.md). Não existe sincronização automática entre SysAla e Nuvemshop.
 
 ## Configurações a confirmar na Nuvemshop
 

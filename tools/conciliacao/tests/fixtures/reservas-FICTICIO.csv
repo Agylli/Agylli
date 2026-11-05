@@ -1,0 +1,8 @@
+"codigo_ficticio","reserva_ficticia","pendente_ficticio","outro_ficticio","pedidos_ficticios","conferido_ficticio","aprovador_ficticio","data_ficticia","referencia_ficticia"
+"FICT-IGUAL","8","0","0","","sim","EQUIPE-FICTICIA","2026-11-05T14:58:00+00:00","FICT-RESERVA-001"
+"FICT-RESERVA","5","0","0","","sim","EQUIPE-FICTICIA","2026-11-05T14:58:00+00:00","FICT-RESERVA-001"
+"FICT-PENDENTE","10","3","0","FICT-PED-001","sim","EQUIPE-FICTICIA","2026-11-05T14:58:00+00:00","FICT-RESERVA-001"
+"FICT-DIVERGE","4","0","0","","sim","EQUIPE-FICTICIA","2026-11-05T14:58:00+00:00","FICT-RESERVA-001"
+"FICT-ONLINE-SEM-CORRESPONDENCIA","1","0","0","","sim","EQUIPE-FICTICIA","2026-11-05T14:58:00+00:00","FICT-RESERVA-001"
+"FICT-ONLINE-CODIGO","3","0","0","","sim","EQUIPE-FICTICIA","2026-11-05T14:58:00+00:00","FICT-RESERVA-001"
+"FICT-RETIDO","8","1","2","FICT-PED-001","sim","EQUIPE-FICTICIA","2026-11-05T14:58:00+00:00","FICT-RESERVA-001"

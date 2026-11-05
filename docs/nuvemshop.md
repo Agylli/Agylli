@@ -53,4 +53,4 @@ O futuro cadastro será acessado por link. Um formulário incorporado só deve s
 - Domínio institucional e políticas definidos, com SEO revisado após configurar `NEXT_PUBLIC_SITE_URL`.
 - Mensuração e consentimento validados conforme [plano de análise](mensuracao.md).
 
-APIs, tokens privados e webhooks são uma etapa futura, somente quando houver necessidade concreta, documentação oficial e autorização. Nenhuma conexão com Nuvemshop, SysAla ou marketplaces foi ativada nesta etapa.
+APIs, tokens privados e webhooks de Nuvemshop/marketplaces são uma etapa futura, somente quando houver necessidade concreta, documentação oficial e autorização. SysAla não oferece API/webhooks/sincronização automática: o processo será CSV manual e reserva física aprovada, conforme [conciliação](conciliacao-manual.md). Nenhuma conexão comercial foi ativada nesta etapa.

@@ -1,51 +1,49 @@
-# Integrações e limites
+# Integrações e limites — arquitetura híbrida atualizada
 
-## Nuvemshop
+## SysAla: somente CSV manual
 
-**Varejo preparado:** `NEXT_PUBLIC_NUVEMSHOP_URL` define o destino dos links de compra, inclusive dos produtos demonstrativos. Sem uma URL HTTPS válida, os links levam a `/loja-em-breve`; nenhum endereço de loja foi inventado. Não há consulta de catálogo, autenticação, preços ou checkout local.
+Informação definitiva fornecida pela Agylli: o SysAla é utilizado na loja física e **não possui API, webhooks ou sincronização automática com plataformas de e-commerce**. A integração possível é exportação manual de CSV. Não existe dependência de conexão automática SysAla → Nuvemshop, nem haverá tentativa de criar essa conexão.
 
-**Atacado preparado:** a apresentação fica em `/atacado`. `NEXT_PUBLIC_NUVEMSHOP_B2B_URL` será o destino do botão de solicitação de acesso quando a área B2B estiver disponível. Até lá, `/contato?assunto=revenda` explica a preparação do cadastro e apresenta os contatos oficiais das unidades. Nenhum pedido ou cadastro é enviado agora.
+A operação deve conferir pedidos/movimentos online, registrar manualmente vendas no SysAla, aprovar a reserva física para o online e conciliar os CSVs. O saldo total do físico não é uma autorização para sobrescrever o saldo comercial da Nuvemshop. O [procedimento diário](conciliacao-manual.md) define papéis, corte, janela controlada, cancelamentos e devoluções.
 
-**Próxima decisão:** confirmar recursos e plano B2B, critérios de CPF/CNPJ, documentos, pedido mínimo, preços, regras de aprovação, cadastro e domínio. Se houver necessidade real de API, usar a documentação oficial da Nuvemshop, aplicação autorizada e escopos mínimos. Tokens e app secrets devem permanecer no servidor; não usar `NEXT_PUBLIC_*`. Definir webhooks verificados, idempotência, cache e tratamento de indisponibilidade antes de implementar.
+A ferramenta [local de conferência](../tools/conciliacao/README.md) trabalha offline, com originais preservados, relatório, revisão manual, prévia e aprovação do hash. Não mantém banco de estoque, não escreve no ERP ou na loja, não importa automaticamente e não deve ser publicada como painel administrativo.
 
-## SysAla
+## Nuvemshop: plataforma comercial online
 
-A empresa já utiliza o sistema na loja física. Não presumir que exista API pública, webhook ou conector. Solicitar documentação oficial, versão e contrato de acesso; validar identificação de produtos/variações, fonte de verdade de estoque, atualização incremental, limites, autenticação e ambiente de teste. Não foi feita conexão, extração ou gravação no SysAla.
+`NEXT_PUBLIC_NUVEMSHOP_URL` direciona o varejo. Sem URL HTTPS válida, os links levam a `/loja-em-breve`. `NEXT_PUBLIC_NUVEMSHOP_B2B_URL` define cadastro/acesso de revendedores; sem configuração, usa `/contato?assunto=revenda`. O institucional não consulta catálogo, cria clientes, altera preços, atualiza estoque ou processa checkout.
 
-## Mercado Livre e Shopee
+A prioridade é homologar aproximadamente dez produtos reais, varejo, CPF/CNPJ e aprovação B2B, tabelas, Pix/cartão, frete e pedidos. Planos/recursos, URLs, dados, pagamentos e acessos ainda precisam ser fornecidos/aprovados. O formato oficial de importação não foi confirmado; a ferramenta local mantém a geração final bloqueada no modelo genérico até receber amostras e modelo oficial.
 
-Integração futura via hub compatível com a operação ou APIs oficiais com contas autorizadas. Avaliar catálogo, SKU, variações, pedidos e conflitos de estoque em conjunto com a Nuvemshop e o SysAla. Não foram conectadas contas, criados anúncios ou solicitadas permissões.
+APIs/webhooks da **Nuvemshop ou de marketplaces**, se necessários futuramente e disponíveis, serão avaliados separadamente, com documentação oficial, autorização e credenciais no servidor/hub. Essa possibilidade não inclui o SysAla nem elimina a conciliação manual com o físico.
+
+## Mercado Livre e Shopee: etapa posterior da operação online
+
+Planejar hub compatível com a Nuvemshop ou APIs oficiais autorizadas, compartilhando catálogo/identificadores e regras de disponibilidade **da operação online**. Não procurar um conector automático para o SysAla, que não oferece essa capacidade.
+
+Antes de ampliar canais, definir como a reserva física destinada ao online será distribuída/compartilhada entre Nuvemshop e marketplaces, sem prometer a mesma unidade simultaneamente em mais de um lugar. Definir preços, frete, atendimento, identificadores de pedido e rotina de conciliação. Nenhuma conta, anúncio ou integração foi criada nesta entrega.
+
+## Responsabilidade pelos dados
+
+| Domínio | Sistema e processo | Limite |
+| --- | --- | --- |
+| Loja física | SysAla, com exportação de CSV e lançamentos manuais autorizados | Sem API, webhook ou sincronização automática |
+| E-commerce | Nuvemshop, com catálogo, clientes, B2B, pedidos, pagamentos e saldo comercial | Alterações somente por processo oficial autorizado; não comandadas pelo site |
+| Reserva física | Separação/identificação e registro aprovado pela operação | Não é o saldo total do ERP; deve considerar compromissos e movimentos ainda não lançados |
+| Conferência | Utilitário local por lote, com retratos, hashes e aprovação humana | Auditoria, não ERP ou base persistente de saldo operacional |
+| Marketplaces futuros | Integração à operação online por hub/API autorizados | Não cria acesso automático ao SysAla nem duplica a reserva física disponível |
+
+Um SKU deve representar a mesma unidade vendável. Códigos diferentes exigem mapeamento um-para-um conferido. Agregação de filiais, kits e conversões não são inferidos; a ausência de correspondência não pode ser resolvida por aproximação de nome.
 
 ## Supabase
 
-Cliente preparado em `src/integrations/supabase/client.ts`. `getSupabaseClient()` retorna `null` quando não configurado. A função só aceita URL HTTPS e chave com prefixo `sb_publishable_`. O nome da variável já limita o uso à chave publicável; o validador é uma proteção adicional e não substitui a revisão de credenciais.
+O cliente opcional permanece em `src/integrations/supabase/client.ts`, sem conexão durante a renderização e sem banco/autenticação habilitados. Não usar o Supabase para recriar ERP, saldo ou cadastro comercial da Nuvemshop. Uma funcionalidade futura que precise do serviço exige finalidade, schema, RLS e autorização próprios. Chaves secretas jamais entram em `NEXT_PUBLIC_*`, Git ou logs.
 
-O cliente não é importado pelas páginas atuais, não cria conexão na renderização e não ativa autenticação persistente. Nenhuma tabela, migração, política, storage bucket ou usuário foi criado. Não há necessidade de credencial para a Etapa 1.
+## Preparação e homologação
 
-Para evoluir: criar projeto autorizado, configurar URL e chave publicável, definir schema, habilitar RLS, políticas por papel e testes de autorização; usar integração SSR oficial se autenticação for aprovada. Chaves secretas e `service_role` jamais podem ser expostas no cliente, nos logs ou no Git.
+- [Conexão de varejo/B2B](nuvemshop.md).
+- [Catálogo piloto](catalogo-piloto.md).
+- [Ativação comercial](ativacao-comercial.md) e [homologação](homologacao-comercial.md).
+- [Conciliação manual](conciliacao-manual.md) e [utilitário local](../tools/conciliacao/README.md).
+- [Análise e consentimento](mensuracao.md), sem rastreadores ativos.
 
-## Preparação detalhada
-
-- [Conexão e aceite de varejo/B2B](nuvemshop.md).
-- [Catálogo piloto, logística, preços e estoque de origem](catalogo-piloto.md).
-- [Análise de resultados, UTMs e compra concluída](mensuracao.md).
-
-Os três documentos são preparação: não significam que uma loja, API ou conta comercial tenha sido conectada.
-
-## Planejamento após a homologação comercial — Etapa 3
-
-Primeiro validar o varejo e o B2B na Nuvemshop. O institucional continua encaminhando públicos; não passa a processar pedidos, clientes ou estoque por causa de uma integração futura.
-
-| Domínio de dados | Decisão/integração a validar | Limite arquitetural |
-| --- | --- | --- |
-| Catálogo e SKUs | Identificador estável de produto/variação e mapeamento entre Nuvemshop, SysAla e eventual hub | Um SKU identifica a mesma unidade vendável; não usar nome como chave nem criar catálogo operacional paralelo no Next.js |
-| Disponibilidade | Agylli escolhe fonte oficial, unidade(s), reservas e rotina de atualização | Não presumir soma de unidades, API SysAla ou dois sistemas escrevendo o mesmo saldo sem regra |
-| Pedidos/pagamento | Definir sistema que recebe cada pedido, estados e responsáveis por conciliação | Pedido, cancelamento e estorno seguem a plataforma/provedor; não duplicar cobrança ou atendimento financeiro |
-| Clientes B2B | Validar perfil, aprovação, tabela e escopos disponíveis na Nuvemshop | Não copiar CPF/CNPJ/documentos para um segundo cadastro no Supabase/institucional |
-| Marketplaces | Comparar hub compatível com Nuvemshop/SysAla e APIs oficiais; decidir estoque, anúncios, preço/frete e atendimento por canal | Não conectar contas nem publicar anúncios antes da autorização e da consistência do piloto |
-
-Para SysAla, solicitar documentação oficial, versão, acesso e ambiente de testes; verificar recursos reais de produto/variação, unidades, disponibilidade, pedidos, autenticação, limites e atualização incremental. A escolha entre consulta, webhook, arquivo ou conector depende dessa validação, sem inferir que algum desses recursos esteja disponível.
-
-Se um conector for aprovado, especificar no servidor ou hub autorizado: validação de origem/autenticação, idempotência por evento/pedido, reprocessamento sem duplicação, tratamento de falhas, limites de API, monitoramento e reconciliação de saldos/estados. Não expor tokens em `NEXT_PUBLIC_*`; logs não devem conter documentos pessoais ou segredos. Antes de ampliar canais, testar reserva/liberação em pedido, recusa, cancelamento e estorno conforme o comportamento dos sistemas oficiais.
-
-Critério para iniciar marketplaces: catálogo piloto e jornada de compra aprovados, identificadores conciliados, fonte de disponibilidade definida e responsável por divergências. Não foi feita conexão, extração de dados, anúncio, rotina de saldo ou contratação nesta etapa.
+Integrações futuras online exigirão autenticação, idempotência, tratamento de falhas e reconciliação conforme os serviços escolhidos. Isso não representa um processo SysAla automático nem uma dependência para começar a operar o piloto manual aprovado.

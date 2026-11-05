@@ -8,6 +8,8 @@
 - Os CSVs em `docs/modelos/` são modelos de preparação, não o formato nativo confirmado do importador Nuvemshop. Dados reais de custos, preços e estoque ficam fora do Git e do deploy, em `dados-comerciais/` ou armazenamento privado aprovado.
 - Não ativar GA4, GTM, Google Ads ou Meta Pixel sem IDs, consentimento e configuração aprovados. Clique de saída para a loja não representa compra; seguir `docs/mensuracao.md`.
 - O varejo e futuramente o B2B são operados pela Nuvemshop. Não crie checkout, pagamentos ou sistema de estoque paralelo nesta etapa.
+- Informação definitiva: SysAla não tem API, webhooks ou sincronização automática. Usar exclusivamente exportações CSV manuais e conciliação operacional; não planejar conexão automática SysAla → Nuvemshop.
+- `tools/conciliacao/` é um utilitário local Python, sem rede, fora de `src/` e do pacote de produção. Nunca expor por rota Next.js ou fazer deploy administrativo sem autorização. Testar com `npm run test:conciliacao`; dados e relatórios reais ficam em `dados-comerciais/`.
 - Supabase é opcional; use apenas chave publicável no cliente. Nunca versione segredos nem use `service_role` no navegador. APIs privadas são futuras integrações exclusivamente no servidor.
 - Toda imagem precisa de procedência; não reutilize ativos da Sallve. Use `next/image` com dimensões/sizes, alt adequado e preload apenas para conteúdo prioritário. Prefira arquivos locais otimizados.
 - Mantenha navegação por teclado, foco visível, skip link, contraste e suporte a reduced-motion. Verifique 375, 768 e 1440 px e não introduza dependência de hover.

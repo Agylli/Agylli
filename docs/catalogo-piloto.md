@@ -44,7 +44,7 @@ Copiar os modelos preenchidos para `dados-comerciais/` ou um armazenamento priva
 | `direitos_imagem_confirmados` | `sim` somente com autorização/procedência registrada fora do cadastro público |
 | `preco_varejo_brl` | Preço final aprovado; deve corresponder ao arquivo interno de precificação, sem fórmula de custo exposta |
 | `estoque_disponivel` | Inteiro não negativo de disponibilidade comercial confirmada; não importar quantidade estimada |
-| `origem_estoque`, `id_produto_origem` | Sistema/unidade e identificador de origem aprovados pela operação; não presumir uma API SysAla |
+| `origem_estoque`, `id_produto_origem` | Sistema/unidade e identificador de origem aprovados; SysAla físico somente por CSV manual, sem API ou sincronização automática |
 | `estoque_referencia_em`, `responsavel_estoque` | Data/hora do retrato e responsável por conferir/atualizar na operação oficial |
 | `situacao_comercial` | `rascunho`, `aprovado_piloto` ou `bloqueado`; converter explicitamente para o estado suportado pelo painel. Não ativar venda por simples preenchimento |
 | `validado_por` | Identificação interna de quem aprovou o cadastro, fora da descrição pública |
@@ -73,7 +73,7 @@ A Agylli informa quais despesas, impostos e taxas se aplicam ao seu regime e à 
 2. **Conferência cadastral:** revisar nomes, marca, descrição, categoria, variações únicas e códigos. Verificar SKU duplicado, GTIN e seu dígito verificador; ausência de código aplicável bloqueia o item até correção ou justificativa.
 3. **Logística:** pesar e medir a embalagem de envio. Conferir unidade, foto e associação correta de cada variação. Campos obrigatórios desconhecidos bloqueiam importação; não completar por estimativa.
 4. **Financeiro e atacado:** responsável comercial aprova custos/preços, regras de revenda, faixas e vigências. Conferir igualdade do preço aprovado entre arquivos e quais clientes terão cada tabela.
-5. **Estoque:** definir a origem oficial e o método de atualização do piloto. Confirmar disponibilidade, reservas e momento da conferência. Não somar unidades nem prometer sincronização automática sem regra aprovada. O site institucional não escreve estoque.
+5. **Estoque:** conferir exportação manual SysAla, pedidos online e reserva física aprovada para o piloto. Não há API, webhook ou sincronização automática SysAla → Nuvemshop. Não somar unidades ou copiar o saldo total do físico; seguir a [conciliação manual](conciliacao-manual.md). O site institucional não escreve estoque.
 6. **Mapeamento:** baixar o modelo atual do painel; produzir um arquivo de importação separado, somente com os campos suportados. Registrar coluna de origem, coluna do importador, conversão/unidade, obrigatório, responsável e resultado. O arquivo interno de custos não acompanha a importação.
 7. **Teste controlado:** usar loja/ambiente de teste disponibilizado pela plataforma ou produtos em rascunho, conforme suporte real. Fazer backup/exportação anterior. Começar com um produto simples e um com variação; corrigir erros antes do lote piloto. Se não houver modo de teste/rascunho, definir procedimento com a equipe antes de expor produtos.
 8. **Revisão no painel e vitrine:** conferir contagem de grupos e SKUs, associação de variações, preços, peso, frete, fotos, disponibilidade e tabela de cliente. Verificar celular e computador; testar repetição/atualização conforme a semântica do importador para não duplicar cadastros.

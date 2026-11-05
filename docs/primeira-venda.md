@@ -38,6 +38,6 @@ As condições de revenda devem ter aceite próprio antes de liberar tabela/cada
 - Expandir o catálogo em lotes aprovados, repetindo a validação por SKU/variação e mantendo a conferência do importador oficial.
 - Liberar a revenda somente depois do aceite de CPF/CNPJ, aprovação, isolamento de perfis e tabela correta.
 - Implementar medição apenas quando contas/IDs e consentimento forem aprovados, conforme [mensuração](mensuracao.md).
-- Avaliar SysAla e marketplaces após definir fonte de estoque, catálogo consistente e rotina de conciliação. Não duplicar checkout ou estoque no institucional.
+- Manter SysAla por CSV manual e reserva física aprovada. Integrar marketplaces futuramente à operação online, sem supor API ou sincronização SysAla. Não duplicar checkout ou estoque no institucional.
 
 Se uma etapa crítica falhar, registrar o bloqueio e suspender a liberação correspondente. Voltar um link ao destino provisório não cancela pedidos, desfaz cobranças ou repõe estoque; essas ações pertencem aos processos oficiais e exigem o responsável autorizado.

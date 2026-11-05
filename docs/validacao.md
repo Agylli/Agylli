@@ -1,5 +1,13 @@
 # Validação — Agylli Cosméticos
 
+## Revisão da Etapa 3 e preparação da Etapa 4
+
+Em 5 de novembro de 2026, passaram 40 testes do utilitário local de conciliação, 14 testes unitários do site e 33 testes de navegador, além de lint, build e TypeScript. O build foi inspecionado: os traces não incluem `tools/conciliacao/` ou `dados-comerciais/`. Nenhum deploy administrativo foi realizado.
+
+Os testes cobrem saldos iguais/divergentes, SKU sem correspondência/duplicado, mapeamento, venda online ainda não lançada, reserva física, arquivos incompletos, codificações/separadores e barreiras de revisão/aprovação/auditoria. Uma simulação CLI com dados exclusivamente fictícios gerou o relatório esperado de sete SKUs, dois bloqueios críticos e quatro unidades de vendas pendentes declaradas; nenhum arquivo final ou importação real foi produzido.
+
+Relatório, limitações e pendências: [revisão e preparação](revisao-etapa3-etapa4.md). O novo passo do workflow foi preparado, sem execução remota desta revisão. Resultados comerciais reais continuam pendentes de amostras/modelo, alocações, responsabilidades e autorizações.
+
 ## Etapa 3 — preparação operacional
 
 Em 5 de novembro de 2026, passaram novamente lint (sem erros/avisos), 14 testes unitários, build, TypeScript e 33 testes de navegador. A interface e as seis rotas não foram alteradas; foram conferidos CTAs/fallbacks, contatos, menu, categorias, âncoras, imagens e axe em 375, 768 e 1440 px.

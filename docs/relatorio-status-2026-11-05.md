@@ -1,5 +1,7 @@
 # Relatório de situação — Agylli Cosméticos
 
+Registro histórico: o planejamento SysAla deste retrato foi superado pela confirmação de que não há API, webhooks ou sincronização automática. Valem agora a arquitetura revisada e o procedimento CSV manual em `docs/conciliacao-manual.md`.
+
 Data: 5 de novembro de 2026. Conferência: 05/11/2026 15:37 UTC.
 
 

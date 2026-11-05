@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "snapshot_at": "",
+  "max_age_minutes": 60,
+  "adapters": {
+    "sysala": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "columns": {
+        "quantity": "",
+        "sku": ""
+      },
+      "quantity_format": "integer"
+    },
+    "nuvemshop": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "columns": {
+        "quantity": "",
+        "sku": ""
+      },
+      "quantity_format": "integer"
+    },
+    "mapping": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "columns": {
+        "online_sku": "",
+        "sysala_sku": ""
+      },
+      "quantity_format": "integer"
+    },
+    "allocations": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "columns": {
+        "allocated": "",
+        "approved_at": "",
+        "approved_by": "",
+        "holds": "",
+        "orders_reviewed": "",
+        "pending_refs": "",
+        "pending_sales": "",
+        "reference": "",
+        "sku": ""
+      },
+      "quantity_format": "integer"
+    }
+  },
+  "final_format": null
+}

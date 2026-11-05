@@ -21,6 +21,21 @@ Dados comerciais preenchidos ficam em `dados-comerciais/` ou armazenamento priva
 
 A ativação real aguarda URLs, dados dos produtos, confirmação do recurso B2B, modelo oficial de importação e autorização para configurar a loja e testar pagamentos. A central oficial da Nuvemshop retornou bloqueio do proxy neste ambiente; nenhum CSV definitivo foi gerado sem verificar o formato. Os testes locais validam o site, não uma compra ou aprovação comercial real.
 
+## Revisão da Etapa 3 — conciliação CSV local
+
+Relatório da entrega: [revisão e preparação da Etapa 4](docs/revisao-etapa3-etapa4.md).
+
+SysAla é o sistema da loja física e não oferece API, webhooks ou sincronização automática. A Nuvemshop opera o e-commerce; marketplaces serão ligados futuramente à operação online. A conciliação entre físico e online será manual, com possível reserva física aprovada.
+
+O [utilitário local](tools/conciliacao/README.md) recebe exportações, mapeamento opcional e registro de reservas/pedidos conferidos. Preserva originais e gera relatório/prévia; não acessa plataformas ou importa estoque. Geração final depende de modelo oficial, revisão, aprovação do hash e fontes revalidadas. Python 3.11+; não requer npm ou credenciais para executar a CLI.
+
+```sh
+python3 -m tools.conciliacao --help
+python3 -m unittest discover -s tools/conciliacao/tests -p 'test_*.py' -v
+```
+
+Procedimento e papéis: [conciliação manual](docs/conciliacao-manual.md). O utilitário é administrativo local, excluído do pacote de deploy. Não expor pelo site. Originais, custos, relatórios e arquivos finais ficam fora de Git e `public/`, em `dados-comerciais/` ou armazenamento privado aprovado. Relatórios antigos são históricos; não representam autorização ou possibilidade de integração automática SysAla.
+
 ## Executar
 
 Requisitos: Node.js 24 LTS (fixado em `.nvmrc`), npm e Git. Editor recomendado: Visual Studio Code; extensões e tarefas estão em `.vscode/`.
@@ -51,7 +66,8 @@ Para configurar serviços reais, copie `.env.example` para `.env.local`, preench
 
 ```sh
 npm run lint        # ESLint, sem avisos permitidos
-npm test            # testes unitários, Vitest
+npm test            # testes unitários do site, Vitest
+npm run test:conciliacao # testes do utilitário local, Python 3.11+
 npm run build       # produção, incluindo checagem TypeScript do Next
 npm run typecheck   # TypeScript; execute o build antes em um checkout novo
 npm run start       # servir o build de produção

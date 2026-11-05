@@ -1,0 +1,2 @@
+# Preserve deliberate raw encodings/CRLF in fictitious CSV tests.
+tools/conciliacao/tests/fixtures/*.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

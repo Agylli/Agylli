@@ -1,5 +1,7 @@
 # Relatório — Etapa 3: preparação para ativação comercial
 
+Atualização definitiva posterior: SysAla permite somente CSV manual, sem API/webhooks/sincronização automática. Seguir a [revisão de arquitetura](arquitetura.md) e a [conciliação manual](conciliacao-manual.md).
+
 Data: 5 de novembro de 2026. Base recebida: `24e6555`, com a Etapa 2 sincronizada. A revisão inicial confirmou `main` local/remota sem divergência e checkout limpo.
 
 ## Resultado efetivo

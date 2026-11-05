@@ -1,4 +1,4 @@
-# Arquitetura da Etapa 1
+# Arquitetura — site institucional e operação comercial
 
 ## Limite do sistema
 
@@ -35,3 +35,26 @@ Antes de coletar leads, aprovar finalidade, política de privacidade, retenção
 ## Preparação comercial da Etapa 2
 
 `WholesaleAccess` define o espaço de cadastro B2B sem banco ou formulário local. A URL é a mesma dos demais CTAs de acesso. `docs/modelos/` contém somente modelos de preparação; não é carregado pela aplicação nem mantém estoque. Dados reais ficam fora do Git/deploy em `dados-comerciais/`. Mensuração está especificada em `mensuracao.md`, sem tags, listeners, cookies ou IDs adicionados ao runtime.
+
+## Revisão definitiva: SysAla manual e preparação da Etapa 4
+
+- SysAla é o sistema da loja física; não possui API, webhook ou sincronização automática. O intercâmbio disponível é CSV exportado manualmente.
+- Nuvemshop é a plataforma de varejo/B2B e operações do e-commerce. Mercado Livre e Shopee serão integrados futuramente à operação online, não diretamente ao SysAla.
+- A operação pode reservar fisicamente mercadoria para o online. Saldo físico, reserva bruta aprovada, compromissos e disponibilidade online têm significados distintos; não igualar saldos automaticamente.
+- `tools/conciliacao/` contém uma CLI Python offline, fora do site e sem banco. Ela preserva retratos por lote, confere, limita propostas à reserva líquida e gera prévia; arquivo local final depende de modelo oficial e aprovação humana. A importação continua manual.
+- O código administrativo é excluído do pacote Vercel e dos traces do Next. Não há rota web, cron, API ou dependência runtime do utilitário no site. Dados/originais/relatórios comerciais ficam em `dados-comerciais/` ou pasta privada fora de Git, nunca em `public/`.
+
+```mermaid
+flowchart LR
+  Site[Site institucional Next.js / Vercel] -->|Links comerciais| Loja[Nuvemshop]
+  Fisico[Loja física / SysAla] -->|Exportação CSV manual| Local[Conferência local offline]
+  Loja -->|Exportação CSV manual| Local
+  Operacao[Reservas aprovadas e pedidos conferidos] --> Local
+  Local -->|Relatório e prévia| Humano[Revisão e aprovação humana]
+  Humano -->|Arquivo aprovado e importação manual| Loja
+  Loja -.->|Integração online futura autorizada| Canais[Mercado Livre / Shopee]
+```
+
+Não há seta de sincronização automática SysAla → Nuvemshop. O utilitário registra auditoria de retratos e decisões, não mantém saldo contínuo nem substitui os sistemas oficiais. Movimentos online ainda não refletidos no ERP precisam ser declarados no registro conferido; não são deduzidos da diferença entre dois arquivos de saldo.
+
+Procedimento diário, papéis, janela de importação e resolução de diferenças: [conciliação manual](conciliacao-manual.md).

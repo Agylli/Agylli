@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "snapshot_at": "",
+  "max_age_minutes": 60,
+  "adapters": {
+    "sysala": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "columns": {
+        "sku": "codigo_ficticio",
+        "quantity": "saldo_ficticio"
+      },
+      "quantity_format": "integer"
+    },
+    "nuvemshop": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "columns": {
+        "sku": "codigo_ficticio",
+        "quantity": "saldo_ficticio"
+      },
+      "quantity_format": "integer"
+    },
+    "mapping": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "columns": {
+        "sysala_sku": "fisico_ficticio",
+        "online_sku": "online_ficticio"
+      },
+      "quantity_format": "integer"
+    },
+    "allocations": {
+      "encoding": "utf-8",
+      "delimiter": ",",
+      "columns": {
+        "sku": "codigo_ficticio",
+        "allocated": "reserva_ficticia",
+        "pending_sales": "pendente_ficticio",
+        "holds": "outro_ficticio",
+        "pending_refs": "pedidos_ficticios",
+        "orders_reviewed": "conferido_ficticio",
+        "approved_by": "aprovador_ficticio",
+        "approved_at": "data_ficticia",
+        "reference": "referencia_ficticia"
+      },
+      "quantity_format": "integer"
+    }
+  },
+  "final_format": null
+}

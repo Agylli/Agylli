@@ -14,3 +14,5 @@ coverage
 *.tsbuildinfo
 *.log
 dados-comerciais
+tools/conciliacao
+__pycache__

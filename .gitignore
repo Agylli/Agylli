@@ -12,3 +12,5 @@ test-results/
 *.log
 .vercel
 dados-comerciais/
+__pycache__/
+*.py[cod]

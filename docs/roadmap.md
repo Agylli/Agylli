@@ -28,12 +28,22 @@ Os relatórios de situação de 5/11/2026 anteriores à Etapa 2 são registros h
 
 O marco de primeira venda e aprovação de revendedor permanece pendente até o fornecimento dos dados/acessos e a execução autorizada dos roteiros. Nenhuma conta, pagamento, frete, tabela ou integração externa foi configurada nesta preparação.
 
+## Revisão da Etapa 3 e preparação da Etapa 4
+
+Informação definitiva: SysAla não oferece API, webhooks ou sincronização automática. A dependência anterior de avaliar conexão/conector automático foi retirada do planejamento.
+
+- Utilitário local em `tools/conciliacao/`: CSVs, adaptadores configuráveis, correspondência de SKUs, duplicidades, diferenças, pendências declaradas, auditoria e propostas limitadas por reserva aprovada.
+- Simulação por padrão; revisão manual e prévia; geração final só com modelo oficial, aprovação explícita, fontes conferidas e nenhum bloqueio crítico. Nenhuma importação automática.
+- [Procedimento diário](conciliacao-manual.md): responsáveis por exportar, conferir pedidos, lançar no ERP, aprovar e importar manualmente na Nuvemshop; cancelamento/devolução e janela controlada.
+- Testes com dados exclusivamente fictícios, incluindo codificações/separadores, venda online não lançada no ERP e reserva física.
+- Amostras reais autorizadas, modelo oficial, registro de alocação e responsáveis ainda são necessários para homologar o uso comercial. Sem deploy administrativo ou alteração de estoque real.
+
 ## Próximo marco — ativar a Nuvemshop
 
 1. Receber a URL oficial de varejo e o acesso autorizado à loja; confirmar plano/recurso B2B e sua URL pública.
 2. Validar aproximadamente 10 produtos reais, com SKUs, GTINs aplicáveis, fotos autorizadas, logística, preços, condições de atacado e estoque de origem confirmado.
 3. Mapear os modelos internos ao importador oficial atual e aprovar o piloto antes do catálogo completo.
-4. Configurar URLs em Preview, testar varejo/cadastro/compra na Nuvemshop e depois aplicar as configurações aprovadas em Production.
+4. Aprovar a reserva física para o piloto e executar a conciliação CSV manual; então configurar URLs em Preview, homologar varejo/cadastro/compra e aplicar Production após aceite.
 5. Finalizar informações institucionais e políticas, confirmar domínio/DNS e configurar SEO antes de liberar indexação.
 6. Aprovar IDs, contas, consentimento e implementação de medição nos dois ambientes; validar compra real e ausência de duplicidade.
 
@@ -41,8 +51,8 @@ Procedimento: [Nuvemshop](nuvemshop.md). Ainda não há catálogo completo, chec
 
 ## Integrações posteriores
 
-- SysAla: obter documentação oficial/API/conector, definir identificação dos itens, fonte de verdade de estoque e rotina de atualização; não presumir API disponível.
-- Mercado Livre e Shopee: escolher hub ou APIs autorizadas depois de definir catálogo, pedidos e estoque consistentes com Nuvemshop/SysAla.
+- SysAla: trabalhar exclusivamente com exportação CSV e lançamentos manuais; não há API, webhook ou sincronização automática. Conciliar pedidos e reserva física pelo procedimento aprovado.
+- Mercado Livre e Shopee: integrar futuramente à operação online Nuvemshop por hub/API autorizados; preservar a conciliação CSV manual com o SysAla, sem conector automático inexistente.
 - Supabase: ativar apenas quando uma funcionalidade exigir banco/autenticação, com finalidade, schema, RLS e autorização definidos. Não duplicar o cadastro comercial da Nuvemshop.
 - Campanhas/CMS: adicionar páginas conforme demanda, reutilizando os componentes atuais e a identidade aprovada.
 
