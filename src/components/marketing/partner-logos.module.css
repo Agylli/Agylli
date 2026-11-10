@@ -1,0 +1,32 @@
+.gallery { min-width: 0; }
+.stage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.slot { position: relative; height: 142px; border: 1px solid var(--color-line); border-radius: 6px; overflow: hidden; background: var(--color-white); }
+.layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 22px; background: var(--color-white); opacity: 0; animation: partner-fade 25s linear infinite; }
+.layer img, .staticList img { max-width: 100%; width: 100%; height: 94px; object-fit: contain; }
+.layer:first-child { opacity: 1; }
+.dark { background: #282828; }
+.gallery[data-paused="true"] .layer { animation-play-state: paused; }
+.control { display: flex; align-items: center; gap: 7px; margin: 10px 0 0 auto; padding: 8px 12px; min-height: 44px; border: none; border-radius: 4px; background: transparent; font-size: .75rem; color: var(--color-muted); }
+.control:hover { background: var(--color-brand-soft); color: var(--color-ink); }
+.staticList { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); list-style: none; }
+@keyframes partner-fade { 0%, 15% { opacity: 1; } 20%, 95% { opacity: 0; } 100% { opacity: 1; } }
+@media (hover: hover) and (pointer: fine) { .stage:hover .layer { animation-play-state: paused; } }
+@media (max-width: 767px) {
+ .stage { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+ .slot { height: 118px; }
+ .slot:last-child { display: none; }
+ .layer { padding: 18px; }
+ .layer img { max-height: 80px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .stage, .control { display: none; }
+ .layer { animation: none; }
+ .staticList { position: static; width: auto; height: auto; overflow: visible; clip-path: none; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+ .staticList li { display: flex; align-items: center; justify-content: center; min-width: 0; height: 130px; padding: 18px; border: 1px solid var(--color-line); border-radius: 6px; background-color: var(--color-white); }
+ .staticList li.dark { background: #282828; }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+ .staticList { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .staticList li { height: 110px; }
+ .staticList img { max-height: 78px; }
+}
