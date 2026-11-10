@@ -67,7 +67,7 @@ Para configurar serviços reais, copie `.env.example` para `.env.local`, preench
 | `/` | Homepage, públicos, categorias e produtos demonstrativos filtráveis |
 | `/atacado` | Proposta de revenda, CPF/CNPJ, etapas e perguntas frequentes |
 | `/sobre` | História revisada pelo site oficial e apresentação do portfólio |
-| `/contato` | Endereços, telefones e WhatsApp das duas unidades |
+| `/contato` | Endereço e WhatsApp da unidade de Cândido Sales · BA |
 | `/onde-atuamos` | Regiões, mapa institucional e contatos por unidade |
 | `/contato?assunto=revenda` | Orientação para quem solicita acesso B2B |
 | `/loja-em-breve` | Destino seguro enquanto a loja de varejo não foi configurada |
@@ -125,7 +125,7 @@ A revisão de legibilidade mantém corpo de 16 px, textos auxiliares/botões de 
 
 Os asteriscos e as estrelas decorativas foram retirados de todas as páginas.
 
-Os contatos das unidades de Cândido Sales e Ipatinga estão disponíveis sem variáveis de ambiente. Foram conferidos na página oficial de atendimento e no mapa de atuação. Links de mapa abrem uma busca pelo endereço; não representam coordenadas verificadas. E-mail, horário e CNPJ continuam sem publicação enquanto não forem confirmados.
+Contatos vigentes, corrigidos pela Agylli em 10/11/2026: somente Cândido Sales · BA, Rua Rio Pardo, 75 — Célio Alves, WhatsApp (77) 98854-9691 (`https://wa.me/5577988549691`). A unidade anterior e os telefones antigos não são publicados. O mapa de duas unidades foi retirado da interface; links de mapa abrem uma busca pelo endereço, sem coordenadas presumidas. E-mail, horário e CNPJ continuam sem publicação enquanto não forem confirmados. Documentos anteriores de implantação são registros históricos; a fonte atual é `src/config/locations.ts`.
 
 ## Variáveis opcionais
 

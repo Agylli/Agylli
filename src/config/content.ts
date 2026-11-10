@@ -25,7 +25,7 @@ export const wholesaleFaq = [
   { question: "Quais orientações de cadastro a Agylli publica?", answer: "A página de revendedores orienta ter mais de 18 anos ou ser emancipado por casamento ou decisão judicial, apresentar RG, CPF e comprovante de residência em seu nome, receber o supervisor para assinatura do contrato e adquirir o kit de trabalho. Confirme com a equipe os requisitos vigentes e o procedimento aplicável ao cadastro com CPF ou CNPJ. Este site ainda não recebe documentos nem solicitações de cadastro." },
   { question: "Existe pedido mínimo ou desconto definido?", answer: "O conteúdo institucional fornecido pela Agylli informa descontos a partir de 30% para revendedores. Confirme os produtos elegíveis, as regras vigentes, o pedido mínimo, o pagamento e a entrega antes de comprar. Nenhum valor mínimo foi informado nesta etapa, e o desconto não representa lucro garantido." },
   { question: "Como funciona o frete?", answer: "O material institucional informa frete pago pela Agylli, com entregas em datas agendadas pela empresa. Consulte a cobertura e as condições atuais para sua região antes de concluir a compra." },
-  { question: "Como solicito meu cadastro?", answer: "O botão de solicitação leva à área B2B quando ela estiver disponível. Por enquanto, fale com uma das unidades de Cândido Sales ou Ipatinga pelo WhatsApp ou telefone disponível na página de contato para consultar o cadastro e as condições de revenda. Este site não coleta documentos nem confirma solicitações de acesso nesta etapa." },
+  { question: "Como solicito meu cadastro?", answer: "O botão de solicitação leva à área B2B quando ela estiver disponível. Por enquanto, fale com nossa unidade de Cândido Sales pelo WhatsApp disponível na página de contato para consultar o cadastro e as condições de revenda. Este site não coleta documentos nem confirma solicitações de acesso nesta etapa." },
   { question: "Onde a compra será finalizada?", answer: "A estrutura comercial será operada pela Nuvemshop. Este site apresenta a marca e direciona os públicos, sem checkout ou estoque independente." },
 ] as const;
 
@@ -36,10 +36,10 @@ export const wholesaleContent = {
     eyebrow: "CADASTRO DE REVENDEDORES",
     title: "Vamos começar essa parceria?",
     available: "Acesse a área de revenda para conhecer o cadastro e as orientações de acesso. A aprovação e as condições comerciais são confirmadas pela equipe Agylli.",
-    preparing: "Quer revender com CPF ou CNPJ? Converse com a unidade da sua região para conhecer o cadastro, os produtos e as condições de atendimento.",
+    preparing: "Quer revender com CPF ou CNPJ? Converse com nossa equipe em Cândido Sales para conhecer o cadastro, os produtos e as condições de atendimento.",
     availableNote: "Cadastro e acesso pela área de revenda.",
-    preparingNote: "Cadastro online em preparação. Atendimento pelas nossas unidades.",
-    locationAction: "Encontre sua unidade",
+    preparingNote: "Cadastro online em preparação. Atendimento em Cândido Sales pelo WhatsApp.",
+    locationAction: "Encontre nossa unidade",
   },
   stepsIntroduction: "Da solicitação de cadastro à primeira compra, conheça o caminho para começar a revender.",
   conditions: "Benefícios apresentados com base no conteúdo institucional publicado pela Agylli. Confirme a vigência dos descontos, a cobertura do frete, os documentos, a aprovação e as demais condições no canal oficial antes de comprar. Não há promessa de renda ou margem de lucro garantida.",

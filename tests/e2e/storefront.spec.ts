@@ -44,25 +44,25 @@ test("varejo e atacado possuem destinos funcionais sem configuração", async ({
   await expect(access).toContainText("Cadastro online em preparação");
   await page.getByRole("link", { name: "Solicitar acesso ao atacado", exact: true }).first().click();
   await expect(page).toHaveURL(/\/contato\?assunto=revenda$/);
-  await expect(page.getByRole("status")).toContainText("fale com uma das unidades pelo WhatsApp ou telefone");
+  await expect(page.getByRole("status")).toContainText("fale com nossa unidade de Cândido Sales pelo WhatsApp");
   await expect(page.locator("form")).toHaveCount(0);
 });
 
-test("contatos das unidades e área de atuação estão disponíveis", async ({ page }) => {
+test("somente Cândido Sales e o WhatsApp atualizado estão disponíveis", async ({ page }) => {
   await page.goto("/contato");
   const bahia = page.getByRole("article", { name: "Unidade de Cândido Sales" });
   await expect(bahia).toContainText("Rua Rio Pardo, 75 — Célio Alves");
   await expect(bahia.getByRole("link", { name: "Conversar no WhatsApp com a Unidade de Cândido Sales", exact: true })).toHaveAttribute("href", "https://wa.me/5577988549691");
-  await expect(bahia.getByRole("link", { name: "Telefone da Unidade de Cândido Sales: (77) 3438-2030", exact: true })).toHaveAttribute("href", "tel:+557734382030");
-  const minas = page.getByRole("article", { name: "Unidade de Ipatinga" });
-  await expect(minas).toContainText("Campo Grande, 690 A — Caravelas");
-  await expect(minas.getByRole("link", { name: "Conversar no WhatsApp com a Unidade de Ipatinga", exact: true })).toHaveAttribute("href", "https://wa.me/5531993902031");
-  await expect(minas.getByRole("link", { name: "Central de atendimento da Unidade de Ipatinga: 0800 283 1787", exact: true })).toHaveAttribute("href", "tel:08002831787");
-  await expect(minas.getByRole("link", { name: "Ver endereço da Unidade de Ipatinga no mapa" })).toHaveAttribute("href", /google\.com\/maps\/search\/\?api=1&query=Campo/);
+  await expect(page.locator(".location-card")).toHaveCount(1);
+  await expect(page.locator('a[href^="tel:"]')).toHaveCount(0);
+  await expect(page.locator("body")).not.toContainText("Ipatinga");
+  await expect(bahia.getByRole("link", { name: "Ver endereço da Unidade de Cândido Sales no mapa" })).toHaveAttribute("href", /google\.com\/maps\/search\/\?api=1&query=Rua/);
   await page.getByRole("link", { name: "Conheça nossa área de atuação" }).click();
   await expect(page).toHaveURL(/\/onde-atuamos$/);
   await expect(page.locator("main")).toContainText("Região de Vitória da Conquista");
-  await expect(page.locator("main")).toContainText("Região do Vale do Aço");
+  await expect(page.locator("body")).not.toContainText("Ipatinga");
+  await expect(page.locator('img[src*="agylli-atuacao"]')).toHaveCount(0);
+  await expect(page.getByRole("contentinfo")).toContainText("Cândido Sales · BA");
   await expect(page.getByRole("navigation", { name: "Navegação do rodapé" }).getByRole("link", { name: "Onde atuamos" })).toHaveAttribute("href", "/onde-atuamos");
 });
 

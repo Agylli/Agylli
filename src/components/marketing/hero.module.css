@@ -1,4 +1,5 @@
-.hero { padding-block: 42px 24px; }
+.hero { position: relative; isolation: isolate; padding-block: 42px 24px; }
+.hero::before { content: ""; position: absolute; z-index: -1; pointer-events: none; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); background: radial-gradient(ellipse at 72% 25%, var(--color-paper) 0%, #fcf9f6f5 18%, #fcf9f650 64%, var(--color-paper) 100%), repeating-conic-gradient(from -18deg at 72% 25%, #ffffffa3 0deg, #ffffff38 3deg, #62565716 4deg, #fcf9f600 7deg, #ffffffa3 11deg); }
 .intro { text-align: center; max-width: 960px; margin-inline: auto; }
 .eyebrow { color: var(--color-brand-deep); font-size: .75rem; font-weight: 600; letter-spacing: .17em; margin-bottom: 16px; }
 .intro h1 { font-size: clamp(2.75rem, 4.8vw, 4.4rem); line-height: 1.04; letter-spacing: -.055em; }

@@ -33,7 +33,7 @@ export const marketing = {
   experience: { eyebrow: "MAIS DO QUE ESCOLHER COSMÉTICOS", title: "Uma experiência com a nossa essência." },
   contact: {
     eyebrow: "ATENDIMENTO AGYLLI", title: "Vamos conversar?",
-    description: "Fale com nossas unidades em Cândido Sales, na Bahia, e Ipatinga, em Minas Gerais.",
+    description: "Converse com nossa equipe em Cândido Sales, na Bahia. Estamos aqui para ajudar você.",
   },
   footer: {
     line1: "Beleza que faz parte da sua vida.", line2: "Possibilidades que vão além.",

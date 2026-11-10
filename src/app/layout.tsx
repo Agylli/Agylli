@@ -6,6 +6,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { brand } from "@/config/brand";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export const metadata: Metadata = {
   metadataBase: brand.links.site ? new URL(brand.links.site) : undefined,
@@ -19,5 +20,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#fcf9f6" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-BR"><body><a href="#conteudo" className="skip-link">Pular para o conteúdo</a><Header /><main id="conteudo" tabIndex={-1}>{children}</main><Footer /></body></html>;
+  return <html lang="pt-BR"><body><a href="#conteudo" className="skip-link">Pular para o conteúdo</a><Header /><main id="conteudo" tabIndex={-1}>{children}</main><Footer /><ScrollReveal /></body></html>;
 }

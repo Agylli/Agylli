@@ -34,6 +34,9 @@ button, input { font-size: 16px; }
 button, a, summary { touch-action: manipulation; }
 button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 5px; border-radius: 4px; }
 main:focus { outline: none; }
+main { overflow-x: clip; }
+[data-reveal-pending="true"] { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { [data-reveal-pending="true"] { opacity: 1; } }
 button:disabled { cursor: default; }
 h1, h2, h3, p { margin: 0; }
 h1, h2, h3 { font-weight: 500; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
@@ -225,6 +228,10 @@ details > p { padding-bottom: 24px; color: var(--color-muted); font-size: var(--
 .coverage-overview img { width: 100%; height: auto; border-radius: 6px; }
 .coverage-overview figcaption { font-size: var(--text-caption); color: var(--color-muted); margin-top: 12px; }
 .location-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.location-grid:has(> :only-child) { grid-template-columns: minmax(0, 1fr); max-width: 850px; }
+.unit-address-panel { padding: 38px; border: 1px solid var(--color-line); border-radius: 8px; background: var(--color-brand-wash); }
+.unit-address-panel > svg { color: var(--color-brand); margin-bottom: 20px; }
+.unit-address-panel > p { margin-block: 18px; color: var(--color-muted); }
 .location-card { background: var(--color-white); border: 1px solid var(--color-line); border-radius: 8px; padding: 32px; }
 .location-heading { display: flex; justify-content: space-between; align-items: start; gap: 16px; margin-bottom: 28px; }
 .location-heading .eyebrow { color: var(--color-brand-deep); margin-bottom: 6px; }

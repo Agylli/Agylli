@@ -11,7 +11,6 @@ export function LocationCards() {
       <address>{location.street} — {location.neighborhood}<br />{location.city} — {location.stateCode}</address>
       <dl className="location-channels">
         <div><dt>WhatsApp</dt><dd><a href={location.whatsapp.href} aria-label={`WhatsApp da ${location.name}: ${location.whatsapp.label}`}>{location.whatsapp.label}</a></dd></div>
-        {location.phones.map(phone => <div key={phone.href}><dt>{phone.type}</dt><dd><a href={phone.href} aria-label={`${phone.type} da ${location.name}: ${phone.label}`}>{phone.label}</a></dd></div>)}
       </dl>
       <div className="location-actions">
         <a className="button button-primary" href={location.whatsapp.href} aria-label={`Conversar no WhatsApp com a ${location.name}`}>Conversar no WhatsApp</a>

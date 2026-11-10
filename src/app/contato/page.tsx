@@ -7,7 +7,7 @@ import { locationContent } from "@/config/locations";
 
 export const metadata: Metadata = {
   title: "Contato",
-  description: "Fale com as unidades da Agylli em Cândido Sales e Ipatinga. Consulte os endereços, telefones e WhatsApp para atendimento e revenda.",
+  description: "Fale com a Agylli em Cândido Sales, BA. Rua Rio Pardo, 75 — Célio Alves. WhatsApp (77) 98854-9691 para atendimento e revenda.",
   alternates: { canonical: brand.links.site ? "/contato" : undefined },
 };
 
@@ -20,10 +20,9 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
       <p>{locationContent.contactIntroduction}</p>
     </PageIntro>
     <section className="section container" aria-labelledby="channels-heading">
-      <div className="section-heading"><div><p className="eyebrow">BAHIA E MINAS GERAIS</p><h2 id="channels-heading">Fale com a sua unidade.</h2></div><Link href="/onde-atuamos" className="inline-link">Conheça nossa área de atuação</Link></div>
+      <div className="section-heading"><div><p className="eyebrow">CÂNDIDO SALES · BA</p><h2 id="channels-heading">Fale com nossa equipe.</h2></div><Link href="/onde-atuamos" className="inline-link">Conheça nossa área de atuação</Link></div>
       {isWholesale && <aside className="reseller-contact-note"><p role="status">{locationContent.resellerNotice}</p></aside>}
       <LocationCards />
-      {(brand.contact.email || brand.contact.whatsapp) && <div className="additional-channels"><h3>Outros canais de atendimento</h3>{brand.contact.whatsapp && <a href={brand.contact.whatsapp} className="inline-link">WhatsApp geral da Agylli</a>}{brand.contact.email && <a href={`mailto:${brand.contact.email}`} className="inline-link">{brand.contact.email}</a>}</div>}
     </section>
     <section className="container contact-choice"><div><p className="eyebrow">CONTINUE A EXPLORAR</p><h2>Qual é a sua próxima descoberta?</h2></div><div><Link href={brand.links.retail} className="inline-link">Quero comprar para mim</Link><Link href="/atacado" className="inline-link">Quero conhecer o atacado</Link></div></section>
   </>;
