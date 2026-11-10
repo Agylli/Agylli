@@ -3,10 +3,11 @@ export const marketing = {
   announcement: "Beleza para cuidar. Possibilidades para crescer.",
   announcementLink: "Conheça o universo da revenda",
   hero: {
-    shoppingGuide: "Varejo para seu cuidado. Atacado para revender com CPF ou CNPJ.",
-    footnote: "Autocuidado encontra novas possibilidades.",
-    photoLabel: "Seu momento de florescer.",
-    imageDisclosure: "Linha Rescue+ D’Bianco • seleção ilustrativa",
+    paths: [
+      { channel: "retail", label: "PARA VOCÊ", title: "Beleza para o seu dia a dia.", description: "Descubra fragrâncias, cuidados pessoais e cosméticos para você.", image: "/images/products/colonia-madelle.webp", alt: "Frasco da fragrância Madelle, da Suave Fragrance — seleção ilustrativa" },
+      { channel: "wholesale", label: "PARA O SEU NEGÓCIO", title: "Seu negócio merece crescer.", description: "Conheça nossas oportunidades para revendedores e lojistas.", image: "/images/products/linha-rescue.webp", alt: "Conjunto de produtos da linha profissional Rescue+ D’Bianco — seleção ilustrativa" },
+    ],
+    imageDisclosure: "Fotografias ilustrativas das marcas. Consulte catálogo e disponibilidade nos canais oficiais.",
   },
   ribbon: ["Seu cuidado, do seu jeito", "Marca própria & outras marcas", "Para você & para revender", "Beleza em cada possibilidade"],
   intro: {

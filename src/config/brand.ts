@@ -7,10 +7,10 @@ export const brand = {
   tagline: "Conectando pessoas a produtos.",
   description: "Cosméticos para o seu cuidado e novas possibilidades para o seu negócio. Conheça o universo Agylli, para consumidores e revendedores.",
   hero: {
-    eyebrow: "SEU PRÓXIMO MOMENTO DE CUIDADO",
-    title: "Beleza para você.",
-    accent: "Oportunidade para seu negócio.",
-    description: "Descubra um universo de cosméticos para cuidar de você ou impulsionar suas vendas.",
+    eyebrow: "COSMÉTICOS · VAREJO E ATACADO",
+    title: "Sua beleza. Seu negócio.",
+    accent: "Seu lugar é aqui.",
+    description: "Descubra cosméticos para transformar sua rotina de beleza ou ampliar suas oportunidades de revenda.",
   },
   contact: {
     email: emailAddress(process.env.NEXT_PUBLIC_CONTACT_EMAIL),
