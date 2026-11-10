@@ -14,6 +14,6 @@ export function Footer() {
       <div className="footer-locations"><h2>Nossa unidade</h2>{locations.map(location => <address key={location.id}><strong className="footer-location-name">{location.city} · {location.stateCode}</strong><p>{location.street} — {location.neighborhood}</p><a href={location.whatsapp.href} aria-label={`WhatsApp da ${location.name}: ${location.whatsapp.label}`}>WhatsApp: {location.whatsapp.label}</a></address>)}</div>
     </div>
     <div className="footer-bottom"><p>© {new Date().getFullYear()} {brand.name}.</p><p>{brand.provisional}</p></div>
-    <p className="legal-note">{marketing.footer.legal}</p>
+    <div className="legal-note"><p>{marketing.footer.legal}</p><p>{marketing.footer.service}</p></div>
   </div></footer>;
 }

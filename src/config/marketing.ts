@@ -38,6 +38,7 @@ export const marketing = {
   footer: {
     line1: "Beleza que faz parte da sua vida.", line2: "Possibilidades que vão além.",
     description: "Nosso espaço digital está nascendo. Acompanhe por aqui as novidades da Agylli.",
-    legal: "Razão social, CNPJ, horários e políticas comerciais serão publicados após confirmação dos dados oficiais.",
+    legal: "AGYLLI COMERCIO DE COSMETICOS E PROD NATURAIS · CNPJ: 04.483.856/0001-16",
+    service: "Atendimento por chat disponível apenas em horário comercial.",
   },
 } as const;
