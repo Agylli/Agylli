@@ -1,0 +1,43 @@
+.ribbon { display: flex; align-items: center; gap: 4px; background: var(--color-brand-soft); color: var(--color-ink); border-block: 1px solid var(--color-line); }
+.window { flex: 1; min-width: 0; overflow: hidden; mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent); }
+.track { display: flex; width: max-content; animation: ribbon-drift 38s linear infinite; }
+.group { display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; min-width: 100vw; }
+.item { display: inline-flex; align-items: center; gap: 16px; padding: 20px 36px; white-space: nowrap; font-size: .8125rem; font-weight: 500; letter-spacing: .025em; }
+.marker { width: 5px; height: 5px; background: var(--color-brand); border-radius: 50%; flex-shrink: 0; }
+.track[data-paused="true"], .ribbon:focus-within .track { animation-play-state: paused; }
+.pause { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; margin-right: 10px; color: var(--color-brand-deep); border: 1px solid color-mix(in srgb, var(--color-brand), transparent 75%); background: transparent; border-radius: 50%; transition: background .2s ease; }
+.pause:hover { background: color-mix(in srgb, var(--color-white), transparent 55%); }
+.intro { position: relative; isolation: isolate; padding-block: 100px 104px; overflow: hidden; color: var(--color-paper); background: radial-gradient(ellipse at 50% 110%, #a92d3026, transparent 65%), linear-gradient(135deg, #222020, #161616 65%); border-bottom: 1px solid #ffffff12; }
+.content { text-align: center; max-width: 970px; position: relative; }
+.eyebrow { color: var(--color-coral); text-transform: uppercase; font-size: .75rem; font-weight: 600; letter-spacing: .2em; margin-bottom: 26px; }
+.content h2 { font-size: clamp(2rem, 3.25vw, 3rem); font-weight: 400; line-height: 1.2; letter-spacing: -.035em; }
+.content h2 em { color: var(--color-coral); }
+.rule { display: block; width: 44px; height: 2px; background: var(--color-brand); margin: 28px auto; }
+.description { max-width: 660px; margin-inline: auto; color: #d1c5c2; font-size: 1rem; line-height: 1.85; }
+.link { display: inline-flex; justify-content: center; align-items: center; gap: 22px; min-height: 52px; margin-top: 30px; padding: 12px 23px; color: var(--color-paper); border: 1px solid #bda19b80; border-radius: 4px; font-size: .875rem; font-weight: 500; transition: background .2s ease, border-color .2s ease; }
+.link svg { transition: transform .2s ease; }
+.link:hover { background: #ffffff09; border-color: var(--color-coral); }
+.link:hover svg { transform: translate(2px, -2px); }
+.link:focus-visible { outline-color: var(--color-coral); }
+@keyframes ribbon-drift { to { transform: translateX(-50%); } }
+@media (hover: hover) and (pointer: fine) { .window:hover .track { animation-play-state: paused; } }
+@media (max-width: 767px) {
+  .item { padding: 17px 24px; font-size: .75rem; gap: 12px; }
+  .pause { margin-right: 6px; }
+  .intro { padding-block: 64px 68px; }
+  .eyebrow { margin-bottom: 22px; font-size: .75rem; letter-spacing: .16em; }
+  .content h2 { font-size: clamp(1.95rem, 6.5vw, 2.5rem); line-height: 1.22; }
+  .content h2 br { display: none; }
+  .description { font-size: .9375rem; line-height: 1.8; }
+  .rule { margin-block: 24px; }
+  .link { margin-top: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; transform: none; width: auto; }
+  .group { min-width: 0; width: 100%; flex-wrap: wrap; justify-content: center; padding: 8px 12px; }
+  .group[aria-hidden="true"], .pause { display: none; }
+  .item { white-space: normal; padding: 6px 12px; }
+  .window { mask-image: none; }
+  .link, .link svg { transition: none; }
+  .link:hover svg { transform: none; }
+}
