@@ -16,3 +16,5 @@ coverage
 dados-comerciais
 tools/conciliacao
 __pycache__
+
+supabase

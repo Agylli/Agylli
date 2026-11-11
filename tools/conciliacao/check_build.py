@@ -8,7 +8,7 @@ from .audit import REPO
 
 def verify_public_build(root: Path = REPO) -> dict:
     root = root.resolve()
-    prohibited = [(root / "tools/conciliacao").resolve(), (root / "dados-comerciais").resolve()]
+    prohibited = [(root / "tools/conciliacao").resolve(), (root / "dados-comerciais").resolve(), (root / "supabase").resolve()]
     traces = sorted((root / ".next").rglob("*.nft.json"))
     problems = []
     if not traces:
@@ -29,14 +29,14 @@ def verify_public_build(root: Path = REPO) -> dict:
     for path in public.rglob("*"):
         if path.is_symlink():
             problems.append(f"Link simbólico em public exige remoção/revisão: {path.relative_to(root)}")
-        elif path.is_file() and (path.suffix.lower() in {".py", ".pyc", ".csv"} or path.name.startswith(".env")):
+        elif path.is_file() and (path.suffix.lower() in {".py", ".pyc", ".csv", ".sql"} or path.name.startswith(".env")):
             problems.append(f"Arquivo administrativo/comercial proibido em public: {path.relative_to(root)}")
     manifest = root / ".next/server/app-paths-manifest.json"
     if manifest.exists():
         try:
             routes = json.loads(manifest.read_text(encoding="utf-8"))
             for route in routes:
-                if route.startswith(("/tools/conciliacao", "/dados-comerciais")):
+                if route.startswith(("/tools/conciliacao", "/dados-comerciais", "/supabase")):
                     problems.append("Rota pública para conteúdo administrativo/comercial")
         except (OSError, ValueError, TypeError):
             problems.append("Manifesto de rotas ilegível")

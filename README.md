@@ -1,6 +1,18 @@
 # Agylli Cosméticos
 
-Site institucional e comercial da Agylli, com as Etapas 1 e 2 entregues e preparação operacional da Etapa 3. Apresenta a marca, separa varejo e atacado e prepara as futuras integrações. **Não há checkout, pagamentos, gestão de estoque ou coleta de cadastros neste projeto.**
+Site institucional e comercial da Agylli, com as Etapas 1 e 2 entregues e preparação operacional da Etapa 3. Apresenta a marca, separa varejo e atacado e prepara as futuras integrações. **O varejo segue na Nuvemshop. O portal de revendedores acrescenta cadastro autenticado, solicitações para a loja física e painel da equipe; não há checkout, pagamento ou estoque paralelo.**
+
+## Portal do revendedor — implementação de 11/11/2026
+
+[Guia de ativação, segurança e homologação](docs/portal-revendedor.md) · [Relatório, testes e capturas](docs/entrega-portal-revendedor-2026-11-11.md).
+
+- Cadastro, confirmação de e-mail, login, saída e recuperação de senha com Supabase Auth.
+- Aprovação manual pela equipe; painel pessoal com solicitações, compras confirmadas e materiais privados.
+- Solicitação para atendimento físico, com rastreio de status, persistência transacional e aviso por e-mail; falha de envio não perde o pedido.
+- Painel `/equipe` para cadastros, atendimento e publicação de materiais autorizados.
+- Schema/RLS em `supabase/migrations/`; testes locais com PostgreSQL PGlite e dados fictícios.
+
+O projeto Supabase existente precisa receber a migração e as variáveis; serviços remotos, histórico real, envio de e-mail e publicação do portal ainda requerem ativação/homologação. O institucional continua funcionando sem essas credenciais. Preserve os relatórios anteriores como registros históricos.
 
 ## Etapa 2 — preparação comercial
 
@@ -71,6 +83,11 @@ Para configurar serviços reais, copie `.env.example` para `.env.local`, preench
 | `/onde-atuamos` | Regiões, mapa institucional e contatos por unidade |
 | `/contato?assunto=revenda` | Orientação para quem solicita acesso B2B |
 | `/loja-em-breve` | Destino seguro enquanto a loja de varejo não foi configurada |
+| `/revendedor/entrar` e `/revendedor/cadastro` | Acesso e solicitação de cadastro |
+| `/revendedor` | Painel pessoal, pedidos, histórico, materiais e benefícios |
+| `/revendedor/solicitar` e `/revendedor/pedidos/[id]` | Solicitação de produtos e acompanhamento |
+| `/equipe` e `/equipe/pedidos/[id]` | Aprovação, atendimento, materiais e avisos; somente equipe autorizada |
+| `/auth/callback` e `/auth/confirm` | Retornos oficiais de autenticação, sem redirecionamento externo arbitrário |
 
 ## Comandos
 
@@ -100,10 +117,11 @@ src/
     ui/                elementos reutilizáveis
   config/              marca, conteúdo comercial, URLs e contatos
   data/                catálogo e categorias demonstrativos
-  integrations/        cliente Supabase opcional
+  integrations/        Supabase SSR e cliente opcional, adaptador de e-mail
   lib/                 validação e construção de URLs
 public/images/         logos originais, fotos locais e procedência dos ativos
-tests/{unit,e2e}/      testes funcionais
+supabase/migrations/  schema/RLS do portal; aplicar somente em ambiente autorizado
+tests/{unit,e2e}/      testes funcionais e PostgreSQL local fictício
 docs/                  arquitetura, integrações, deploy, roadmap e evidências
 .github/workflows/     CI
 .vscode/               recomendações e tarefas para VS Code

@@ -67,3 +67,7 @@ Procedimento: [Nuvemshop](nuvemshop.md). Ainda não há catálogo completo, chec
 - Campanhas/CMS: adicionar páginas conforme demanda, reutilizando os componentes atuais e a identidade aprovada.
 
 Não há previsão de checkout próprio, sistema paralelo de clientes ou controle local de estoque. Prazos e custos das próximas integrações dependem das definições comerciais e do acesso aos serviços; não foram estimados nesta etapa.
+
+## Portal de revendedores — escopo aprovado em 11/11/2026
+
+Cadastro autenticado, aprovação manual, solicitações para atendimento físico, acompanhamento, histórico confirmado, benefícios, biblioteca privada e painel da equipe/e-mail. [Implementação e ativação](portal-revendedor.md). Preparar e homologar o projeto Supabase existente, configurar envio e validar dois usuários antes de publicar. Receber amostras do histórico físico e materiais autorizados; não gerar dados demonstrativos como compras reais. Varejo Nuvemshop e conciliação CSV permanecem preservados.

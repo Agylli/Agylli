@@ -20,6 +20,7 @@ export const locationContent = {
   unitsTitle: "Encontre a Agylli.",
   coverage: "Estamos em Cândido Sales, na Região de Vitória da Conquista. Consulte nossa equipe pelo WhatsApp sobre atendimento à sua localidade e condições de entrega.",
   contactIntroduction: "Converse com nossa equipe em Cândido Sales. Podemos ajudar com produtos, atendimento e informações para revendedores.",
+  resellerPortalNotice: "Crie seu acesso na área do revendedor ou entre para acompanhar suas solicitações. Nossa equipe em Cândido Sales pode ajudar com aprovação, documentação e condições de atendimento.",
   resellerNotice: "Para solicitar informações sobre cadastro e revenda, fale com nossa unidade de Cândido Sales pelo WhatsApp. O cadastro online está em preparação; este site não coleta documentos nem confirma solicitações de acesso.",
 } as const;
 

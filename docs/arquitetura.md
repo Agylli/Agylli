@@ -58,3 +58,7 @@ flowchart LR
 Não há seta de sincronização automática SysAla → Nuvemshop. O utilitário registra auditoria de retratos e decisões, não mantém saldo contínuo nem substitui os sistemas oficiais. Movimentos online ainda não refletidos no ERP precisam ser declarados no registro conferido; não são deduzidos da diferença entre dois arquivos de saldo.
 
 Procedimento diário, papéis, janela de importação e resolução de diferenças: [conciliação manual](conciliacao-manual.md).
+
+## Portal de relacionamento — 11/11/2026
+
+Novo escopo aprovado: Supabase Auth e banco com RLS para revendedores, aprovação manual, solicitações destinadas à loja física, materiais privados e painel da equipe com e-mail. Varejo/checkout seguem na Nuvemshop. O portal não calcula preços nem controla saldo. Histórico SysAla depende de CSV autorizado e vinculação explícita ao UUID do cliente. [Arquitetura, schema e limites](portal-revendedor.md). As premissas de etapas anteriores sobre ausência de cadastros são históricas para este novo escopo.

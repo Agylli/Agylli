@@ -93,3 +93,7 @@ Para ativar os destinos reais, preencher `NEXT_PUBLIC_NUVEMSHOP_URL` e `NEXT_PUB
 Supabase permanece opcional: `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, exclusivamente com chave publicável. Nunca usar chave secreta ou `service_role` em variável pública. Mudanças em `NEXT_PUBLIC_*` exigem novo build/deploy porque os valores são incorporados à aplicação.
 
 Conferir conteúdo institucional, contatos, condições comerciais e políticas antes da operação comercial. A publicação do ambiente Codex é independente do deploy do site; não foi necessária nova publicação do ambiente nesta etapa.
+
+## Publicação do portal do revendedor
+
+Seguir [ativação do portal](portal-revendedor.md): aplicar schema/RLS em ambiente autorizado, configurar Auth/Storage e as variáveis do Supabase/e-mail; cadastrar o primeiro funcionário por UUID confirmado. Validar em Preview antes da publicação autorizada em Production. A migração não é executada automaticamente por build/deploy, e arquivos `supabase/` não entram no pacote de produção. Sem credenciais o institucional funciona e a área informa preparação. O destinatário inicial aprovado é `adm.agylli@gmail.com`, substituível por `contato@agylli.com` em `RESELLER_NOTIFICATION_EMAIL`.

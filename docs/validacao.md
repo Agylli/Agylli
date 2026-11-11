@@ -127,3 +127,7 @@ Lint, build, TypeScript, os 11 testes unitários e os 24 testes de navegador pas
 - Não foi feita medição de Core Web Vitals em produção nem testes em dispositivos físicos, Safari ou Firefox. Axe e Chromium não substituem auditoria manual completa de acessibilidade.
 - O acesso à referência Sallve foi bloqueado pela política de rede. Nenhum texto ou ativo desse site foi copiado.
 - `install_script` e `start_skill` foram persistidos no rascunho do ambiente. Eles não publicam nem aplicam alterações de infraestrutura automaticamente. A restauração em uma nova tarefa ainda não foi testada; revisar/salvar e publicar o ambiente são ações separadas no produto.
+
+## Portal de revendedores — 11/11/2026
+
+[Relatório e limites](entrega-portal-revendedor-2026-11-11.md): 43 testes Vitest, 45 Python e 87 E2E aprovados; lint, build, TypeScript e 23 traces aprovados. Funções/RLS testadas em PostgreSQL local com fixtures, envio com provedor simulado e E2E sem credenciais. Autenticação, aprovação, armazenamento e e-mail reais ainda dependem da configuração/homologação do Supabase e do provedor. Nenhuma compra, envio real ou migração remota executados.

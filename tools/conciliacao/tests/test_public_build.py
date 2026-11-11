@@ -27,7 +27,7 @@ class PublicBuildTests(unittest.TestCase):
         self.assertTrue(verify_public_build(self.root)["problems"])
 
     def test_private_and_admin_references_block(self):
-        for path in ["../../tools/conciliacao/audit.py", "../../dados-comerciais/FICTICIO.csv"]:
+        for path in ["../../tools/conciliacao/audit.py", "../../dados-comerciais/FICTICIO.csv", "../../supabase/migrations/FICTICIO.sql"]:
             with self.subTest(path=path):
                 self.trace.write_text(json.dumps({"files": [path]}))
                 self.assertTrue(verify_public_build(self.root)["problems"])
@@ -39,7 +39,7 @@ class PublicBuildTests(unittest.TestCase):
                 self.assertTrue(verify_public_build(self.root)["problems"])
 
     def test_public_sensitive_file_or_symlink_blocks(self):
-        for name in ["FICTICIO.csv", "FICTICIO.py", ".env.FICTICIO"]:
+        for name in ["FICTICIO.csv", "FICTICIO.py", "FICTICIO.sql", ".env.FICTICIO"]:
             path = self.root / "public" / name
             path.write_text("FICTICIO")
             self.assertTrue(verify_public_build(self.root)["problems"])
@@ -53,7 +53,7 @@ class PublicBuildTests(unittest.TestCase):
 
     def test_private_app_routes_block(self):
         manifest = self.root / ".next/server/app-paths-manifest.json"
-        for route in ["/dados-comerciais/FICTICIO/page", "/tools/conciliacao/page"]:
+        for route in ["/dados-comerciais/FICTICIO/page", "/tools/conciliacao/page", "/supabase/migrations/page"]:
             manifest.write_text(json.dumps({route: "FICTICIO.js"}))
             self.assertTrue(verify_public_build(self.root)["problems"])
 
