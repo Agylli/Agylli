@@ -52,11 +52,12 @@ export default async function ContactPage({
                 ? locationContent.resellerPortalNotice
                 : locationContent.resellerNotice}
             </p>
-            {portalReady && (
-              <Link href={resellerPortal.home} className="inline-link">
-                Acessar minha área de revendedor
-              </Link>
-            )}
+            <Link href={resellerPortal.signup} className="inline-link">
+              Fazer meu cadastro de revendedor
+            </Link>
+            <Link href={resellerPortal.login} className="inline-link">
+              Acessar minha área de revendedor
+            </Link>
           </aside>
         )}
         <LocationCards />

@@ -70,10 +70,10 @@ img { display: block; }
 .footer-logo { background: var(--color-white); padding: 12px 16px; border-radius: 5px; }
 .footer-logo .brand-logo-image { width: 180px; }
 .desktop-nav { display: flex; align-items: center; gap: clamp(18px, 2.2vw, 34px); margin-left: auto; }
-.desktop-nav a { font-size: 15px; padding-block: 10px; position: relative; }
+.desktop-nav a { font-size: 15px; padding-block: 10px; position: relative; white-space: nowrap; }
 .desktop-nav a::after { content: ""; position: absolute; bottom: 5px; left: 0; width: 0; height: 1px; background: currentColor; transition: width .2s; }
 .desktop-nav a:hover::after, .desktop-nav a[aria-current]::after { width: 100%; }
-.header-shop { border: 1px solid var(--color-ink); padding: 10px 15px; border-radius: 4px; display: flex; align-items: center; gap: 16px; font-size: var(--text-small); margin-left: 16px; }
+.header-shop { border: 1px solid var(--color-ink); padding: 10px 15px; border-radius: 4px; display: flex; align-items: center; gap: 16px; font-size: var(--text-small); margin-left: 16px; white-space: nowrap; }
 .header-shop:hover { background: var(--color-brand-soft); }
 .menu-toggle { display: none; border: none; background: transparent; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
 .mobile-nav { display: none; }
@@ -246,6 +246,7 @@ details > p { padding-bottom: 24px; color: var(--color-muted); font-size: var(--
 .location-channels a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .location-actions { display: flex; flex-direction: column; align-items: start; gap: 12px; }
 .reseller-contact-note { border-left: 3px solid var(--color-brand); border-radius: 4px; padding: 24px; background: var(--color-brand-wash); margin-bottom: 30px; color: var(--color-muted); }
+.reseller-contact-note .inline-link { display: flex; width: fit-content; margin-top: 14px; }
 .additional-channels { margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
 .additional-channels h3 { width: 100%; }
 .region-callout { padding: 40px; margin-bottom: 78px; background: var(--color-sage); border-radius: 6px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
@@ -264,9 +265,9 @@ details > p { padding-bottom: 24px; color: var(--color-muted); font-size: var(--
 .coming-image img { object-fit: contain; background: var(--color-white); padding: 30px; }
 
 @media (min-width: 1600px) { .hero h1 { font-size: 68px; } }
+@media (max-width: 1200px) { .header-shop { display: none; } }
 @media (max-width: 1100px) {
   .desktop-nav { gap: 17px; }
-  .header-shop { display: none; }
   .hero-copy { padding-right: 0; }
   .hero-visual { min-height: 540px; }
   .hero-actions { gap: 8px; }

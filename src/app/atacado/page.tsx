@@ -10,7 +10,6 @@ import {
   wholesaleFaq,
   wholesaleSteps,
 } from "@/config/content";
-import { supabaseSettings } from "@/integrations/supabase/settings";
 import { resellerPortal } from "@/config/reseller";
 import { brand } from "@/config/brand";
 
@@ -22,19 +21,14 @@ export const metadata: Metadata = {
 };
 
 export default function WholesalePage() {
-  const portalReady = !!supabaseSettings();
-  const registrationHref = portalReady
-    ? resellerPortal.signup
-    : brand.links.wholesale;
   const faqs = wholesaleFaq.map((faq) => ({
     ...faq,
-    answer:
-      portalReady && "portalAnswer" in faq ? faq.portalAnswer : faq.answer,
+    answer: "portalAnswer" in faq ? faq.portalAnswer : faq.answer,
   }));
   const steps = wholesaleSteps.map((step) => ({
     ...step,
     description:
-      portalReady && "portalDescription" in step
+      "portalDescription" in step
         ? step.portalDescription
         : step.description,
   }));
@@ -45,7 +39,7 @@ export default function WholesalePage() {
         title="Beleza que abre possibilidades."
       >
         <p>{wholesaleContent.introduction}</p>
-        <ActionLink href={registrationHref}>{brand.labels.request}</ActionLink>
+        <ActionLink href={resellerPortal.signup}>{brand.labels.request}</ActionLink>
         <p className="small-note">{wholesaleContent.registrationNote}</p>
       </PageIntro>
       <section className="section container" aria-labelledby="benefits-heading">
@@ -80,7 +74,7 @@ export default function WholesalePage() {
               <em>parte disso?</em>
             </h2>
             <p>{wholesaleContent.stepsIntroduction}</p>
-            <ActionLink href={registrationHref}>
+            <ActionLink href={resellerPortal.signup}>
               {brand.labels.request}
             </ActionLink>
             <aside className="registration-note">

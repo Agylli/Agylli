@@ -64,6 +64,21 @@ test("entrada do revendedor preserva contato e permite conhecer cadastro e recup
   await page.getByRole("link", { name: "Esqueci minha senha" }).click();
   await expect(page).toHaveURL(/\/revendedor\/recuperar-senha$/);
 });
+test("home, rodape e menu oferecem cadastro e entrada diretos", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: "Quero ser revendedor", exact: true }).click();
+  await expect(page).toHaveURL(/\/revendedor\/cadastro$/);
+  await page.getByRole("navigation", { name: "Canais de compra" }).getByRole("link", { name: "Cadastro de revendedor", exact: true }).click();
+  await expect(page).toHaveURL(/\/revendedor\/cadastro$/);
+  const menu = page.getByRole("button", { name: "Abrir menu" });
+  const mobile = await menu.isVisible();
+  if (mobile) await menu.click();
+  const navigation = page.getByRole("navigation", { name: mobile ? "Navegação móvel" : "Navegação principal", exact: true });
+  await navigation.getByRole("link", { name: "Entrar", exact: true }).click();
+  await expect(page).toHaveURL(/\/revendedor\/entrar$/);
+  await page.getByRole("link", { name: "Ainda não tenho cadastro" }).click();
+  await expect(page).toHaveURL(/\/revendedor\/cadastro$/);
+});
 test("retorno de autenticacao invalido nao redireciona para dominio externo", async ({
   request,
 }) => {

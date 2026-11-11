@@ -4,7 +4,7 @@ Escopo aprovado em 11/11/2026. A configuração vigente confirma somente a unida
 
 ## Fluxo implementado
 
-1. `/atacado` oferece entrada para `/revendedor/entrar` e `/revendedor/cadastro`, preservando os contatos e destinos externos existentes.
+1. O menu “Seja Revendedor”, a chamada “Quero ser revendedor” da homepage e os botões “Solicitar acesso ao atacado” levam diretamente a `/revendedor/cadastro`, mesmo antes da configuração do Supabase. O menu “Entrar”, o rodapé e `/atacado` oferecem entrada para `/revendedor/entrar`. Os contatos e o acesso externo B2B, quando configurado, continuam disponíveis. A falta das variáveis bloqueia os formulários com uma mensagem de preparação; não esconde os links de acesso.
 2. Cadastro com nome, e-mail, senha de no mínimo 12 caracteres, telefone e unidade. Confirmação do e-mail no Supabase e aprovação manual no painel.
 3. Revendedor aprovado acessa resumo, pedidos, compras confirmadas, catálogos/materiais, benefícios e dados da conta. Recuperação de senha e saída estão incluídas.
 4. `/revendedor/solicitar` recebe produtos pelo nome/código e quantidade; não usa o catálogo ilustrativo como dado comercial. Unidade, produtos e reconhecimento das condições são obrigatórios. Não há pagamento, preço calculado, reserva nem baixa de saldo.
@@ -49,6 +49,18 @@ Para contas de revendedores já existentes no Auth, não duplicar usuários: con
 | `RESELLER_NOTIFICATION_EMAIL` | Destino inicial aprovado `adm.agylli@gmail.com`; substituir por `contato@agylli.com` quando a Agylli confirmar |
 
 Nunca enviar chaves por chat nem versionar `.env.local`. A configuração pública Supabase não é suficiente para enviar os avisos da loja; o worker requer as variáveis de servidor. Sem envio configurado, o pedido continua registrado e o painel informa que o aviso não tem envio confirmado. Não criar conta, contratar plano, verificar domínio, alterar DNS ou enviar e-mail real automaticamente como parte da instalação do código.
+
+### Quando aparece “O acesso online está em preparação”
+
+Essa mensagem aparece quando `NEXT_PUBLIC_SUPABASE_URL` ou a chave moderna `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` não está configurada corretamente no build. Aplicar a migration não preenche variáveis da Vercel. Os links de cadastro e entrada continuam disponíveis, mas os formulários ficam desabilitados.
+
+1. No Supabase, abrir **Settings → API Keys** e copiar a chave publicável que começa com `sb_publishable_`. Não usar `sb_secret_` nem `service_role` em uma variável pública.
+2. Na Vercel, abrir **projeto agylli → Settings → Environment Variables** e salvar a chave como `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` no ambiente **Production**.
+3. Conferir também `NEXT_PUBLIC_SUPABASE_URL=https://jblvhlppkvpovqodpgqd.supabase.co` e `NEXT_PUBLIC_SITE_URL=https://www.agylli.com`.
+4. Aplicar novo build/redeploy depois de salvar. A publicação precisa conter as variáveis; recarregar um build anterior não basta.
+5. No Supabase Auth, conferir **URL Configuration**: Site URL `https://www.agylli.com`, com retornos `https://www.agylli.com/auth/callback` e `https://www.agylli.com/auth/confirm` autorizados. Aplicar a migration antes de testar cadastros reais.
+
+Chaves e configurações do provedor de notificações são uma etapa separada; não são necessárias para exibir o formulário de cadastro. Cadastro, confirmação e recuperação reais ainda precisam de homologação após essa configuração.
 
 O adaptador usa `POST https://api.resend.com/emails`, corpo de texto simples e chave de idempotência derivada do ID da solicitação. Registrar `sent` exige recibo do provedor. Claim transacional evita dois envios simultâneos; falha recebe código operacional curto, sem dados pessoais na mensagem de erro. Após interrupção prolongada e antes de reenviar, conferir o provedor e sua janela vigente de idempotência. E-mail aceito pelo provedor não comprova leitura ou recebimento na caixa de entrada.
 

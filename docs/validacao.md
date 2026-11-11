@@ -1,5 +1,11 @@
 # Validação — Agylli Cosméticos
 
+## Acessos do revendedor — 11/11/2026
+
+Corrigidos os destinos dos botões de cadastro para `/revendedor/cadastro`, independentemente das credenciais. Menu, campanha, rodapé, atacado e contato oferecem entrada direta; login e ajuda continuam disponíveis. A URL B2B externa, quando configurada, permanece como opção adicional.
+
+Passaram 48 testes unitários e os 90 testes E2E em 375, 768 e 1440 px, incluindo a navegação até cadastro, login e recuperação. Lint, build, TypeScript e gate dos 23 traces aprovados. Os testes utilizam serviços simulados ou ausência de credenciais; não comprovam cadastro ou envio de e-mail reais. A mensagem de preparação mantém os formulários desabilitados até configurar a chave publicável do Supabase e reconstruir a aplicação.
+
 ## Etapa 5 — consolidação e proteção do pacote público
 
 Em 5 de novembro de 2026, passaram 45 testes Python (incluindo os 40 do utilitário preservados), 14 testes unitários do site e 36 testes de navegador: 95 testes locais. Lint, build, TypeScript e o gate `check:public-build` passaram. Foram conferidos 13 traces sem referências ao utilitário/dados privados; os caminhos administrativos/comerciais retornaram 404 no servidor local.

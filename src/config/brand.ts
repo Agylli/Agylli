@@ -1,4 +1,5 @@
 import { emailAddress, publicHttpsUrl, retailUrl, whatsappUrl, wholesaleUrl } from "@/lib/urls";
+import { resellerPortal } from "@/config/reseller";
 
 export const brand = {
   name: "Agylli Cosméticos",
@@ -24,10 +25,11 @@ export const brand = {
   navigation: [
     { label: "Início", href: "/" },
     { label: "Produtos", href: "/#produtos" },
-    { label: "Seja Revendedor", href: "/atacado" },
+    { label: "Seja Revendedor", href: resellerPortal.signup },
     { label: "Sobre Nós", href: "/sobre" },
     { label: "Onde atuamos", href: "/onde-atuamos" },
     { label: "Contato", href: "/contato" },
+    { label: "Entrar", href: resellerPortal.login },
   ],
   labels: { retail: "Comprar no varejo", wholesale: "Comprar no atacado", request: "Solicitar acesso ao atacado" },
   provisional: "Seleção ilustrativa. Consulte catálogo, preços e disponibilidade nos canais oficiais.",

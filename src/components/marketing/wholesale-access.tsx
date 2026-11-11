@@ -8,10 +8,6 @@ import { wholesaleContent } from "@/config/content";
 /** Campaign entry and discoverable access to the authenticated reseller portal. */
 export function WholesaleAccess() {
   const portalReady = !!supabaseSettings();
-  const online = portalReady || brand.links.wholesale.startsWith("https://");
-  const registrationHref = portalReady
-    ? resellerPortal.signup
-    : brand.links.wholesale;
   const content = wholesaleContent.access;
 
   return (
@@ -26,22 +22,25 @@ export function WholesaleAccess() {
         <p>
           {portalReady
             ? "Crie seu acesso e acompanhe pedidos, compras confirmadas e materiais da sua parceria. Os cadastros são analisados pela equipe Agylli."
-            : online
-              ? content.available
-              : content.preparing}
+            : content.preparing}
         </p>
       </div>
       <div className="wholesale-access-actions">
-        <ActionLink href={registrationHref}>{brand.labels.request}</ActionLink>
+        <ActionLink href={resellerPortal.signup}>{brand.labels.request}</ActionLink>
         <p className="small-note">
-          {online ? content.availableNote : content.preparingNote}
+          {portalReady ? content.availableNote : content.preparingNote}
         </p>
-        <Link href="/revendedor/entrar" className="inline-link">
+        <Link href={resellerPortal.login} className="button button-secondary">
           Já sou revendedor: acessar minha área
         </Link>
-        <Link href="/revendedor/cadastro" className="inline-link">
-          Conhecer o cadastro online
+        <Link href="/contato?assunto=revenda" className="inline-link">
+          Preciso de ajuda com meu cadastro
         </Link>
+        {brand.links.wholesale.startsWith("https://") && (
+          <ActionLink href={brand.links.wholesale} variant="text">
+            Acessar atacado na Nuvemshop
+          </ActionLink>
+        )}
         <Link href="/onde-atuamos" className="inline-link">
           {content.locationAction}
         </Link>

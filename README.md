@@ -12,7 +12,7 @@ Site institucional e comercial da Agylli, com as Etapas 1 e 2 entregues e prepar
 - Painel `/equipe` para cadastros, atendimento e publicação de materiais autorizados.
 - Schema/RLS em `supabase/migrations/`; testes locais com PostgreSQL PGlite e dados fictícios.
 
-O projeto Supabase existente precisa receber a migração e as variáveis; serviços remotos, histórico real, envio de e-mail e publicação do portal ainda requerem ativação/homologação. O institucional continua funcionando sem essas credenciais. Preserve os relatórios anteriores como registros históricos.
+O código do portal está publicado. O projeto Supabase existente precisa receber a migração e as variáveis; serviços remotos, histórico real e envio de e-mail ainda requerem ativação/homologação. O menu “Seja Revendedor” e as chamadas de cadastro levam a `/revendedor/cadastro`; “Entrar” leva a `/revendedor/entrar`. O institucional continua funcionando sem essas credenciais. Preserve os relatórios anteriores como registros históricos.
 
 ## Etapa 2 — preparação comercial
 

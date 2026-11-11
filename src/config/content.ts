@@ -36,7 +36,7 @@ export const wholesaleContent = {
     eyebrow: "CADASTRO DE REVENDEDORES",
     title: "Vamos começar essa parceria?",
     available: "Acesse a área de revenda para conhecer o cadastro e as orientações de acesso. A aprovação e as condições comerciais são confirmadas pela equipe Agylli.",
-    preparing: "Quer revender com CPF ou CNPJ? Converse com nossa equipe em Cândido Sales para conhecer o cadastro, os produtos e as condições de atendimento.",
+    preparing: "Conheça a página de cadastro e a área do revendedor. Enquanto o acesso online é preparado, nossa equipe em Cândido Sales orienta sobre os produtos e as condições de atendimento.",
     availableNote: "Cadastro e acesso pela área de revenda.",
     preparingNote: "Cadastro online em preparação. Atendimento em Cândido Sales pelo WhatsApp.",
     locationAction: "Encontre nossa unidade",

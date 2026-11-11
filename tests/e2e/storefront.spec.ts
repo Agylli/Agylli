@@ -40,9 +40,14 @@ test("varejo e atacado possuem destinos funcionais sem configuração", async ({
   await expect(page).toHaveURL(/\/atacado$/);
   const access = page.getByRole("region", { name: "Vamos começar essa parceria?" });
   await expect(access).toHaveAttribute("id", "cadastro-atacado");
-  await expect(access.getByRole("link", { name: "Solicitar acesso ao atacado", exact: true })).toHaveAttribute("href", "/contato?assunto=revenda");
+  await expect(access.getByRole("link", { name: "Solicitar acesso ao atacado", exact: true })).toHaveAttribute("href", "/revendedor/cadastro");
   await expect(access).toContainText("Cadastro online em preparação");
   await page.getByRole("link", { name: "Solicitar acesso ao atacado", exact: true }).first().click();
+  await expect(page).toHaveURL(/\/revendedor\/cadastro$/);
+  await expect(page.getByLabel("Nome completo")).toBeVisible();
+  await expect(page.getByLabel("E-mail", { exact: true })).toBeDisabled();
+  await expect(page.getByRole("status")).toContainText("em preparação");
+  await page.getByRole("link", { name: "Preciso de ajuda com meu acesso" }).click();
   await expect(page).toHaveURL(/\/contato\?assunto=revenda$/);
   await expect(page.getByRole("status")).toContainText("fale com nossa unidade de Cândido Sales pelo WhatsApp");
   await expect(page.locator("form")).toHaveCount(0);
@@ -99,7 +104,8 @@ test("menu, teclado, FAQ e página inexistente", async ({ page }) => {
   } else {
     await page.getByRole("navigation", { name: "Navegação principal" }).getByRole("link", { name: "Seja Revendedor" }).click();
   }
-  await expect(page).toHaveURL(/\/atacado$/);
+  await expect(page).toHaveURL(/\/revendedor\/cadastro$/);
+  await page.goto("/atacado");
   await page.getByText("Existe pedido mínimo ou desconto definido?").click();
   await expect(page.locator("details[open]")).toContainText("descontos a partir de 30%");
   await expect(page.locator("details[open]")).toContainText("não representa lucro garantido");
