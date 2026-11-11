@@ -131,3 +131,7 @@ Lint, build, TypeScript, os 11 testes unitários e os 24 testes de navegador pas
 ## Portal de revendedores — 11/11/2026
 
 [Relatório e limites](entrega-portal-revendedor-2026-11-11.md): 43 testes Vitest, 45 Python e 87 E2E aprovados; lint, build, TypeScript e 23 traces aprovados. Funções/RLS testadas em PostgreSQL local com fixtures, envio com provedor simulado e E2E sem credenciais. Autenticação, aprovação, armazenamento e e-mail reais ainda dependem da configuração/homologação do Supabase e do provedor. Nenhuma compra, envio real ou migração remota executados.
+
+## Regressão de empacotamento — publicação de 11/11/2026
+
+O filtro sem ancoragem excluía também os adaptadores de runtime `src/integrations/supabase/`, causando falha no build remoto. O teste reproduziu a ausência desses arquivos antes da correção. A regra passou a `/supabase/`, restrita à raiz; dois testes com parser gitignore verificam preservação do runtime e exclusão de migrações, segredos e ferramenta local.

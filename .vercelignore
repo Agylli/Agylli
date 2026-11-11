@@ -17,4 +17,4 @@ dados-comerciais
 tools/conciliacao
 __pycache__
 
-supabase
+/supabase/
