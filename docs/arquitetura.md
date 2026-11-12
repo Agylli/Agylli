@@ -2,7 +2,7 @@
 
 ## Limite do sistema
 
-Este projeto é o site principal e de marketing da Agylli. A Nuvemshop será responsável pela jornada de compra, checkout, pagamento e operação B2B. O site apresenta a marca e encaminha os públicos. O catálogo de quatro itens é exclusivamente demonstrativo; não representa o catálogo comercial completo.
+Este projeto reúne o institucional e o portal de relacionamento da Agylli. Varejo, checkout e pagamento online ficam na Nuvemshop. No escopo escolhido em 12/11/2026, a revenda usa catálogo próprio e solicitações para atendimento pela loja física/WhatsApp; a equipe confirma descontos e condições manualmente. Os quatro itens da homepage continuam exclusivamente ilustrativos, separados do catálogo comercial privado.
 
 ## Camadas
 
@@ -10,17 +10,17 @@ Este projeto é o site principal e de marketing da Agylli. A Nuvemshop será res
 2. `components`: apresentação por contexto. Elementos de marketing podem compor futuras campanhas e páginas de captura. `PageIntro` e `ActionLink` são blocos compartilhados.
 3. `config` e `data`: identidade e conteúdo editável separados da apresentação. Não usar esses arquivos como fonte de preços ou estoque.
 4. `lib`: validação de URLs e contatos. Destinos comerciais aceitam apenas HTTPS sem credenciais. Valores ausentes ou inválidos produzem fallbacks internos.
-5. `integrations`: adaptadores opcionais. O Supabase é inicializado de forma lazy somente quando solicitado, nunca no caminho de renderização atual.
+5. `integrations`: adaptadores opcionais. O institucional não depende do Supabase para renderizar; páginas privadas usam Auth, banco e armazenamento com RLS.
 
 ## Decisões
 
-- Next.js App Router, TypeScript estrito e Server Components por padrão. Menu e filtros são os únicos componentes interativos no cliente.
+- Next.js App Router, TypeScript estrito e Server Components por padrão. Menu, filtros, formulários e seleção de produtos usam interatividade no cliente quando necessária.
 - Filtros usam query string (`?categoria=...`) e links reais, permitindo compartilhamento, voltar/avançar e navegação acessível. Não simulam uma busca no catálogo real.
 - Tailwind CSS v4 com `@theme` centralizado e classes semânticas de composição para manter a identidade legível. Fontes servidas localmente por Fontsource.
 - Fotografias reais de referência em WebP local e `next/image` para otimização e preload do hero. Logos originais em arquivos locais. Os fornecedores não são consultados em runtime; a seleção ilustrativa não sincroniza estoque, preços ou pedidos.
 - SEO inclui idioma, título por página, description, Open Graph, robots e sitemap. Até definir `NEXT_PUBLIC_SITE_URL`, o site permanece `noindex`. A Vercel também deve proteger previews de indexação.
-- Cabeçalhos básicos incluem `nosniff`, `DENY`, política de referência e bloqueio de câmera/microfone/geolocalização. Não há analytics nem cookies de autenticação nesta etapa.
-- Sem formulários de dados pessoais, banco, migrações, sessões, checkout, carrinho ou APIs privadas. Nenhum botão informa um envio que não aconteceu.
+- Cabeçalhos básicos incluem `nosniff`, `DENY`, política de referência e bloqueio de câmera/microfone/geolocalização. O portal usa cookies de autenticação; analytics continuam inativos.
+- Formulários, sessões e tabelas privadas atendem ao escopo aprovado do portal, com RLS. A seleção de produtos registra solicitações; não há checkout, pagamento ou estoque no institucional. Nenhum botão informa um envio que não aconteceu.
 
 ## Crescimento
 
@@ -62,3 +62,7 @@ Procedimento diário, papéis, janela de importação e resolução de diferenç
 ## Portal de relacionamento — 11/11/2026
 
 Novo escopo aprovado: Supabase Auth e banco com RLS para revendedores, aprovação manual, solicitações destinadas à loja física, materiais privados e painel da equipe com e-mail. Varejo/checkout seguem na Nuvemshop. O portal não calcula preços nem controla saldo. Histórico SysAla depende de CSV autorizado e vinculação explícita ao UUID do cliente. [Arquitetura, schema e limites](portal-revendedor.md). As premissas de etapas anteriores sobre ausência de cadastros são históricas para este novo escopo.
+
+## Catálogo próprio e WhatsApp — 12/11/2026
+
+[Detalhamento e ativação](catalogo-revenda.md). `reseller_catalog_products` contém apenas apresentação e publicação de produtos. A função transacional `portal_create_catalog_request` resolve IDs ativos, preserva nome/código e mantém idempotência; a solicitação fica no mesmo histórico/painel e outbox existentes. WhatsApp é uma passagem explícita para atendimento humano, sem API de envio, pagamento ou confirmação de recebimento. Não há preço/estoque duplicado nem integração automática SysAla.

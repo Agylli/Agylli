@@ -5,12 +5,15 @@ import {
   type PortalRequest,
 } from "@/lib/reseller/types";
 import { locations } from "@/config/locations";
+import type { ReactNode } from "react";
 export function RequestDetail({
   order,
   events,
+  actions,
 }: {
   order: PortalRequest;
   events: { status: keyof typeof requestStatuses; created_at: string }[];
+  actions?: ReactNode;
 }) {
   const unit = locations.find((unit) => unit.id === order.unit_id);
   return (
@@ -25,6 +28,7 @@ export function RequestDetail({
           {requestStatuses[order.status]}
         </span>
       </div>
+      {actions}
       <section className="portal-detail-card">
         <h2>Produtos solicitados</h2>
         <ul className="portal-items-list">

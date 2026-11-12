@@ -1,5 +1,13 @@
 # Validação — Agylli Cosméticos
 
+## Catálogo próprio da revenda e WhatsApp — 12/11/2026
+
+Passaram 78 testes unitários, 102 E2E, lint, TypeScript, build e gate de 25 traces. Os novos testes PostgreSQL verificam as duas migrations em banco local: RLS de catálogo/fotos, publicação exclusiva da equipe, autoria protegida, SKU textual/único, seleção de IDs ativos, bloqueio de conteúdo forjado, quantidades, snapshot, idempotência e aviso transacional. A ação de registro é testada para preservar o pedido mesmo com falha no e-mail.
+
+Uma prévia local temporária com produtos exclusivamente fictícios foi exercitada em 375, 768 e 1440 px: busca, filtro, adição, quantidade, remoção, reconhecimento das condições, URL WhatsApp, acessibilidade automatizada e ausência de overflow. A prévia foi removida antes do build; o manifesto e os E2E confirmam 404 para ela e para a migration. Capturas dos componentes de teste em `screenshots/catalogo-revenda-local-*.png`.
+
+Não foi aplicada migration no Supabase remoto, cadastrado produto real, enviado WhatsApp/e-mail real, alterado estoque nem realizada compra. Ativação depende do schema adicional, produtos/fotos autorizados e homologação por uma conta de equipe e outra de revendedor aprovado. Guia: [catálogo de revenda](catalogo-revenda.md).
+
 ## Confirmação de e-mail e sessão — 12/11/2026
 
 A Agylli confirmou que o login normal da conta testada funciona; o aviso aparecia no retorno do link de confirmação. A interface agora diferencia o uso do link da entrada com senha e oferece reenvio sem repetir o cadastro. O Proxy usa a origem HTTPS configurada para manter os cookies do cadastro e o retorno no mesmo domínio; requisições POST no domínio incorreto não encaminham credenciais.

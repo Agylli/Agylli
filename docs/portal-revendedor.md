@@ -2,6 +2,8 @@
 
 Escopo aprovado em 11/11/2026. A configuração vigente confirma somente a unidade de Cândido Sales; cadastro e solicitações aceitam esse identificador. A Agylli solicitou cadastro simples, entrada/saída, acompanhamento, benefícios, catálogos e divulgação, além de solicitações de produtos atendidas pela loja física. A equipe receberá as solicitações por **e-mail e painel**, com aprovação manual dos cadastros.
 
+Em 12/11/2026 a Agylli escolheu [catálogo próprio de revenda e atendimento WhatsApp](catalogo-revenda.md). Essa extensão acrescenta publicação de produtos, seleção por IDs/quantidades e mensagem preparada após registrar a solicitação; descontos e condições ficam com a equipe. Requer a segunda migration e produtos/fotos reais.
+
 ## Fluxo implementado
 
 1. O menu “Seja Revendedor”, a chamada “Quero ser revendedor” da homepage e os botões “Solicitar acesso ao atacado” levam diretamente a `/revendedor/cadastro`, mesmo antes da configuração do Supabase. O menu “Entrar”, o rodapé e `/atacado` oferecem entrada para `/revendedor/entrar`. Os contatos e o acesso externo B2B, quando configurado, continuam disponíveis. A falta das variáveis bloqueia os formulários com uma mensagem de preparação; não esconde os links de acesso.

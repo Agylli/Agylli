@@ -44,10 +44,12 @@ export function PortalShell({
     ? [
         ["pedidos", "Solicitações"],
         ["cadastros", "Cadastros"],
+        ["produtos", "Produtos"],
         ["materiais", "Materiais"],
       ]
     : [
         ["inicio", "Visão geral"],
+        ["produtos", "Produtos para revenda"],
         ["pedidos", "Meus pedidos"],
         ["compras", "Compras confirmadas"],
         ["materiais", "Catálogos e materiais"],
@@ -81,7 +83,7 @@ export function PortalShell({
             {tabs.map(([id, label]) => (
               <Link
                 key={id}
-                href={`${base}?aba=${id}`}
+                href={id === "produtos" ? `${base}/produtos` : `${base}?aba=${id}`}
                 aria-current={tab === id ? "page" : undefined}
               >
                 {label}

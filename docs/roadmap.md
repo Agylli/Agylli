@@ -71,3 +71,7 @@ Não há previsão de checkout próprio, sistema paralelo de clientes ou control
 ## Portal de revendedores — escopo aprovado em 11/11/2026
 
 Cadastro autenticado, aprovação manual, solicitações para atendimento físico, acompanhamento, histórico confirmado, benefícios, biblioteca privada e painel da equipe/e-mail. [Implementação e ativação](portal-revendedor.md). Preparar e homologar o projeto Supabase existente, configurar envio e validar dois usuários antes de publicar. Receber amostras do histórico físico e materiais autorizados; não gerar dados demonstrativos como compras reais. Varejo Nuvemshop e conciliação CSV permanecem preservados.
+
+## Catálogo próprio da revenda — escolhido em 12/11/2026
+
+Implementação de vitrine privada, seleção de produtos/quantidades, registro no portal e preparação de mensagem WhatsApp para desconto manual. [Guia operacional e migration](catalogo-revenda.md). Próximos passos: aplicar schema adicional, publicar um piloto de produtos/fotos reais, aprovar conta de teste e homologar registro/painel/WhatsApp com a equipe. Depois, preparar cadastro em lote com arquivo real mapeado; não presumir layout SysAla/Nuvemshop. Sem preços, estoque ou checkout no portal.

@@ -1,4 +1,55 @@
 /* Area privada: utiliza os tokens e a identidade aprovados da Agylli. */
+.portal-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.portal-catalog-layout { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:24px; align-items:start; }
+.portal-catalog-layout > * { min-width:0; }
+.portal-catalog-layout.portal-catalog-preview { grid-template-columns:1fr; }
+.portal-catalog-filters { display:grid; grid-template-columns:minmax(0,1fr) minmax(130px,.6fr); gap:14px; margin-bottom:18px; }
+.portal-catalog-filters label { display:grid; gap:8px; font-size:15px; }
+.portal-catalog-filters input,.portal-catalog-filters select,.portal-whatsapp-message textarea { width:100%; min-width:0; border:1px solid var(--color-line); border-radius:5px; padding:12px; background:var(--color-white); color:var(--color-ink); font:inherit; font-size:16px; min-height:48px; }
+.portal-product-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:20px; }
+.portal-product-card { min-width:0; border:1px solid var(--color-line); border-radius:9px; overflow:hidden; background:var(--color-white); display:flex; flex-direction:column; }
+.portal-product-image { position:relative; aspect-ratio:1/1; background:var(--color-brand-wash); }
+.portal-product-image img { object-fit:contain; padding:16px; }
+.portal-product-placeholder { display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px; color:var(--color-muted); font-size:14px; height:100%; padding:20px; text-align:center; }
+.portal-product-copy { display:flex; flex-direction:column; flex:1; gap:10px; padding:20px; overflow-wrap:anywhere; }
+.portal-product-copy h3 { font-size:21px; line-height:1.3; }
+.portal-product-copy .eyebrow { font-size:12px; margin:0; }
+.portal-product-description { font-size:15px; line-height:1.6; color:var(--color-muted); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.portal-product-copy .button { margin-top:auto; width:100%; font-size:14px; padding:13px 10px; white-space:normal; text-align:center; }
+.portal-product-copy .button:disabled { opacity:.55; cursor:not-allowed; }
+.portal-cart { position:sticky; top:130px; max-height:calc(100dvh - 160px); overflow-y:auto; border:1px solid var(--color-line); background:var(--color-white); border-radius:9px; padding:22px; scroll-margin-top:110px; }
+.portal-cart-heading { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.portal-cart-heading h2 { font-size:23px; }
+.portal-cart-heading svg { color:var(--color-brand); }
+.portal-cart-empty { font-size:16px; line-height:1.7; color:var(--color-muted); margin-top:24px; }
+.portal-cart-items { display:grid; gap:18px; }
+.portal-cart-item { display:grid; gap:8px; padding-bottom:18px; border-bottom:1px solid var(--color-line); overflow-wrap:anywhere; }
+.portal-cart-item strong { font-size:16px; }
+.portal-cart-quantity { display:flex; align-items:end; gap:12px; }
+.portal-cart-quantity label { width:90px; flex-shrink:0; font-size:14px; }
+.portal-cart-quantity .portal-remove { min-height:48px; font-size:13px; }
+.portal-cart-mobile { display:none; }
+.portal-show-more { margin-top:24px; }
+.portal-catalog-help { margin-top:28px; }
+.portal-team-product { overflow-wrap:anywhere; }
+.portal-two-fields.portal-product-fields { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.portal-team-product > img { object-fit:contain; border-radius:6px; background:var(--color-paper); margin-bottom:14px; }
+.portal-whatsapp > p:not(.eyebrow) { margin-top:16px; line-height:1.7; }
+.portal-whatsapp .portal-actions { margin-block:22px; }
+.portal-whatsapp .button { white-space:normal; text-align:center; }
+.portal-whatsapp-message { margin-top:20px; }
+.portal-whatsapp-message summary { cursor:pointer; min-height:44px; text-decoration:underline; text-underline-offset:4px; }
+.portal-whatsapp-message textarea { margin-top:12px; font-size:14px; resize:vertical; }
+@media(max-width:1200px) {
+  .portal-catalog-layout { grid-template-columns:1fr; }
+  .portal-cart { position:static; max-height:none; }
+}
+@media(max-width:767px) {
+  .portal-product-grid,.portal-catalog-filters { grid-template-columns:1fr; }
+  .portal-two-fields.portal-product-fields { grid-template-columns:1fr; }
+  .portal-catalog-layout { padding-bottom:90px; }
+  .portal-cart-mobile { display:flex; position:fixed; bottom:14px; left:var(--gutter); right:var(--gutter); z-index:40; box-shadow:0 6px 24px #28282825; font-size:13px; white-space:normal; }
+}
 .portal-auth {
   display: grid;
   grid-template-columns: 1fr minmax(300px, 470px);

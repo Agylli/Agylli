@@ -20,9 +20,10 @@ export default async function NewRequestPage() {
         <p className="eyebrow">ESCOLHA SEU PRÓXIMO PASSO</p>
         <h1>Uma nova solicitação.</h1>
         <p>
-          Informe os produtos que você deseja. A loja física vai conferir,
-          separar e combinar a entrega com você.
+          Informe um produto pelo nome ou código. A loja física confere a
+          disponibilidade, o desconto e a entrega no atendimento.
         </p>
+        <Link href="/revendedor/produtos" className="inline-link">Prefiro escolher pelo catálogo de produtos</Link>
       </div>
       <ApprovalNotice status={session.profile?.status} />
       {session.profile?.status === "approved" && (

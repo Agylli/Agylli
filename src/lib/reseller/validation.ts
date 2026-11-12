@@ -53,16 +53,20 @@ export function signupInput(form: FormData) {
     throw new Error("Confirme o uso dos dados para cadastro e atendimento.");
   return { name, email, password, phone, unit };
 }
-export function requestInput(form: FormData): RequestInput {
+export function requestContextInput(form: FormData) {
   const unit = textField(form, "unit"),
     notes = textField(form, "notes"),
     token = textField(form, "token");
-  const names = form.getAll("product"),
-    quantities = form.getAll("quantity"),
-    skus = form.getAll("sku");
   if (!validUnit(unit)) throw new Error("Escolha uma unidade de atendimento.");
   if (!UUID_PATTERN.test(token))
     throw new Error("Atualize a página antes de enviar sua solicitação.");
+  if (notes.length > 1000) throw new Error("Use até 1.000 caracteres nas observações.");
+  if (form.get("acknowledgment") !== "on") throw new Error("Confirme que os valores, a disponibilidade e a entrega serão combinados com a loja.");
+  return { unit, notes, token };
+}
+export function requestInput(form: FormData): RequestInput {
+  const context = requestContextInput(form);
+  const names = form.getAll("product"), quantities = form.getAll("quantity"), skus = form.getAll("sku");
   if (
     !names.length ||
     names.length > resellerPortal.requestLimit ||
@@ -87,13 +91,7 @@ export function requestInput(form: FormData): RequestInput {
       );
     return { name, sku, quantity: Number(quantityText) };
   });
-  if (notes.length > 1000)
-    throw new Error("Use até 1.000 caracteres nas observações.");
-  if (form.get("acknowledgment") !== "on")
-    throw new Error(
-      "Confirme que os valores, a disponibilidade e a entrega serão combinados com a loja.",
-    );
-  return { unit, items, notes, token };
+  return { ...context, items };
 }
 export function canTransition(current: string, next: string): boolean {
   return (

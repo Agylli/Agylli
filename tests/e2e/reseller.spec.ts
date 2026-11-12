@@ -8,7 +8,9 @@ const routes = [
   "/revendedor/redefinir-senha",
   "/revendedor/reenviar-confirmacao",
   "/revendedor/solicitar",
+  "/revendedor/produtos",
   "/equipe",
+  "/equipe/produtos",
 ];
 for (const route of routes) {
   test(`${route}: portal responsivo, acessivel e seguro sem credenciais`, async ({
@@ -119,4 +121,9 @@ test("SQL de preparacao nao e servido pela aplicacao", async ({ request }) => {
   expect(await result.text()).not.toContain(
     "create table public.reseller_profiles",
   );
+  for (const path of ["/supabase/migrations/202611120001_reseller_catalog.sql", "/catalogo-preview-local"]) {
+    const response=await request.get(path);
+    expect(response.status()).toBe(404);
+    expect(await response.text()).not.toContain("Prévia local com dados fictícios");
+  }
 });

@@ -59,9 +59,9 @@ export default async function ResellerHome({
           {approved && (
             <Link
               className="button button-primary"
-              href="/revendedor/solicitar"
+              href="/revendedor/produtos"
             >
-              Nova solicitação <ArrowUpRight size={18} aria-hidden="true" />
+              Montar pedido <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           )}
         </div>
@@ -296,9 +296,9 @@ export default async function ResellerHome({
           {approved && (
             <Link
               className="button button-primary"
-              href="/revendedor/solicitar"
+              href="/revendedor/produtos"
             >
-              Solicitar produtos <ArrowUpRight size={18} aria-hidden="true" />
+              Escolher produtos <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           )}
         </div>

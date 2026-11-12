@@ -6,6 +6,7 @@ import { UUID_PATTERN } from "@/lib/reseller/validation";
 import { PortalShell, PortalUnavailable } from "@/components/reseller/shell";
 import { RequestDetail } from "@/components/reseller/request-detail";
 import type { PortalRequest } from "@/lib/reseller/types";
+import { RequestWhatsApp } from "@/components/reseller/request-whatsapp";
 export default async function RequestPage({
   params,
 }: {
@@ -37,6 +38,7 @@ export default async function RequestPage({
       <RequestDetail
         order={order.data as PortalRequest}
         events={events.data ?? []}
+        actions={<RequestWhatsApp order={order.data as PortalRequest} name={session.profile?.name ?? "revendedor Agylli"} siteUrl={process.env.NEXT_PUBLIC_SITE_URL} approved={session.profile?.status === "approved"} />}
       />
     </PortalShell>
   );

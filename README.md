@@ -11,6 +11,7 @@ Site institucional e comercial da Agylli, com as Etapas 1 e 2 entregues e prepar
 - Solicitação para atendimento físico, com rastreio de status, persistência transacional e aviso por e-mail; falha de envio não perde o pedido.
 - Painel `/equipe` para cadastros, atendimento e publicação de materiais autorizados.
 - Schema/RLS em `supabase/migrations/`; testes locais com PostgreSQL PGlite e dados fictícios.
+- [Catálogo próprio para revenda e WhatsApp](docs/catalogo-revenda.md): equipe publica produtos, revendedor monta a seleção e registra o pedido antes de abrir o WhatsApp. A loja confirma desconto e condições manualmente. Requer a migration adicional do catálogo e cadastro de produtos reais.
 
 O código do portal está publicado. O projeto Supabase existente precisa receber a migração e as variáveis; serviços remotos, histórico real e envio de e-mail ainda requerem ativação/homologação. O menu “Seja Revendedor” e as chamadas de cadastro levam a `/revendedor/cadastro`; “Entrar” leva a `/revendedor/entrar`. O institucional continua funcionando sem essas credenciais. Preserve os relatórios anteriores como registros históricos.
 
@@ -85,6 +86,8 @@ Para configurar serviços reais, copie `.env.example` para `.env.local`, preench
 | `/loja-em-breve` | Destino seguro enquanto a loja de varejo não foi configurada |
 | `/revendedor/entrar` e `/revendedor/cadastro` | Acesso e solicitação de cadastro |
 | `/revendedor` | Painel pessoal, pedidos, histórico, materiais e benefícios |
+| `/revendedor/produtos` | Catálogo privado e seleção de produtos para solicitação/WhatsApp |
+| `/equipe/produtos` | Publicação, edição e ocultação dos produtos de revenda |
 | `/revendedor/solicitar` e `/revendedor/pedidos/[id]` | Solicitação de produtos e acompanhamento |
 | `/equipe` e `/equipe/pedidos/[id]` | Aprovação, atendimento, materiais e avisos; somente equipe autorizada |
 | `/auth/callback` e `/auth/confirm` | Retornos oficiais de autenticação, sem redirecionamento externo arbitrário |
@@ -154,10 +157,10 @@ Contatos vigentes, corrigidos pela Agylli em 10/11/2026: somente Cândido Sales 
 | `NEXT_PUBLIC_SITE_URL` | Origem HTTPS oficial para SEO. Vazio mantém `noindex` e robots bloqueado |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | Canal geral adicional opcional; país + DDD + número, 10 a 15 dígitos |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | E-mail oficial confirmado; sem valor, não há link de e-mail |
-| `NEXT_PUBLIC_SUPABASE_URL` | URL HTTPS do projeto Supabase, apenas para uso futuro |
+| `NEXT_PUBLIC_SUPABASE_URL` | URL HTTPS do projeto Supabase usado pelo portal privado |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Chave `sb_publishable_*`, nunca uma chave secreta ou `service_role` |
 
-O Supabase não é chamado durante a renderização e não bloqueia o site. Não existem tabelas nem autenticação habilitada pela aplicação. APIs privadas devem ser implementadas no servidor futuramente, com credenciais sem prefixo `NEXT_PUBLIC_` e autorização apropriada.
+O institucional funciona sem Supabase. O portal privado requer as migrations, Auth e variáveis descritas nos guias de ativação; usa RLS e a sessão do usuário. Segredos permanecem exclusivos do servidor, sem prefixo `NEXT_PUBLIC_`.
 
 ## GitHub e Vercel
 
