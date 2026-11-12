@@ -58,7 +58,7 @@ export function PortalShell({
       ];
   const base = staff ? "/equipe" : "/revendedor";
   return (
-    <div className="container portal-app">
+    <div className={`container portal-app${!staff && tab === "produtos" ? " portal-app-catalog" : ""}`}>
       <div className="portal-topline">
         <div>
           <p className="eyebrow">

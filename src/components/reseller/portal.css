@@ -1,4 +1,9 @@
 /* Area privada: utiliza os tokens e a identidade aprovados da Agylli. */
+.portal-app-catalog.container { --gutter:clamp(20px,2vw,48px); max-width:none; }
+.portal-app-catalog .portal-grid { grid-template-columns:208px minmax(0,1fr); gap:28px; }
+.portal-app-catalog .portal-grid > * { min-width:0; }
+.portal-app-catalog .portal-catalog-layout { grid-template-columns:minmax(0,1fr) clamp(300px,22vw,360px); }
+.portal-app-catalog .portal-product-grid { grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr)); }
 .portal-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 .portal-catalog-layout { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:24px; align-items:start; }
 .portal-catalog-layout > * { min-width:0; }
@@ -42,9 +47,18 @@
 .portal-whatsapp-message textarea { margin-top:12px; font-size:14px; resize:vertical; }
 @media(max-width:1200px) {
   .portal-catalog-layout { grid-template-columns:1fr; }
+  .portal-app-catalog .portal-catalog-layout { grid-template-columns:1fr; }
   .portal-cart { position:static; max-height:none; }
 }
+@media(max-width:1100px) {
+  .portal-app-catalog .portal-grid { grid-template-columns:minmax(0,1fr); gap:26px; }
+  .portal-app-catalog .portal-sidebar nav { display:flex; overflow-x:auto; gap:7px; padding:3px 3px 10px; }
+  .portal-app-catalog .portal-sidebar nav a { flex-shrink:0; border:1px solid var(--color-line); }
+  .portal-app-catalog .portal-sidebar-note { display:none; }
+}
 @media(max-width:767px) {
+  .portal-app-catalog .portal-grid { grid-template-columns:minmax(0,1fr); gap:26px; }
+  .portal-app-catalog .portal-product-grid { grid-template-columns:1fr; }
   .portal-product-grid,.portal-catalog-filters { grid-template-columns:1fr; }
   .portal-two-fields.portal-product-fields { grid-template-columns:1fr; }
   .portal-catalog-layout { padding-bottom:90px; }
