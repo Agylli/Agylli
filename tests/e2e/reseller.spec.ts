@@ -1,5 +1,12 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+test("catálogo conectado exige sessão e a prévia local não é publicada", async ({ request }) => {
+  const response = await request.get("/revendedor/produtos/catalogo");
+  expect(response.status()).toBe(401);
+  expect(await response.json()).toEqual({ status: "unauthorized" });
+  expect(response.headers()["cache-control"]).toBe("private, no-store");
+  expect((await request.get("/qa-nuvemshop")).status()).toBe(404);
+});
 const routes = [
   "/revendedor",
   "/revendedor/entrar",

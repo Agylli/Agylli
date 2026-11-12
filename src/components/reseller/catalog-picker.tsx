@@ -7,7 +7,7 @@ import { submitCatalogRequest } from "@/app/revendedor/produtos/actions";
 import { addCatalogProduct, filterCatalog, type CatalogProduct, type CatalogSelection } from "@/lib/reseller/catalog";
 import { resellerPortal } from "@/config/reseller";
 
-export function CatalogPicker({ products, token, unit, readOnly = false }: { products: CatalogProduct[]; token: string; unit: string; readOnly?: boolean }) {
+export function CatalogPicker({ products, token, unit, readOnly = false, source = "manual" }: { products: CatalogProduct[]; token: string; unit: string; readOnly?: boolean; source?: "manual" | "nuvemshop" }) {
   const [search, setSearch] = useState(""), [category, setCategory] = useState("");
   const [selection, setSelection] = useState<CatalogSelection>([]), [shown, setShown] = useState(20);
   const filtered = useMemo(() => filterCatalog(products, search, category), [products, search, category]);
@@ -48,7 +48,7 @@ export function CatalogPicker({ products, token, unit, readOnly = false }: { pro
               <button className="button button-secondary" type="button" aria-label={`Adicionar ${product.name} ao pedido`}
                 disabled={readOnly || quantity >= 99 || (!quantity && selection.length >= resellerPortal.requestLimit)}
                 onClick={() => setSelection(current => addCatalogProduct(current, product.id))}>
-                <Plus size={17} aria-hidden="true" />{quantity ? `Adicionar mais · ${quantity} no pedido` : "Adicionar ao pedido"}
+                <Plus size={17} aria-hidden="true" />{quantity ? `Adicionar mais · ${quantity} no carrinho` : "Adicionar ao carrinho"}
               </button>
             </div>
           </article>;
@@ -58,10 +58,11 @@ export function CatalogPicker({ products, token, unit, readOnly = false }: { pro
       {shown < filtered.length && <button className="button button-secondary portal-show-more" type="button" onClick={() => setShown(current => current + 20)}>Ver mais produtos</button>}
     </section>
     {!readOnly && <aside id="revisar-pedido" className="portal-cart" aria-labelledby="catalog-cart-heading">
-      <div className="portal-cart-heading"><ShoppingBag aria-hidden="true" /><h2 id="catalog-cart-heading">Meu pedido</h2></div>
+      <div className="portal-cart-heading"><ShoppingBag aria-hidden="true" /><h2 id="catalog-cart-heading">Meu carrinho de solicitação</h2></div>
       <p className="portal-hint">{selection.length} de {resellerPortal.requestLimit} produtos · {units} {units === 1 ? "unidade" : "unidades"}</p>
       {!selected.length ? <p className="portal-cart-empty">Escolha os produtos ao lado para começar.</p> : <>
-        <ActionForm action={submitCatalogRequest} label="Registrar pedido e continuar" enabled={selected.length > 0}>
+        <ActionForm action={submitCatalogRequest} label="Continuar para o WhatsApp" enabled={selected.length > 0}>
+          <input type="hidden" name="source" value={source} />
           <input type="hidden" name="token" value={token} /><input type="hidden" name="unit" value={unit} />
           <div className="portal-cart-items">
             {selected.map(item => <div className="portal-cart-item" key={item.id}>
@@ -77,7 +78,7 @@ export function CatalogPicker({ products, token, unit, readOnly = false }: { pro
               </div>
             </div>)}
           </div>
-          <label htmlFor="catalog-notes">Observações para a loja<textarea id="catalog-notes" name="notes" rows={3} maxLength={1000} /></label>
+          <label htmlFor="catalog-notes">Observações para a loja<textarea id="catalog-notes" name="notes" rows={3} maxLength={1000} placeholder="Informe cores, tamanhos, fragrâncias ou outras opções desejadas." /></label>
           <label className="portal-checkbox"><input name="acknowledgment" type="checkbox" required /><span>A loja confirmará disponibilidade, desconto, valor final e entrega antes da compra.</span></label>
           <p className="portal-hint">Primeiro registramos seu pedido no portal. Na próxima tela, você poderá enviá-lo pelo WhatsApp.</p>
         </ActionForm>

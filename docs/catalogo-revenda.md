@@ -1,4 +1,22 @@
-# Catálogo próprio de revenda e atendimento pelo WhatsApp
+# Catálogo de revenda e atendimento pelo WhatsApp
+
+## Fluxo vigente — catálogo Nuvemshop (12/11/2026)
+
+Por solicitação posterior da Agylli, `/revendedor/produtos` agora mostra os mesmos produtos publicados da vitrine Nuvemshop. A conta precisa estar aprovada; equipe tem somente prévia quando não é revendedora aprovada. Não há redirecionamento de compra nem exposição de preço de varejo nesta área.
+
+1. Abrir o catálogo, buscar/filtrar e **Adicionar ao carrinho**. Ajustar quantidades (até 20 produtos, 1–99 unidades por produto). O rascunho permanece durante os filtros na página atual; sair ou recarregar o descarta.
+2. Informar nas observações cores, tamanhos, fragrâncias ou outras opções desejadas, quando aplicável. São preferências para conferência humana, sem reserva de variação ou promessa de disponibilidade.
+3. Confirmar as condições e tocar em **Continuar para o WhatsApp**. O servidor refaz a aprovação e resolve IDs contra o catálogo publicado; nome/referência enviados pelo navegador não são aceitos como fonte oficial. Produto retirado ou falha de consulta bloqueiam o registro e preservam o carrinho na página.
+4. A função existente `portal_create_request` registra nome, referência `Nuvemshop #ID` (identificador da plataforma, **não SKU/EAN inventado**) e quantidade, com observações, histórico e aviso à equipe. O mesmo token continua protegido contra duplicidade pelo banco. Não há nova migration nem sincronização da tabela manual.
+5. Na tela do pedido, **Enviar pedido pelo WhatsApp** prepara a mensagem para Cândido Sales, `(77) 98854-9691`. O usuário ainda toca em **Enviar** no WhatsApp. A equipe confere a lista e as observações no painel autenticado e confirma estoque físico, preço diferenciado e condições antes da compra.
+
+`GET /revendedor/produtos/catalogo` valida sessão/aprovação (ou equipe) antes de consultar o catálogo compartilhado. Resposta `private, no-store`, apenas identificação, marca, categoria e foto: sem preços, custos, saldo, disponibilidade de varejo ou URL de compra. Consulta no navegador após renderização; falha/loja vazia têm estados próprios e alternativa de solicitação por nome/código. Credenciais e cache normalizado são os da [vitrine Nuvemshop](vitrine-nuvemshop.md), com atualização por nova consulta/reabertura e conferência no envio; não exige nova variável. Limite de leitura de 2.000 produtos, com aviso de catálogo parcial.
+
+O estoque do SysAla continua manual, sem API. Nenhuma baixa, reserva, pagamento, percentual automático ou preço de revenda é calculado. Auth, RLS, pedidos antigos, painel da equipe e avisos existentes são preservados. O catálogo manual em `/equipe/produtos` permanece armazenado e administrável, mas não alimenta mais esta página do revendedor. Não é necessário cadastrar novamente ali os produtos da Nuvemshop.
+
+Testes cobrem a projeção sem preço/link/estoque, aprovação/negação antes da consulta, IDs adulterados/duplicados, limites, snapshot oficial, falha de gravação e continuidade quando o email falha. O envio real de mensagem e uma solicitação em nome de cliente não são executados pela validação automatizada.
+
+## Histórico — catálogo próprio anterior
 
 Escopo escolhido pela Agylli em 12/11/2026: catálogo **próprio para revenda**, independente do catálogo Nuvemshop. A loja aplica os descontos manualmente no atendimento. Varejo e checkout online continuam na Nuvemshop; estoque físico permanece no SysAla, sem API/sincronização automática.
 
