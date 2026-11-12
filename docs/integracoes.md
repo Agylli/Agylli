@@ -10,7 +10,7 @@ A ferramenta [local de conferência](../tools/conciliacao/README.md) trabalha of
 
 ## Nuvemshop: plataforma comercial online
 
-`NEXT_PUBLIC_NUVEMSHOP_URL` direciona o varejo. Sem URL HTTPS válida, os links levam a `/loja-em-breve`. `NEXT_PUBLIC_NUVEMSHOP_B2B_URL` define cadastro/acesso de revendedores; sem configuração, usa `/contato?assunto=revenda`. O institucional não consulta catálogo, cria clientes, altera preços, atualiza estoque ou processa checkout.
+`NEXT_PUBLIC_NUVEMSHOP_URL` direciona o varejo. Sem URL HTTPS válida, os links levam a `/loja-em-breve`. `NEXT_PUBLIC_NUVEMSHOP_B2B_URL` define cadastro/acesso de revendedores; sem configuração, usa `/contato?assunto=revenda`. Desde 12/11/2026, a [vitrine](vitrine-nuvemshop.md) permite consultar produtos/categorias via API somente de leitura, com credenciais no servidor e campos públicos sanitizados. O institucional não cria clientes, altera preços, atualiza estoque ou processa checkout.
 
 A prioridade é homologar aproximadamente dez produtos reais, varejo, CPF/CNPJ e aprovação B2B, tabelas, Pix/cartão, frete e pedidos. Planos/recursos, URLs, dados, pagamentos e acessos ainda precisam ser fornecidos/aprovados. O formato oficial de importação não foi confirmado; a ferramenta local mantém a geração final bloqueada no modelo genérico até receber amostras e modelo oficial.
 

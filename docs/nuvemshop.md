@@ -2,6 +2,10 @@
 
 A aplicação Next.js permanece responsável pela apresentação institucional. A Nuvemshop será responsável por catálogo comercial, clientes, tabelas de preços, cadastro B2B, pedidos, checkout e pagamentos. Não criar um segundo checkout, cadastro de clientes ou estoque nesta aplicação.
 
+## Atualização — vitrine conectada (12/11/2026)
+
+O site agora tem uma [vitrine de leitura do catálogo](vitrine-nuvemshop.md), ativada com `NUVEMSHOP_STORE_ID` e `NUVEMSHOP_ACCESS_TOKEN` apenas no servidor. Os dados seguros chegam ao navegador por `/api/catalogo`; cada produto abre sua página na Nuvemshop. Sem configuração, a seleção ilustrativa permanece identificada. A ativação real depende da validação do deployment com as credenciais, sem publicar o segredo. Os tópicos históricos abaixo registram a preparação anterior.
+
 ## Execução da Etapa 3
 
 O [plano de ativação comercial](ativacao-comercial.md) detalha loja, tabelas, CPF/CNPJ, aprovação, Pix, cartão, frete e gestão de pedidos, com dependências e evidências de aceite. Os [roteiros de homologação](homologacao-comercial.md) e o [checklist da primeira venda](primeira-venda.md) devem ser executados pela equipe autorizada antes da liberação.

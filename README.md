@@ -150,6 +150,8 @@ Contatos vigentes, corrigidos pela Agylli em 10/11/2026: somente Cândido Sales 
 
 ## Variáveis opcionais
 
+A [vitrine conectada à Nuvemshop](docs/vitrine-nuvemshop.md) utiliza `NUVEMSHOP_STORE_ID` e `NUVEMSHOP_ACCESS_TOKEN` apenas no servidor, com permissão de leitura de produtos. O endpoint `/api/catalogo` devolve apenas dados públicos; nenhum token ou custo é enviado ao navegador. Sem credenciais, a seleção ilustrativa permanece identificada. Não colocar credenciais reais neste README ou em arquivos rastreados.
+
 | Variável | Uso |
 | --- | --- |
 | `NEXT_PUBLIC_NUVEMSHOP_URL` | URL HTTPS confirmada da loja. Vazio/inválido usa `/loja-em-breve` |

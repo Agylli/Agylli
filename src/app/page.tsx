@@ -19,7 +19,7 @@ export default function Home() {
     <BrandIntro />
     <CategorySection />
     <BrandSelection />
-    <Suspense fallback={<section id="produtos" className="section container"><h2>Nosso universo de produtos</h2><p>Preparando a seleção demonstrativa…</p></section>}><ProductShowcase /></Suspense>
+    <Suspense fallback={<section id="produtos" className="section container"><h2>Nosso universo de produtos</h2><p>Preparando os produtos…</p></section>}><ProductShowcase live={Boolean(process.env.NUVEMSHOP_STORE_ID && process.env.NUVEMSHOP_ACCESS_TOKEN)} /></Suspense>
     <WholesaleBanner />
     <ExperienceSection />
   </>;
