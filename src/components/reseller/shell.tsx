@@ -97,7 +97,7 @@ export function PortalShell({
             <Link href="/onde-atuamos">Fale com a Agylli</Link>
           </div>
           {staff && (
-            <Link href="/revendedor" className="inline-link">
+            <Link href="/revendedor?aba=inicio" className="inline-link">
               Minha área pessoal
             </Link>
           )}

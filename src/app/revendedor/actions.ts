@@ -5,8 +5,8 @@ import { redirect } from "next/navigation";
 import { serverSupabase } from "@/integrations/supabase/server";
 import { portalOrigin } from "@/lib/reseller/origin";
 import { emailAddress } from "@/lib/urls";
+import { destinationAfterAuthentication } from "@/lib/reseller/destination";
 import {
-  safePortalNext,
   signupInput,
   textField,
   validPassword,
@@ -39,7 +39,8 @@ export async function signIn(
       error: "Não foi possível conectar agora. Tente novamente em instantes.",
     };
   }
-  redirect(safePortalNext(textField(form, "next")));
+  const destination = await destinationAfterAuthentication(db, textField(form, "next"));
+  redirect(destination);
 }
 export async function signUp(
   _: ActionState,

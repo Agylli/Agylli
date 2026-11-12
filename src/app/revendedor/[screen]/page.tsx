@@ -36,24 +36,30 @@ export default async function AuthPage({
 }) {
   const { screen } = await params;
   if (!Object.hasOwn(screens, screen)) notFound();
-  const content = screens[screen as AuthScreen],
-    query = await searchParams,
-    enabled = !!supabaseSettings();
+  const query = await searchParams, enabled = !!supabaseSettings();
+  const teamAccess = screen === "entrar" && safePortalNext(query.next) === "/equipe";
+  const content = teamAccess
+    ? { title: "Seu espaço de trabalho.", description: "Entre com a conta autorizada da equipe Agylli." }
+    : screens[screen as AuthScreen];
   return (
     <section className="container portal-auth">
       <div className="portal-auth-story">
         <Link href="/atacado" className="inline-link">
           Voltar para revenda
         </Link>
-        <p className="eyebrow">SUA PRÓXIMA CONEXÃO AGYLLI</p>
+        <p className="eyebrow">{teamAccess ? "ACESSO DA EQUIPE AGYLLI" : "SUA PRÓXIMA CONEXÃO AGYLLI"}</p>
         <h1>{content.title}</h1>
         <p>{content.description}</p>
         <ul>
-          {[
+          {(teamAccess ? [
+            "Cadastros e aprovação de revendedores",
+            "Publicação de produtos e materiais",
+            "Acompanhamento das solicitações da loja",
+          ] : [
             "Seus pedidos e o andamento do atendimento",
             "Catálogos e materiais para a sua revenda",
             "Uma equipe perto de cada próximo passo",
-          ].map((text) => (
+          ]).map((text) => (
             <li key={text}>
               <Check size={19} aria-hidden="true" />
               {text}
@@ -63,7 +69,7 @@ export default async function AuthPage({
         <span className="portal-auth-wordmark">Cuidado que conecta.</span>
       </div>
       <div className="portal-auth-card">
-        <p className="eyebrow">ÁREA DO REVENDEDOR</p>
+        <p className="eyebrow">{teamAccess ? "PAINEL DA EQUIPE" : "ÁREA DO REVENDEDOR"}</p>
         <h2>
           {screen === "entrar"
             ? "Acesse sua conta"
@@ -90,6 +96,7 @@ export default async function AuthPage({
           screen={screen as AuthScreen}
           enabled={enabled}
           next={safePortalNext(query.next)}
+          teamAccess={teamAccess}
         />
         <div className="portal-auth-links">
           {screen !== "entrar" && (
@@ -106,10 +113,10 @@ export default async function AuthPage({
               <Link href="/revendedor/reenviar-confirmacao">
                 Reenviar e-mail de confirmação
               </Link>
-              <Link href="/revendedor/cadastro">
+              {teamAccess ? <Link href="/revendedor/entrar">Entrar na área do revendedor</Link> : <Link href="/revendedor/cadastro">
                 Ainda não tenho cadastro{" "}
                 <ArrowRight size={15} aria-hidden="true" />
-              </Link>
+              </Link>}
             </>
           )}
           <Link href="/contato?assunto=revenda">

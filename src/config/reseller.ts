@@ -5,6 +5,7 @@ export const resellerPortal = {
   team: "/equipe",
   requestLimit: 20,
   materialLimitBytes: 3 * 1024 * 1024,
+  catalogPdfLimitBytes: 50 * 1024 * 1024,
   bucket: "reseller-materials",
   benefits: [
     {

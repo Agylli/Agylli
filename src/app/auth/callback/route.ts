@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { serverSupabase } from "@/integrations/supabase/server";
-import { safePortalNext } from "@/lib/reseller/validation";
 import { confirmationFailureNotice } from "@/lib/reseller/auth-return";
+import { destinationAfterAuthentication } from "@/lib/reseller/destination";
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code");
   const headers = { "Cache-Control": "private, no-store", "Referrer-Policy": "no-referrer" };
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
       const { error } = await db.auth.exchangeCodeForSession(code);
       if (!error)
         return NextResponse.redirect(
-          new URL(safePortalNext(request.nextUrl.searchParams.get("next")), request.url),
+          new URL(await destinationAfterAuthentication(db, request.nextUrl.searchParams.get("next")), request.url),
           { headers },
         );
       notice = confirmationFailureNotice(error);

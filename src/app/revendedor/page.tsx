@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ArrowUpRight, Package, BookOpen, ShoppingBag } from "lucide-react";
 import { supabaseSettings } from "@/integrations/supabase/settings";
 import { requirePortal } from "@/lib/reseller/session";
@@ -27,8 +28,9 @@ export default async function ResellerHome({
 }) {
   if (!supabaseSettings()) return <PortalUnavailable />;
   const session = await requirePortal(),
-    query = await searchParams,
-    tab = ["pedidos", "compras", "materiais", "beneficios", "conta"].includes(
+    query = await searchParams;
+  if (session.staff && !query.aba && query.notice !== "password-updated") redirect("/equipe");
+  const tab = ["pedidos", "compras", "materiais", "beneficios", "conta"].includes(
       query.aba ?? "",
     )
       ? query.aba!
@@ -346,13 +348,15 @@ export default async function ResellerHome({
   }
   return (
     <PortalShell name={session.profile?.name ?? "revendedor"} tab={tab}>
+      {session.staff && <aside className="portal-message" role="status"><strong>Área pessoal da sua conta.</strong><p>Para administrar cadastros, produtos e solicitações, abra o painel da equipe.</p><Link href="/equipe">Abrir painel da equipe</Link></aside>}
       <ApprovalNotice status={session.profile?.status} />
+      {session.staffError && <p className="portal-message error" role="alert">Não foi possível verificar sua permissão de equipe agora. Tente abrir o painel novamente em instantes.</p>}
       {query.notice === "password-updated" && (
         <p className="portal-message" role="status">
           Sua senha foi atualizada.
         </p>
       )}
-      {query.notice === "restricted" && (
+      {query.notice === "restricted" && !session.staff && (
         <p className="portal-message" role="status">
           O painel da equipe é reservado aos funcionários autorizados.
         </p>

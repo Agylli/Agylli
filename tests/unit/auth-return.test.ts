@@ -13,7 +13,7 @@ import { GET as callback } from "@/app/auth/callback/route";
 import { resendConfirmation } from "@/app/revendedor/actions";
 
 const origin = "https://institucional.example";
-const verify = vi.fn(), exchange = vi.fn(), resend = vi.fn();
+const verify = vi.fn(), exchange = vi.fn(), resend = vi.fn(), role = vi.fn();
 beforeEach(() => {
   vi.clearAllMocks();
   vi.stubEnv("NEXT_PUBLIC_SITE_URL", origin);
@@ -22,7 +22,8 @@ beforeEach(() => {
   verify.mockReset().mockResolvedValue({ error: null });
   exchange.mockReset().mockResolvedValue({ error: null });
   resend.mockReset().mockResolvedValue({ error: null });
-  server.mockReset().mockResolvedValue({ auth: { verifyOtp: verify, exchangeCodeForSession: exchange, resend } });
+  role.mockReset().mockResolvedValue({data:false,error:null});
+  server.mockReset().mockResolvedValue({ rpc:role, auth: { verifyOtp: verify, exchangeCodeForSession: exchange, resend } });
 });
 afterEach(() => vi.unstubAllEnvs());
 
@@ -83,6 +84,13 @@ describe("Origem e retorno seguro da autenticacao", () => {
     expect(exchange).toHaveBeenCalledExactlyOnceWith("FICTICIO");
     expect(result.headers.get("location")).toBe(`${origin}/equipe`);
     expect(result.headers.get("cache-control")).toContain("no-store");
+  });
+  it("confirmacao e callback comuns direcionam integrante autorizado para equipe",async()=>{
+    role.mockResolvedValue({data:true,error:null});
+    for(const result of [
+      await callback(new NextRequest(`${origin}/auth/callback?code=FICTICIO`)),
+      await confirm(new NextRequest(`${origin}/auth/confirm?token_hash=FICTICIO&type=signup`)),
+    ])expect(result.headers.get("location")).toBe(`${origin}/equipe`);
   });
   it("identifica perda do verificador sem afirmar que o email deixou de ser confirmado", async () => {
     exchange.mockResolvedValue({ error: { code: "pkce_code_verifier_not_found" } });

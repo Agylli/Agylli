@@ -14,10 +14,12 @@ export function AuthForm({
   screen,
   enabled,
   next,
+  teamAccess = false,
 }: {
   screen: AuthScreen;
   enabled: boolean;
   next: string;
+  teamAccess?: boolean;
 }) {
   const action =
     screen === "cadastro"
@@ -38,7 +40,7 @@ export function AuthForm({
           ? "Enviar instruções"
           : screen === "redefinir-senha"
             ? "Salvar nova senha"
-            : "Entrar na minha área";
+            : teamAccess ? "Entrar no painel da equipe" : "Entrar na minha área";
   return (
     <ActionForm action={action} label={label} enabled={enabled}>
       <input name="next" type="hidden" value={next} />

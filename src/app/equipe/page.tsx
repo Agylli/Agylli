@@ -10,9 +10,9 @@ import {
   pageNumber,
 } from "@/components/reseller/shell";
 import { ActionForm } from "@/components/reseller/action-form";
+import { MaterialUploadForm } from "@/components/reseller/material-upload-form";
 import {
   updateProfileStatus,
-  publishMaterial,
   toggleMaterial,
 } from "./actions";
 import { profileStatuses, materialCategories } from "@/config/reseller";
@@ -127,65 +127,7 @@ export default async function TeamPage({
         </div>
         <section className="portal-detail-card">
           <h2>Disponibilizar conteúdo</h2>
-          <ActionForm
-            action={publishMaterial}
-            label="Publicar para revendedores"
-          >
-            <label htmlFor="material-title">
-              Título
-              <input
-                id="material-title"
-                name="title"
-                minLength={3}
-                maxLength={120}
-                required
-              />
-            </label>
-            <label htmlFor="material-category">
-              Tipo de conteúdo
-              <select
-                id="material-category"
-                name="category"
-                defaultValue="catalogo"
-              >
-                {Object.entries(materialCategories).map(([value, label]) => (
-                  <option value={value} key={value}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label htmlFor="material-description">
-              Descrição e condições
-              <textarea
-                id="material-description"
-                name="description"
-                rows={3}
-                maxLength={1000}
-                required
-              />
-            </label>
-            <label htmlFor="material-file">
-              Arquivo
-              <input
-                id="material-file"
-                name="file"
-                type="file"
-                accept="application/pdf,image/jpeg,image/png,image/webp"
-              />
-              <span className="portal-hint">
-                PDF, JPG, PNG ou WebP de até 3 MB. Para benefício sem anexo,
-                deixe o arquivo vazio.
-              </span>
-            </label>
-            <label className="portal-checkbox">
-              <input name="authorized" type="checkbox" required />
-              <span>
-                Confirmo que o conteúdo, as condições comerciais e o uso do
-                arquivo estão autorizados pela Agylli.
-              </span>
-            </label>
-          </ActionForm>
+          <MaterialUploadForm />
         </section>
         {result.error ? (
           <TeamLoadError />

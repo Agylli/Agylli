@@ -89,6 +89,13 @@ test("home, rodape e menu oferecem cadastro e entrada diretos", async ({ page })
   await page.getByRole("link", { name: "Ainda não tenho cadastro" }).click();
   await expect(page).toHaveURL(/\/revendedor\/cadastro$/);
 });
+test("acesso da equipe identifica o painel e nao oferece cadastro publico de funcionario",async({page})=>{
+  await page.goto("/revendedor/entrar?next=%2Fequipe");
+  await expect(page.getByRole("heading",{level:1})).toHaveText("Seu espaço de trabalho.");
+  await expect(page.getByRole("button",{name:"Entrar no painel da equipe",exact:true})).toBeDisabled();
+  await expect(page.getByRole("main").getByRole("link",{name:"Ainda não tenho cadastro"})).toHaveCount(0);
+  await expect(page.getByRole("link",{name:"Entrar na área do revendedor",exact:true})).toHaveAttribute("href","/revendedor/entrar");
+});
 test("retorno de autenticacao invalido nao redireciona para dominio externo", async ({
   request,
 }) => {
@@ -128,7 +135,7 @@ test("SQL de preparacao nao e servido pela aplicacao", async ({ request }) => {
   expect(await result.text()).not.toContain(
     "create table public.reseller_profiles",
   );
-  for (const path of ["/supabase/migrations/202611120001_reseller_catalog.sql", "/catalogo-preview-local"]) {
+  for (const path of ["/supabase/migrations/202611120001_reseller_catalog.sql", "/supabase/migrations/202611120002_material_upload_limit.sql", "/catalogo-preview-local", "/upload-preview-local"]) {
     const response=await request.get(path);
     expect(response.status()).toBe(404);
     expect(await response.text()).not.toContain("Prévia local com dados fictícios");

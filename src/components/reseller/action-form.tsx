@@ -1,20 +1,23 @@
 "use client";
 import { useActionState, type ReactNode } from "react";
 import type { ActionState } from "@/lib/reseller/validation";
+import { guardedFileAction } from "@/lib/reseller/forms";
 export function ActionForm({
   action,
   children,
   label,
   enabled = true,
   className = "",
+  maxFileBytes,
 }: {
   action: (state: ActionState, form: FormData) => Promise<ActionState>;
   children: ReactNode;
   label: string;
   enabled?: boolean;
   className?: string;
+  maxFileBytes?: number;
 }) {
-  const [state, formAction, pending] = useActionState(action, {});
+  const [state, formAction, pending] = useActionState(maxFileBytes ? guardedFileAction(action,maxFileBytes) : action, {});
   return (
     <form action={formAction} className={`portal-form ${className}`}>
       {state.error && (

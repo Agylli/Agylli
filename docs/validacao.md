@@ -1,5 +1,17 @@
 # Validação — Agylli Cosméticos
 
+## Entrada da equipe e PDFs grandes — 12/11/2026
+
+A conta administrativa já conseguia abrir `/equipe`, conforme teste informado pela Agylli. O defeito corrigido era o destino padrão após autenticação: funcionários autorizados passam a ser encaminhados ao painel da equipe, inclusive nos retornos de confirmação; a recuperação de senha mantém sua própria rota. A área pessoal segue acessível explicitamente. O papel continua sendo conferido exclusivamente no servidor; nome, e-mail e campos enviados pelo navegador não concedem privilégios.
+
+O formulário de materiais agora envia PDF de até 50 MB diretamente ao Storage privado com autorização temporária; imagens mantêm 3 MB. As Server Actions recebem somente os dados do material e referências. Antes da publicação são verificados equipe, tamanho/tipo reais e cabeçalho do arquivo. Testes simulados incluem PDF de 25 MB, falha de envio/publicação, repetição sem duplicar cadastro, arquivo falso, origem inválida e migração repetível do limite.
+
+Na prévia local temporária, o Chromium confirmou que imagem de 4 MB e PDF de 51 MB geram mensagens antes de qualquer POST; sessão ausente ao publicar benefício encaminha para a entrada da equipe, sem erro de página. A prévia foi removida. Nenhum PDF comercial foi usado nos testes.
+
+A Agylli informou sucesso na migration do catálogo e retornou `52428800` após ajustar o limite do bucket de materiais. Esses são resultados informados pela operação; não houve acesso administrativo independente ao Supabase. O envio/download de um PDF real por funcionário e revendedor aprovado ainda precisa ser homologado após o deploy. Instruções: [envio de materiais](envio-materiais.md).
+
+Foram preservadas as duas atualizações remotas de catálogo (`254e046` e `063aed9`) antes da validação final. Passaram 137 testes unitários, 117 E2E em 375/768/1440 px, os 45 testes Python, lint, build, TypeScript e o gate de 27 traces. O CI e a publicação remotos devem ser conferidos para a revisão enviada; os resultados locais não comprovam sessões ou uploads reais no Supabase.
+
 ## Catálogo próprio da revenda e WhatsApp — 12/11/2026
 
 Passaram 78 testes unitários, 102 E2E, lint, TypeScript, build e gate de 25 traces. Os novos testes PostgreSQL verificam as duas migrations em banco local: RLS de catálogo/fotos, publicação exclusiva da equipe, autoria protegida, SKU textual/único, seleção de IDs ativos, bloqueio de conteúdo forjado, quantidades, snapshot, idempotência e aviso transacional. A ação de registro é testada para preservar o pedido mesmo com falha no e-mail.

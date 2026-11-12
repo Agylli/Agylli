@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { serverSupabase } from "@/integrations/supabase/server";
 import { safePortalNext } from "@/lib/reseller/validation";
+import { destinationAfterAuthentication } from "@/lib/reseller/destination";
 export async function GET(request: NextRequest) {
   const hash = request.nextUrl.searchParams.get("token_hash"),
     type = request.nextUrl.searchParams.get("type");
@@ -23,7 +24,7 @@ export async function GET(request: NextRequest) {
             new URL(
               type === "recovery"
                 ? "/revendedor/redefinir-senha"
-                : safePortalNext(request.nextUrl.searchParams.get("next")),
+                : await destinationAfterAuthentication(db, request.nextUrl.searchParams.get("next")),
               request.url,
             ),
             { headers },
