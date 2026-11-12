@@ -5,7 +5,8 @@ export const resellerPortal = {
   team: "/equipe",
   requestLimit: 20,
   materialLimitBytes: 3 * 1024 * 1024,
-  catalogPdfLimitBytes: 50 * 1024 * 1024,
+  // Free supports 50 MB. Activate 100 only after plan/global/bucket approval.
+  get catalogPdfLimitBytes() { return (process.env.NEXT_PUBLIC_RESELLER_PDF_LIMIT_MB === "100" ? 100 : 50) * 1024 * 1024; },
   bucket: "reseller-materials",
   benefits: [
     {

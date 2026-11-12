@@ -135,7 +135,7 @@ test("SQL de preparacao nao e servido pela aplicacao", async ({ request }) => {
   expect(await result.text()).not.toContain(
     "create table public.reseller_profiles",
   );
-  for (const path of ["/supabase/migrations/202611120001_reseller_catalog.sql", "/supabase/migrations/202611120002_material_upload_limit.sql", "/catalogo-preview-local", "/upload-preview-local"]) {
+  for (const path of ["/supabase/migrations/202611120001_reseller_catalog.sql", "/supabase/migrations/202611120002_material_upload_limit.sql", "/supabase/migrations/202611120003_material_upload_100mb.sql", "/catalogo-preview-local", "/upload-preview-local"]) {
     const response=await request.get(path);
     expect(response.status()).toBe(404);
     expect(await response.text()).not.toContain("Prévia local com dados fictícios");

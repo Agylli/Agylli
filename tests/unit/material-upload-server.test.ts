@@ -27,6 +27,8 @@ describe("Publicacao de arquivo grande somente apos validacao",()=>{
  });
  it("nao emite token para arquivo acima do limite",async()=>{
   expect(await prepareMaterialUpload({mime:"application/pdf",size:51*1024*1024})).toHaveProperty("error");expect(prepare).not.toHaveBeenCalled();
+  vi.stubEnv("NEXT_PUBLIC_RESELLER_PDF_LIMIT_MB","100");
+  expect(await prepareMaterialUpload({mime:"application/pdf",size:101*1024*1024})).toHaveProperty("error");expect(prepare).not.toHaveBeenCalled();
  });
  it("confere tamanho real e cabecalho por Range antes de publicar",async()=>{
   expect((await finalizeMaterialUpload({},form())).success).toContain("publicado");
@@ -61,6 +63,10 @@ describe("Publicacao de arquivo grande somente apos validacao",()=>{
    await db.exec(sql);await db.exec(sql);
    const r=await db.query<{id:string;file_size_limit:number;public:boolean}>("select * from storage.buckets order by id");
    expect(Number(r.rows[0].file_size_limit)).toBe(52428800);expect(Number(r.rows[1].file_size_limit)).toBe(3145728);expect(r.rows.every(row=>!row.public)).toBe(true);
+   const larger=await readFile(new URL("../../supabase/migrations/202611120003_material_upload_100mb.sql",import.meta.url),"utf8");
+   await db.exec(larger);await db.exec(larger);
+   const updated=await db.query<{id:string;file_size_limit:number;public:boolean}>("select * from storage.buckets order by id");
+   expect(Number(updated.rows[0].file_size_limit)).toBe(104857600);expect(Number(updated.rows[1].file_size_limit)).toBe(3145728);expect(updated.rows.every(row=>!row.public)).toBe(true);
   }finally{await db.close();}
  },20000);
 });

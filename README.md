@@ -11,7 +11,7 @@ Site institucional e comercial da Agylli, com as Etapas 1 e 2 entregues e prepar
 - Solicitação para atendimento físico, com rastreio de status, persistência transacional e aviso por e-mail; falha de envio não perde o pedido.
 - Painel `/equipe` para cadastros, atendimento e publicação de materiais autorizados.
 - Funcionários já autorizados são encaminhados automaticamente ao painel da equipe após login; o rodapé também oferece acesso direto.
-- [Envio privado de catálogos](docs/envio-materiais.md): PDF até 50 MB diretamente ao Supabase Storage, imagens até 3 MB; requer ajuste do limite do bucket, sem aumentar o corpo das requisições na Vercel.
+- [Envio privado de catálogos](docs/envio-materiais.md): TUS em blocos, percentual, cancelamento e detecção de falta de resposta. PDF até 50 MB no Supabase Free confirmado, imagens até 3 MB; opção de 100 MB preparada para plano compatível e configuração explícita. Os arquivos seguem diretamente ao Storage privado.
 - Schema/RLS em `supabase/migrations/`; testes locais com PostgreSQL PGlite e dados fictícios.
 - [Catálogo próprio para revenda e WhatsApp](docs/catalogo-revenda.md): equipe publica produtos, revendedor monta a seleção e registra o pedido antes de abrir o WhatsApp. A loja confirma desconto e condições manualmente. Requer a migration adicional do catálogo e cadastro de produtos reais.
 

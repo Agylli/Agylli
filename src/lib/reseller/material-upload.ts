@@ -4,7 +4,7 @@ const extensions = { "application/pdf": "pdf", "image/jpeg": "jpg", "image/png":
 export function materialFileSpec(mime: string, size: number) {
   if (!Object.hasOwn(extensions,mime) || !Number.isSafeInteger(size) || size <= 0) throw new Error("Envie um PDF, JPG, PNG ou WebP válido.");
   const limit = mime === "application/pdf" ? resellerPortal.catalogPdfLimitBytes : resellerPortal.materialLimitBytes;
-  if (size > limit) throw new Error(mime === "application/pdf" ? "O PDF deve ter até 50 MB. Divida ou reduza o catálogo antes de enviar." : "A imagem deve ter até 3 MB.");
+  if (size > limit) throw new Error(mime === "application/pdf" ? `O PDF deve ter até ${Math.floor(limit/1024/1024)} MB. Divida ou reduza o catálogo antes de enviar.` : "A imagem deve ter até 3 MB.");
   return { mime, size, extension: extensions[mime as keyof typeof extensions] };
 }
 export function materialPathMime(path: string) {

@@ -18,7 +18,7 @@ export async function prepareMaterialUpload(spec: {mime:string;size:number}):Pro
 }
 
 async function firstBytes(url:string) {
-  const response=await fetch(url,{headers:{Range:"bytes=0-15"},cache:"no-store",redirect:"error"});
+  const response=await fetch(url,{headers:{Range:"bytes=0-15"},cache:"no-store",redirect:"error",signal:AbortSignal.timeout(15_000)});
   if(!response.ok||!response.body)throw new Error("file_header_unavailable");
   const reader=response.body.getReader(),bytes=new Uint8Array(16);let length=0;
   try {

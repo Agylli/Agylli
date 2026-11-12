@@ -700,6 +700,19 @@
     grid-template-columns: 1fr minmax(300px, 420px);
   }
 }
+.portal-upload-progress {
+  display: grid;
+  gap: 12px;
+  margin-block: 20px;
+  padding: 20px;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+}
+.portal-upload-progress progress {
+  width: 100%;
+  accent-color: var(--color-brand);
+}
+.portal-upload-progress .button { justify-self: start; }
 @media (max-width: 767px) {
   .portal-auth {
     grid-template-columns: 1fr;

@@ -1,5 +1,15 @@
 # Validação — Agylli Cosméticos
 
+## Envio retomável de materiais — 12/11/2026
+
+Após relato de envio parado, o transporte passou a usar `tus-js-client` 4.3.1 com blocos de 6 MB, progresso, cancelamento, tentativas limitadas e prazo de inatividade/tempo total. Preparação e confirmação também têm prazo. O formulário preserva campos/arquivo em falhas; confirmação demorada mantém a referência para repetição idempotente. A origem remota exata do travamento anterior não foi confirmada por logs ou acesso autenticado.
+
+A Agylli confirmou o plano Supabase Free: **50 MB permanecem ativos**. A documentação oficial confirma esse teto; 100 MB foram preparados por configuração explícita e migração separada, condicionados a plano compatível e limites global/bucket. Não houve mudança de plano, variável de produção para 100 MB nem aplicação da nova migração no serviço real. Orientação: [materiais](envio-materiais.md).
+
+No Chromium, uma prévia temporária exercitou o transporte real com endpoints simulados e PDF fictício de 25 MB: blocos de até 6 MB, erro HTTP 503 seguido de HEAD/retomada pelo saldo confirmado, conclusão única, cancelamento sem publicação, ausência de resposta com liberação do formulário, HTTP 413 com orientação e preservação de campos/arquivo. Não houve erro de página. A prévia foi removida antes do build; nenhum PDF comercial foi enviado.
+
+Passaram 150 testes unitários, 117 E2E em 375/768/1440 px, lint, TypeScript, build e gate de 27 traces. A atualização remota de largura do catálogo (`c5c9467`) foi preservada. O envio/download do arquivo real continua dependendo de homologação pela equipe no projeto configurado; os testes locais não comprovam uma transferência ao Supabase real.
+
 ## Entrada da equipe e PDFs grandes — 12/11/2026
 
 A conta administrativa já conseguia abrir `/equipe`, conforme teste informado pela Agylli. O defeito corrigido era o destino padrão após autenticação: funcionários autorizados passam a ser encaminhados ao painel da equipe, inclusive nos retornos de confirmação; a recuperação de senha mantém sua própria rota. A área pessoal segue acessível explicitamente. O papel continua sendo conferido exclusivamente no servidor; nome, e-mail e campos enviados pelo navegador não concedem privilégios.
