@@ -22,6 +22,10 @@ const screens = {
     title: "Um novo acesso para você.",
     description: "Escolha uma nova senha para sua conta.",
   },
+  "reenviar-confirmacao": {
+    title: "Vamos confirmar seu acesso.",
+    description: "Solicite um novo e-mail de confirmação sem repetir seu cadastro.",
+  },
 };
 export default async function AuthPage({
   params,
@@ -65,7 +69,9 @@ export default async function AuthPage({
             ? "Acesse sua conta"
             : screen === "cadastro"
               ? "Seu cadastro começa aqui"
-              : "Recuperação de acesso"}
+              : screen === "reenviar-confirmacao"
+                ? "Reenviar confirmação"
+                : "Recuperação de acesso"}
         </h2>
         {!enabled && (
           <p className="portal-message" role="status">
@@ -73,10 +79,11 @@ export default async function AuthPage({
             continuar o atendimento.
           </p>
         )}
-        {query.notice === "confirmation-error" && (
+        {(query.notice === "confirmation-error" || query.notice === "confirmation-session-error") && (
           <p className="portal-message error" role="alert">
-            Não foi possível confirmar o link. Solicite um novo acesso e confira
-            seu e-mail.
+            {query.notice === "confirmation-session-error"
+              ? "Não foi possível iniciar a sessão neste navegador. Se já confirmou seu e-mail, entre com sua senha. Para confirmar novamente, solicite outro e-mail e abra o novo link no mesmo navegador."
+              : "Não foi possível usar este link. Ele pode ter expirado ou já ter sido utilizado. Se já confirmou seu e-mail, entre com sua senha. Caso contrário, reenvie a confirmação."}
           </p>
         )}
         <AuthForm
@@ -95,6 +102,9 @@ export default async function AuthPage({
             <>
               <Link href="/revendedor/recuperar-senha">
                 Esqueci minha senha
+              </Link>
+              <Link href="/revendedor/reenviar-confirmacao">
+                Reenviar e-mail de confirmação
               </Link>
               <Link href="/revendedor/cadastro">
                 Ainda não tenho cadastro{" "}

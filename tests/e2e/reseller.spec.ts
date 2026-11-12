@@ -6,6 +6,7 @@ const routes = [
   "/revendedor/cadastro",
   "/revendedor/recuperar-senha",
   "/revendedor/redefinir-senha",
+  "/revendedor/reenviar-confirmacao",
   "/revendedor/solicitar",
   "/equipe",
 ];
@@ -97,6 +98,17 @@ test("retorno de autenticacao invalido nao redireciona para dominio externo", as
   );
   expect(material.status()).toBe(307);
   expect(material.headers().location).toContain("/revendedor/entrar");
+});
+
+test("aviso de link usado orienta login e permite reenviar sem repetir cadastro", async ({ page }) => {
+  await page.goto("/revendedor/entrar?notice=confirmation-error");
+  await expect(page.getByRole("main").getByRole("alert")).toContainText("Se já confirmou seu e-mail, entre com sua senha");
+  await page.getByRole("link", { name: "Reenviar e-mail de confirmação" }).click();
+  await expect(page).toHaveURL(/\/revendedor\/reenviar-confirmacao$/);
+  await expect(page.getByLabel("E-mail", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("E-mail", { exact: true })).toBeDisabled();
+  await expect(page.locator('input[type="password"]')).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Reenviar confirmação", exact: true })).toBeDisabled();
 });
 
 test("SQL de preparacao nao e servido pela aplicacao", async ({ request }) => {

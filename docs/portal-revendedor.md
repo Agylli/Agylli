@@ -19,7 +19,7 @@ Este portal de relacionamento é o novo escopo específico aprovado pelo usuári
 Projeto informado pela Agylli: `https://jblvhlppkvpovqodpgqd.supabase.co`. A existência do projeto foi informada; permissões e schema remoto não foram inspecionados nem modificados nesta implementação.
 
 1. Administrador autorizado revisa e aplica **uma única vez** [202611110001_reseller_portal.sql](../supabase/migrations/202611110001_reseller_portal.sql) pelo fluxo de migração aprovado/SQL Editor. A migração é transacional, aditiva e não apaga tabelas existentes; se houver conflito de nomes, investigar e não contornar apagando dados.
-2. Ativar confirmação de e-mail e revisar a entrega transacional de autenticação e os limites vigentes do Supabase. Configurar o domínio institucional aprovado como Site URL e autorizar os retornos `/auth/callback` e `/auth/confirm` nas URLs de redirecionamento. Preview deve ter URL exata autorizada; não liberar domínios arbitrários.
+2. Ativar confirmação de e-mail e revisar a entrega transacional de autenticação e os limites vigentes do Supabase. Configurar o domínio institucional aprovado como Site URL e autorizar os retornos `/auth/callback`, `/auth/callback?next=/revendedor/redefinir-senha` e `/auth/confirm` nas URLs de redirecionamento. A query da recuperação faz parte do endereço permitido. Preview deve ter URL exata autorizada; não liberar domínios arbitrários.
 3. O callback PKCE `/auth/callback` troca o código por sessão. Os templates padrão e o callback PKCE podem ser utilizados na homologação em Preview. Opcionalmente, em produção, para confirmação independente do navegador, configurar o template oficial com `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup`. Recuperação pode usar `type=recovery`. Templates com `SiteURL` usam a origem configurada no projeto, não a URL de Preview; não direcionar testes de Preview a uma versão de produção sem o novo portal. Não colocar access tokens ou segredos em mensagens/logs.
 4. Preencher as variáveis descritas abaixo em Preview, aplicar novo build e homologar. A área permanece em preparação sem configuração Supabase; o institucional segue funcional.
 5. Preparar o primeiro funcionário: criar/confirmar o acesso no Auth, conferir a identidade e escolher o UUID correto. **Somente administrador do projeto** insere esse UUID em `public.portal_staff`. E-mail do destinatário de avisos, metadados `role` e formulário de cadastro nunca concedem acesso de equipe.
@@ -58,9 +58,19 @@ Essa mensagem aparece quando `NEXT_PUBLIC_SUPABASE_URL` ou a chave moderna `NEXT
 2. Na Vercel, abrir **projeto agylli → Settings → Environment Variables** e salvar a chave como `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` no ambiente **Production**.
 3. Conferir também `NEXT_PUBLIC_SUPABASE_URL=https://jblvhlppkvpovqodpgqd.supabase.co` e `NEXT_PUBLIC_SITE_URL=https://www.agylli.com`.
 4. Aplicar novo build/redeploy depois de salvar. A publicação precisa conter as variáveis; recarregar um build anterior não basta.
-5. No Supabase Auth, conferir **URL Configuration**: Site URL `https://www.agylli.com`, com retornos `https://www.agylli.com/auth/callback` e `https://www.agylli.com/auth/confirm` autorizados. Aplicar a migration antes de testar cadastros reais.
+5. No Supabase Auth, conferir **URL Configuration**: Site URL `https://www.agylli.com`, com retornos `https://www.agylli.com/auth/callback`, `https://www.agylli.com/auth/callback?next=/revendedor/redefinir-senha` e `https://www.agylli.com/auth/confirm` autorizados. Aplicar a migration antes de testar cadastros reais.
 
 Chaves e configurações do provedor de notificações são uma etapa separada; não são necessárias para exibir o formulário de cadastro. Cadastro, confirmação e recuperação reais ainda precisam de homologação após essa configuração.
+
+### Link expirado, utilizado ou sem sessão no navegador
+
+Um erro ao abrir o link não comprova que o e-mail permaneceu sem confirmação: o Supabase pode ter confirmado o endereço antes de a troca PKCE falhar no navegador. Abrir `/revendedor/entrar` sem parâmetros e tentar o login normal. Se entrar, não repetir o cadastro nem alterar a aprovação do perfil para corrigir esse aviso.
+
+Em produção, o Proxy mantém `/revendedor`, `/equipe` e `/auth` na origem confiável de `NEXT_PUBLIC_SITE_URL` antes de criar cookies. Assim, um cadastro iniciado no domínio sem `www` não perde o verificador ao retornar ao domínio com `www`. GET/HEAD são redirecionados com `no-store`; POST na origem incorreta é recusado, sem encaminhar senhas a outro host. Usar a origem correta por ambiente de Preview.
+
+O login oferece `/revendedor/reenviar-confirmacao`, apenas com e-mail. O visitante solicita o reenvio por uma ação explícita; a resposta não revela se a conta existe ou já confirmou. O provedor aplica seus limites de envio. Cadastro e reenvio usam `/auth/callback`; o template com `token_hash` usa `/auth/confirm` e permite confirmação sem depender do verificador do navegador original. O callback aceita códigos somente pela troca oficial e o confirm verifica hashes pelos tipos permitidos; falhas não liberam sessão nem funções da equipe.
+
+Links antigos continuam com o destino original e podem estar consumidos ou expirados. Após corrigir URL Configuration ou templates, solicitar um novo link. Não colocar códigos, hashes, senhas ou cookies em chamados, arquivos rastreados ou logs.
 
 O adaptador usa `POST https://api.resend.com/emails`, corpo de texto simples e chave de idempotência derivada do ID da solicitação. Registrar `sent` exige recibo do provedor. Claim transacional evita dois envios simultâneos; falha recebe código operacional curto, sem dados pessoais na mensagem de erro. Após interrupção prolongada e antes de reenviar, conferir o provedor e sua janela vigente de idempotência. E-mail aceito pelo provedor não comprova leitura ou recebimento na caixa de entrada.
 

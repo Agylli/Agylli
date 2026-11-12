@@ -5,10 +5,11 @@ import {
   signUp,
   recoverPassword,
   resetPassword,
+  resendConfirmation,
 } from "@/app/revendedor/actions";
 import { locations } from "@/config/locations";
 export type AuthScreen =
-  "entrar" | "cadastro" | "recuperar-senha" | "redefinir-senha";
+  "entrar" | "cadastro" | "recuperar-senha" | "redefinir-senha" | "reenviar-confirmacao";
 export function AuthForm({
   screen,
   enabled,
@@ -21,19 +22,23 @@ export function AuthForm({
   const action =
     screen === "cadastro"
       ? signUp
-      : screen === "recuperar-senha"
-        ? recoverPassword
-        : screen === "redefinir-senha"
-          ? resetPassword
-          : signIn;
+      : screen === "reenviar-confirmacao"
+        ? resendConfirmation
+        : screen === "recuperar-senha"
+          ? recoverPassword
+          : screen === "redefinir-senha"
+            ? resetPassword
+            : signIn;
   const label =
     screen === "cadastro"
       ? "Solicitar cadastro"
-      : screen === "recuperar-senha"
-        ? "Enviar instruções"
-        : screen === "redefinir-senha"
-          ? "Salvar nova senha"
-          : "Entrar na minha área";
+      : screen === "reenviar-confirmacao"
+        ? "Reenviar confirmação"
+        : screen === "recuperar-senha"
+          ? "Enviar instruções"
+          : screen === "redefinir-senha"
+            ? "Salvar nova senha"
+            : "Entrar na minha área";
   return (
     <ActionForm action={action} label={label} enabled={enabled}>
       <input name="next" type="hidden" value={next} />
@@ -63,7 +68,7 @@ export function AuthForm({
           />
         </label>
       )}
-      {screen !== "recuperar-senha" && (
+      {(screen === "entrar" || screen === "cadastro" || screen === "redefinir-senha") && (
         <label htmlFor="reseller-password">
           {screen === "redefinir-senha" ? "Nova senha" : "Senha"}
           <input

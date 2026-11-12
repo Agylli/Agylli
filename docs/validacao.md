@@ -1,5 +1,11 @@
 # Validação — Agylli Cosméticos
 
+## Confirmação de e-mail e sessão — 12/11/2026
+
+A Agylli confirmou que o login normal da conta testada funciona; o aviso aparecia no retorno do link de confirmação. A interface agora diferencia o uso do link da entrada com senha e oferece reenvio sem repetir o cadastro. O Proxy usa a origem HTTPS configurada para manter os cookies do cadastro e o retorno no mesmo domínio; requisições POST no domínio incorreto não encaminham credenciais.
+
+Passaram 60 testes unitários, lint, build, TypeScript e gate dos 23 traces. Os 96 cenários E2E foram verificados em 375, 768 e 1440 px: 93 passaram na suíte completa e os três novos passaram após corrigir o seletor do aviso, que também encontrava o anunciador de rotas do Next.js. As verificações de callbacks, tokens expirados, perda do verificador e envio usam dados fictícios/provedor simulado; não houve envio real, novo cadastro, alteração de aprovação nem acesso administrativo a Supabase nesta correção. Homologação do novo e-mail de confirmação/reenvio em produção continua necessária.
+
 ## Acessos do revendedor — 11/11/2026
 
 Corrigidos os destinos dos botões de cadastro para `/revendedor/cadastro`, independentemente das credenciais. Menu, campanha, rodapé, atacado e contato oferecem entrada direta; login e ajuda continuam disponíveis. A URL B2B externa, quando configurada, permanece como opção adicional.

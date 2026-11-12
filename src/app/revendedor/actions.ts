@@ -107,6 +107,27 @@ export async function signOut() {
   }
   redirect("/revendedor/entrar");
 }
+export async function resendConfirmation(
+  _: ActionState,
+  form: FormData,
+): Promise<ActionState> {
+  const db = await serverSupabase(), origin = portalOrigin();
+  if (!db || !origin) return unavailable;
+  const email = emailAddress(textField(form, "email"));
+  if (!email) return { error: "Informe um e-mail válido." };
+  try {
+    await db.auth.resend({
+      type: "signup",
+      email,
+      options: { emailRedirectTo: `${origin}/auth/callback` },
+    });
+  } catch {
+    // Same response for missing/confirmed accounts and provider limits/outages.
+  }
+  return {
+    success: "Se houver um cadastro aguardando confirmação, você receberá um novo e-mail. Aguarde alguns instantes e confira também o spam. Se já confirmou, entre com sua senha.",
+  };
+}
 export async function recoverPassword(
   _: ActionState,
   form: FormData,
