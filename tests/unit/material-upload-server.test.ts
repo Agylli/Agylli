@@ -4,7 +4,7 @@ import {readFile} from "node:fs/promises";
 const {session,revalidate}=vi.hoisted(()=>({session:vi.fn(),revalidate:vi.fn()}));
 vi.mock("@/lib/reseller/session",()=>({requirePortal:session}));
 vi.mock("next/cache",()=>({revalidatePath:revalidate}));
-import {prepareMaterialUpload,finalizeMaterialUpload} from "@/app/equipe/material-upload-actions";
+import {prepareMaterialUpload,finalizeMaterialUpload,updateMaterialCover} from "@/app/equipe/material-upload-actions";
 const path="11111111-1111-4111-8111-111111111111.pdf",existing=vi.fn(),insert=vi.fn(),info=vi.fn(),signed=vi.fn(),remove=vi.fn(),prepare=vi.fn(),fetcher=vi.fn();
 const bucket={info,createSignedUrl:signed,remove,createSignedUploadUrl:prepare};
 beforeEach(()=>{
@@ -20,6 +20,35 @@ beforeEach(()=>{
 afterEach(()=>{vi.unstubAllGlobals();vi.unstubAllEnvs();});
 function form(){const f=new FormData();for(const[k,v]of[["path",path],["title","CATALOGO FICTICIO"],["description","TESTE"],["category","catalogo"],["authorized","on"]])f.set(k,v);return f;}
 describe("Publicacao de arquivo grande somente apos validacao",()=>{
+ it("vídeo MP4 de 32 MB é conferido por cabeçalho antes de publicar",async()=>{
+  const f=form();f.set("path","22222222-2222-4222-8222-222222222222.mp4");f.set("category","divulgacao");
+  info.mockResolvedValue({data:{size:32*1024*1024,contentType:"video/mp4"},error:null});
+  fetcher.mockResolvedValue(new Response(new Uint8Array([0,0,0,24,102,116,121,112,105,115,111,109,0,0,0,0])));
+  expect((await finalizeMaterialUpload({},f)).success).toBeTruthy();expect(insert).toHaveBeenCalledWith(expect.objectContaining({category:"divulgacao",file_path:f.get("path")}));
+ });
+ it("publica PDF e capa somente depois de validar os dois conteúdos",async()=>{
+  const cover="22222222-2222-4222-8222-222222222222.jpg",f=form();f.set("cover_path",cover);
+  info.mockImplementation(async(p:string)=>({data:{size:1024,contentType:p===cover?"image/jpeg":"application/pdf"},error:null}));
+  fetcher.mockResolvedValueOnce(new Response("%PDF-1.7\nFICTICIO")).mockResolvedValueOnce(new Response(new Uint8Array([255,216,255,0])));
+  expect((await finalizeMaterialUpload({},f)).success).toBeTruthy();expect(insert).toHaveBeenCalledWith(expect.objectContaining({file_path:path,cover_path:cover}));
+ });
+ it("capa PDF ou imagem maior que 3 MB não publica nem remove o PDF válido",async()=>{
+  const f=form();f.set("cover_path",path);
+  expect((await finalizeMaterialUpload({},f)).error).toBeTruthy();expect(insert).not.toHaveBeenCalled();expect(remove).not.toHaveBeenCalled();
+  const cover="22222222-2222-4222-8222-222222222222.jpg";f.set("cover_path",cover);
+  info.mockImplementation(async(p:string)=>({data:{size:p===cover?4*1024*1024:1024,contentType:p===cover?"image/jpeg":"application/pdf"},error:null}));
+  expect((await finalizeMaterialUpload({},f)).error).toContain("3 MB");expect(remove).toHaveBeenCalledWith([cover]);expect(insert).not.toHaveBeenCalled();
+ });
+ it("troca capa por ID autenticado sem alterar o arquivo PDF existente",async()=>{
+  const cover="22222222-2222-4222-8222-222222222222.jpg",update=vi.fn(),eq=vi.fn();
+  update.mockReturnValue({eq});eq.mockReturnValue({select:()=>({maybeSingle:async()=>({data:{id:"FICTICIO"},error:null})})});
+  session.mockResolvedValue({db:{storage:{from:()=>bucket},from:()=>({update})}});
+  info.mockResolvedValue({data:{size:1024,contentType:"image/jpeg"},error:null});fetcher.mockResolvedValue(new Response(new Uint8Array([255,216,255,0])));
+  const f=new FormData();f.set("id","33333333-3333-4333-8333-333333333333");f.set("cover_path",cover);f.set("authorized","on");
+  expect((await updateMaterialCover({},f)).success).toBeTruthy();expect(session).toHaveBeenCalledWith(true);
+  expect(update).toHaveBeenCalledWith({cover_path:cover});expect(eq).toHaveBeenCalledWith("id",f.get("id"));
+  f.set("id","forjado");expect((await updateMaterialCover({},f)).error).toBeTruthy();expect(update).toHaveBeenCalledTimes(1);
+ });
  it("assina apenas caminho novo e exige equipe",async()=>{
   const result=await prepareMaterialUpload({mime:"application/pdf",size:25*1024*1024});
   expect(session).toHaveBeenCalledWith(true);expect(result).toMatchObject({token:"TOKEN-FICTICIO"});

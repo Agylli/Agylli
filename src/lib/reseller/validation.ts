@@ -104,6 +104,8 @@ export function validMaterial(bytes: Uint8Array, mime: string): boolean {
     return false;
   if (mime === "application/pdf")
     return new TextDecoder().decode(bytes.slice(0, 5)) === "%PDF-";
+  if (mime === "video/mp4") return bytes.length >= 12 && new TextDecoder().decode(bytes.slice(4, 8)) === "ftyp";
+  if (mime === "video/webm") return [0x1a, 0x45, 0xdf, 0xa3].every((value, index) => bytes[index] === value);
   if (mime === "image/png")
     return [137, 80, 78, 71, 13, 10, 26, 10].every((v, i) => bytes[i] === v);
   if (mime === "image/jpeg")

@@ -1,6 +1,7 @@
 import {materialFileSpec,materialMetadata} from "./material-upload";
 import type {ActionState} from "./validation";
 import type {UploadProgress} from "./resumable-upload";
+import {transferMaterialCover} from "./material-cover-client";
 export type CompletedMaterialUpload={path:string;name:string;size:number;modified:number};
 export type MaterialTransfer={
  prepare:(spec:{mime:string;size:number})=>Promise<{path:string;token:string}|{error:string}>;
@@ -16,17 +17,21 @@ async function within<T>(work:Promise<T>,message:string):Promise<T>{
  finally{clearTimeout(timer!);}
 }
 /** Only the Storage adapter receives bytes; server actions receive small metadata. */
-export async function transferMaterial(form:FormData,cache:{current:CompletedMaterialUpload|null},api:MaterialTransfer):Promise<ActionState>{
+export async function transferMaterial(form:FormData,cache:{current:CompletedMaterialUpload|null},api:MaterialTransfer,coverCache:{current:CompletedMaterialUpload|null}={current:null}):Promise<ActionState>{
  const metadata=new FormData();for(const field of ["title","description","category","authorized"])metadata.set(field,String(form.get(field)??""));
  try{materialMetadata(metadata);}catch(error){return {error:error instanceof Error?error.message:"Confira os dados."};}
  const file=form.get("file");
  if(!(file instanceof File)||!file.size){
-  if(metadata.get("category")!=="beneficio")return {error:"Selecione o PDF ou a imagem do material."};
-  return api.benefit({},metadata);
+  if(metadata.get("category")!=="beneficio")return {error:"Selecione o PDF, imagem ou vídeo do material."};
+  const cover=await transferMaterialCover(form,coverCache,api);if("error" in cover)return cover;
+  if(cover.path)metadata.set("cover_path",cover.path);
+  try {const result=await api.benefit({},metadata);if(result.success)coverCache.current=null;return result;}finally{api.phase("");api.progress?.(null);}
  }
  const mime=file.type||(/\.pdf$/i.test(file.name)?"application/pdf":"");
  try{materialFileSpec(mime,file.size);}catch(error){return {error:error instanceof Error?error.message:"Arquivo inválido."};}
  try{
+  const cover=await transferMaterialCover(form,coverCache,api);if("error" in cover)return cover;
+  if(cover.path)metadata.set("cover_path",cover.path);
   let completed=cache.current;
   if(!completed||completed.name!==file.name||completed.size!==file.size||completed.modified!==file.lastModified){
    api.phase("Preparando envio privado…");
@@ -35,12 +40,12 @@ export async function transferMaterial(form:FormData,cache:{current:CompletedMat
    api.phase(`Enviando ${Math.ceil(file.size/1024/1024)} MB ao armazenamento privado. Mantenha esta página aberta…`);
    api.progress?.({sent:0,total:file.size});
    const result=await api.upload(prepared.path,prepared.token,file,mime);
-   if(result.error)return {error:typeof result.error==="string"?result.error:"O armazenamento recusou ou interrompeu o envio. Confira a conexão e se o limite de PDF foi atualizado no Supabase."};
+   if(result.error)return {error:typeof result.error==="string"?result.error:"O armazenamento recusou ou interrompeu o envio. Confira a conexão e se o tamanho e o formato são permitidos."};
    completed={path:prepared.path,name:file.name,size:file.size,modified:file.lastModified};cache.current=completed;
   }
   metadata.set("path",completed.path);api.progress?.(null);api.phase("Conferindo o arquivo e publicando o material…");
   const result=await within(api.finalize({},metadata),"O arquivo foi enviado, mas a confirmação demorou mais de 45 segundos. Confira a lista de materiais antes de tentar concluir a publicação novamente.");
-  if(result.success)cache.current=null;
+  if(result.success){cache.current=null;coverCache.current=null;}
   return result;
  }catch(error){
   if(error instanceof Error && /^(Não foi possível preparar|O arquivo foi enviado, mas a confirmação)/.test(error.message))return {error:error.message};

@@ -29,6 +29,9 @@ export type PortalResource = {
   description: string;
   category: "catalogo" | "divulgacao" | "beneficio";
   file_path: string | null;
+  cover_path?: string | null;
+  coverUrl?: string | null;
+  videoUrl?: string | null;
   active: boolean;
   created_at: string;
 };

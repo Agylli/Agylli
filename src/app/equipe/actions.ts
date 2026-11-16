@@ -11,6 +11,7 @@ import {
 } from "@/lib/reseller/validation";
 import { resellerPortal, materialCategories } from "@/config/reseller";
 import { notifyStore } from "@/integrations/email/notify";
+import { validateStoredMaterial } from "@/lib/reseller/material-file-server";
 
 export async function updateRequestStatus(
   _: ActionState,
@@ -116,6 +117,8 @@ export async function publishMaterial(
         "image/jpeg": "jpg",
         "image/png": "png",
         "image/webp": "webp",
+        "video/mp4": "mp4",
+        "video/webm": "webm",
       } as Record<string, string>
     )[file.type];
     path = `${randomUUID()}.${extension}`;
@@ -126,9 +129,11 @@ export async function publishMaterial(
       return { error: "Não foi possível salvar o arquivo. Tente novamente." };
   } else if (category !== "beneficio")
     return { error: "Adicione o arquivo do catálogo ou material." };
+  const coverPath = textField(form, "cover_path");
+  if (coverPath) { const error = await validateStoredMaterial(db, coverPath, true); if (error) return { error }; }
   const result = await db
     .from("reseller_resources")
-    .insert({ title, description, category, file_path: path });
+    .insert({ title, description, category, file_path: path, cover_path: coverPath || null });
   if (result.error) {
     if (path) await db.storage.from(resellerPortal.bucket).remove([path]);
     return { error: "Não foi possível publicar o material." };

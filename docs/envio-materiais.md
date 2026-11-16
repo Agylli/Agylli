@@ -58,3 +58,22 @@ Referências da correção: [exemplo oficial com rota assinada](https://github.c
 Abrir uma página nova após o deploy. Entrar em `/equipe?aba=materiais`, preencher os dados e enviar PDF autorizado entre 20 e 50 MB. Conferir progresso, mensagem final, lista e download com equipe e revendedor aprovado. Conferir também cancelamento, interrupção, repetição após falha de confirmação e rejeição antes do envio para PDF acima do limite ativo ou imagem acima de 3 MB.
 
 Fontes oficiais consultadas em 12/11/2026: [TUS e tokens assinados](https://supabase.com/docs/guides/storage/uploads/resumable-uploads), [limites por plano/bucket](https://supabase.com/docs/guides/storage/uploads/file-limits) e [tus-js-client](https://github.com/tus/tus-js-client). O conteúdo foi conferido nos repositórios oficiais; nenhum serviço real foi usado para os testes de transferência.
+
+## Imagem de capa opcional — 16/11/2026
+
+No formulário de novo material, **Imagem de capa (opcional)** aceita JPG, PNG ou WebP até 3 MB. A capa é enviada diretamente ao Storage privado, separada do PDF. O servidor valida tamanho, MIME e assinatura da imagem antes de salvar. Benefícios sem anexo também podem ter capa. Sem foto, o card mostra uma representação neutra.
+
+Para materiais já publicados: em **Equipe → Materiais**, abrir **Adicionar ou trocar capa**, escolher a imagem, confirmar autorização e tocar em **Salvar capa**. A operação altera apenas a capa do material selecionado; preserva o PDF, a descrição, a disponibilidade e o histórico. Não é necessário reenviar o catálogo. Uma capa enviada e ainda não vinculada continua privada; não há exclusão automática de capas antigas.
+
+`reseller_resources.cover_path` é opcional, restrito a referências locais de imagens. A política de leitura do Storage permite anexos e capas de materiais ativos aos revendedores aprovados; equipe mantém gerenciamento. Não se torna bucket público, não se usa chave privilegiada no navegador e não se envia a imagem ao corpo das Server Actions. Fotos são exibidas com URL assinada por 15 minutos e sem cache do otimizador público; URLs já emitidas permanecem válidas até expirar, inclusive após ocultar o material. Reabrir a página renova as URLs.
+
+A migração de capas é aditiva: acrescenta coluna nula aos materiais existentes e estende a política atual somente para a capa associada ao material ativo. Testes com RLS verificam visitante, pendente, aprovado e equipe, além de capa inválida, tamanho, retomada sem reenviar e troca sem alterar o PDF.
+## Vídeos de divulgação — 16/11/2026
+
+Em **Equipe → Materiais**, escolher o tipo **Divulgação**, preencher título/descrição e selecionar vídeo **MP4 ou WebM até 50 MB** no campo Arquivo. Uma imagem de capa JPG/PNG/WebP de até 3 MB é opcional e serve como pôster do player. Para MP4, recomenda-se vídeo H.264 e áudio AAC para maior compatibilidade; outros codecs dentro de MP4 podem exigir download para abrir em aplicativo compatível. MOV/AVI não são aceitos: converter para MP4/WebM antes do envio.
+
+O vídeo usa o mesmo upload TUS assinado em blocos de 6 MB; nenhum arquivo grande passa pelas Server Actions ou pela Vercel. Servidor confere tamanho, MIME e cabeçalho do contêiner antes de publicar. O bucket mantém limite de 50 MB, privacidade e as políticas de equipe/aprovação; apenas os MIME types MP4/WebM foram acrescentados. Não foi alterado plano ou contratado serviço de conversão.
+
+Nos cards da equipe e dos revendedores aprovados, o vídeo tem controles, reprodução inline, capa opcional e não inicia automaticamente. O navegador carrega metadados, não todos os vídeos de uma vez. A URL de reprodução é assinada por 15 minutos, separada do link autenticado de download. Se a URL expirar ou o codec não for suportado, atualizar a página ou usar **Baixar material**. Não existe contador de visualizações nem rastreador adicional.
+
+Validação: formatos/limites, recusa de conteúdo renomeado, validação de vídeo de 32 MB no servidor com dados fictícios, projeção de URLs assinadas e migração sem mudança de limite/privacidade. Um WebM silencioso gerado localmente foi reproduzido nas três resoluções (375/768/1440), com controles e sem autoplay. Nenhum vídeo comercial foi publicado por esses testes.

@@ -1,3 +1,5 @@
+import { materialCovers } from "@/lib/reseller/material-covers-server";
+import { MaterialMedia } from "@/components/reseller/material-media";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowUpRight, Package, BookOpen, ShoppingBag } from "lucide-react";
@@ -146,7 +148,7 @@ export default async function ResellerHome({
     const result = approved
       ? await session.db
           .from("reseller_resources")
-          .select("id,title,description,category,file_path,active,created_at")
+          .select("id,title,description,category,file_path,cover_path,active,created_at")
           .eq("active", true)
           .in(
             "category",
@@ -155,7 +157,7 @@ export default async function ResellerHome({
           .order("created_at", { ascending: false })
           .range(offset, offset + 20)
       : { data: [], error: null };
-    const resources = (result.data ?? []) as PortalResource[];
+    const resources = await materialCovers(session.db, (result.data ?? []) as PortalResource[]);
     content = (
       <>
         <div className="portal-heading">
@@ -187,6 +189,7 @@ export default async function ResellerHome({
             <div className="portal-resource-grid">
               {resources.slice(0, 20).map((resource) => (
                 <article key={resource.id} className="portal-resource">
+                  <MaterialMedia key={(resource.videoUrl ?? "") + (resource.coverUrl ?? resource.cover_path ?? "empty")} videoUrl={resource.videoUrl} coverUrl={resource.coverUrl} title={resource.title} />
                   <span className="portal-badge">
                     {materialCategories[resource.category]}
                   </span>

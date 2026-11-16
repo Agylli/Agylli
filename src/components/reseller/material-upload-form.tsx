@@ -15,6 +15,7 @@ export function MaterialUploadForm(){
   const controller=useRef<AbortController|null>(null);
   useEffect(()=>()=>controller.current?.abort(),[]);
   const uploaded=useRef<CompletedMaterialUpload|null>(null);
+  const coverUploaded=useRef<CompletedMaterialUpload|null>(null);
   async function publish(_:ActionState,form:FormData):Promise<ActionState>{
     controller.current=new AbortController();
     return transferMaterial(form,uploaded,{
@@ -24,7 +25,7 @@ export function MaterialUploadForm(){
         if(!settings)return {error:"O armazenamento não está configurado. Fale com a equipe."};
         return uploadMaterialFile({...settings,path,token,file,mime,signal:controller.current!.signal,progress:setProgress});
       },
-    });
+    },coverUploaded);
   }
   return <>
     {phase&&<p className="portal-message" role="status">{phase}</p>}
@@ -33,7 +34,8 @@ export function MaterialUploadForm(){
       <label htmlFor="material-title">Título<input id="material-title" name="title" minLength={3} maxLength={120} required /></label>
       <label htmlFor="material-category">Tipo de conteúdo<select id="material-category" name="category" defaultValue="catalogo">{Object.entries(materialCategories).map(([value,label])=><option value={value} key={value}>{label}</option>)}</select></label>
       <label htmlFor="material-description">Descrição e condições<textarea id="material-description" name="description" rows={3} maxLength={1000} required /></label>
-      <label htmlFor="material-file">Arquivo<input id="material-file" name="file" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" /><span className="portal-hint">PDF até {resellerPortal.catalogPdfLimitBytes/1024/1024} MB. JPG, PNG ou WebP até 3 MB. Para benefício sem anexo, deixe o arquivo vazio.</span></label>
+      <label htmlFor="material-file">Arquivo (PDF, imagem ou vídeo)<input id="material-file" name="file" type="file" accept="application/pdf,image/jpeg,image/png,image/webp,video/mp4,video/webm" /><span className="portal-hint">PDF até {resellerPortal.catalogPdfLimitBytes/1024/1024} MB. Vídeo MP4 ou WebM até 50 MB. JPG, PNG ou WebP até 3 MB. Para vídeos de divulgação, escolha “Divulgação” acima. Para benefício sem anexo, deixe o arquivo vazio.</span></label>
+      <label htmlFor="material-cover">Imagem de capa (opcional)<input id="material-cover" name="cover" type="file" accept="image/jpeg,image/png,image/webp" /><span className="portal-hint">JPG, PNG ou WebP até 3 MB. A foto representa o material e também pode ser a capa do vídeo.</span></label>
       <label className="portal-checkbox"><input name="authorized" type="checkbox" required /><span>Confirmo que o conteúdo, as condições comerciais e o uso do arquivo estão autorizados pela Agylli.</span></label>
     </ActionForm>
   </>;

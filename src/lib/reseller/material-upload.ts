@@ -1,14 +1,14 @@
 import { materialCategories, resellerPortal } from "@/config/reseller";
 import { textField, UUID_PATTERN } from "./validation";
-const extensions = { "application/pdf": "pdf", "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" } as const;
+const extensions = { "application/pdf": "pdf", "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "video/mp4": "mp4", "video/webm": "webm" } as const;
 export function materialFileSpec(mime: string, size: number) {
-  if (!Object.hasOwn(extensions,mime) || !Number.isSafeInteger(size) || size <= 0) throw new Error("Envie um PDF, JPG, PNG ou WebP válido.");
-  const limit = mime === "application/pdf" ? resellerPortal.catalogPdfLimitBytes : resellerPortal.materialLimitBytes;
-  if (size > limit) throw new Error(mime === "application/pdf" ? `O PDF deve ter até ${Math.floor(limit/1024/1024)} MB. Divida ou reduza o catálogo antes de enviar.` : "A imagem deve ter até 3 MB.");
+  if (!Object.hasOwn(extensions,mime) || !Number.isSafeInteger(size) || size <= 0) throw new Error("Envie um PDF, uma imagem JPG/PNG/WebP ou um vídeo MP4/WebM válido.");
+  const limit = mime === "application/pdf" ? resellerPortal.catalogPdfLimitBytes : mime.startsWith("video/") ? resellerPortal.videoLimitBytes : resellerPortal.materialLimitBytes;
+  if (size > limit) throw new Error(mime === "application/pdf" ? `O PDF deve ter até ${Math.floor(limit/1024/1024)} MB. Divida ou reduza o catálogo antes de enviar.` : mime.startsWith("video/") ? "O vídeo deve ter até 50 MB. Reduza ou divida o vídeo antes de enviar." : "A imagem deve ter até 3 MB.");
   return { mime, size, extension: extensions[mime as keyof typeof extensions] };
 }
 export function materialPathMime(path: string) {
-  const match = /^([0-9a-f-]{36})\.(pdf|jpg|png|webp)$/.exec(path);
+  const match = /^([0-9a-f-]{36})\.(pdf|jpg|png|webp|mp4|webm)$/.exec(path);
   if (!match || !UUID_PATTERN.test(match[1])) return null;
   return Object.entries(extensions).find(([,extension]) => extension === match[2])?.[0] ?? null;
 }

@@ -1,3 +1,6 @@
+import { MaterialCoverForm } from "@/components/reseller/material-cover-form";
+import { materialCovers } from "@/lib/reseller/material-covers-server";
+import { MaterialMedia } from "@/components/reseller/material-media";
 import Link from "next/link";
 import { supabaseSettings } from "@/integrations/supabase/settings";
 import { requirePortal } from "@/lib/reseller/session";
@@ -115,10 +118,10 @@ export default async function TeamPage({
   } else if (tab === "materiais") {
     const result = await session.db
       .from("reseller_resources")
-      .select("id,title,description,category,file_path,active,created_at")
+      .select("id,title,description,category,file_path,cover_path,active,created_at")
       .order("created_at", { ascending: false })
       .range(offset, offset + 20);
-    const resources = (result.data ?? []) as PortalResource[];
+    const resources = await materialCovers(session.db, (result.data ?? []) as PortalResource[]);
     content = (
       <>
         <div className="portal-heading">
@@ -136,12 +139,14 @@ export default async function TeamPage({
             <div className="portal-resource-grid">
               {resources.slice(0, 20).map((resource) => (
                 <article key={resource.id} className="portal-resource">
+                  <MaterialMedia key={(resource.videoUrl ?? "") + (resource.coverUrl ?? resource.cover_path ?? "empty")} videoUrl={resource.videoUrl} coverUrl={resource.coverUrl} title={resource.title} />
                   <span className="portal-badge">
                     {materialCategories[resource.category]} ·{" "}
                     {resource.active ? "Disponível" : "Retirado"}
                   </span>
                   <h2>{resource.title}</h2>
                   <p>{resource.description}</p>
+                  <MaterialCoverForm id={resource.id} />
                   <ActionForm
                     action={toggleMaterial}
                     label={
