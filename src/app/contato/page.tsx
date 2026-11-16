@@ -10,7 +10,7 @@ import { locationContent } from "@/config/locations";
 export const metadata: Metadata = {
   title: "Contato",
   description:
-    "Fale com a Agylli em Cândido Sales, BA. Rua Rio Pardo, 75 — Célio Alves. WhatsApp (77) 98854-9691 para atendimento e revenda.",
+    "Fale com a Agylli em Cândido Sales, BA. Rua Rio Pardo, 75 — Célio Alves. WhatsApp (77) 98854-9691 e (77) 98861-6780 para atendimento e revenda.",
   alternates: { canonical: brand.links.site ? "/contato" : undefined },
 };
 

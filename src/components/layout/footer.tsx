@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { brand } from "@/config/brand";
 import { marketing } from "@/config/marketing";
 import { BrandLogo } from "@/components/ui/brand-logo";
-import { locations } from "@/config/locations";
+import { locations, locationWhatsapps } from "@/config/locations";
 import { resellerPortal } from "@/config/reseller";
 
 export function Footer() {
@@ -12,7 +12,7 @@ export function Footer() {
       <div className="footer-brand"><Link href="/" className="wordmark footer-logo" aria-label="Agylli Cosméticos — início"><BrandLogo /></Link><p>{marketing.footer.line1}<br />{marketing.footer.line2}</p></div>
       <div><h2>Explore</h2><nav aria-label="Navegação do rodapé">{brand.navigation.map(item => <Link key={item.href} href={item.href}>{item.label}</Link>)}</nav></div>
       <div><h2>Seu jeito de comprar</h2><nav aria-label="Canais de compra"><Link href={brand.links.retail}>Para você <ArrowUpRight size={14} aria-hidden="true" /></Link><Link href="/atacado">Para o seu negócio <ArrowUpRight size={14} aria-hidden="true" /></Link><Link href={resellerPortal.signup}>Cadastro de revendedor</Link><Link href={resellerPortal.login}>Área do revendedor</Link><Link href={resellerPortal.team}>Acesso da equipe</Link><Link href="/contato">Fale com a Agylli</Link></nav></div>
-      <div className="footer-locations"><h2>Nossa unidade</h2>{locations.map(location => <address key={location.id}><strong className="footer-location-name">{location.city} · {location.stateCode}</strong><p>{location.street} — {location.neighborhood}</p><a href={location.whatsapp.href} aria-label={`WhatsApp da ${location.name}: ${location.whatsapp.label}`}>WhatsApp: {location.whatsapp.label}</a></address>)}</div>
+      <div className="footer-locations"><h2>Nossa unidade</h2>{locations.map(location => <address key={location.id}><strong className="footer-location-name">{location.city} · {location.stateCode}</strong><p>{location.street} — {location.neighborhood}</p>{locationWhatsapps(location).map(contact => <a key={contact.href} href={contact.href} aria-label={`WhatsApp da ${location.name}: ${contact.label}`}>WhatsApp: {contact.label}</a>)}</address>)}</div>
     </div>
     <div className="footer-bottom"><p>© {new Date().getFullYear()} {brand.name}.</p><p>{brand.provisional}</p></div>
     <div className="legal-note"><p>{marketing.footer.legal}</p><p>{marketing.footer.service}</p></div>

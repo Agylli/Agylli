@@ -1,4 +1,4 @@
-/** Unidade e contato atualizados pela Agylli em 10/11/2026. */
+/** Unidade e contatos confirmados pela Agylli; contato adicional em 16/11/2026. */
 export const locations = [
   {
     id: "candido-sales",
@@ -10,8 +10,13 @@ export const locations = [
     street: "Rua Rio Pardo, 75",
     neighborhood: "Célio Alves",
     whatsapp: { label: "(77) 98854-9691", href: "https://wa.me/5577988549691" },
+    additionalWhatsapps: [{ label: "(77) 98861-6780", href: "https://wa.me/5577988616780" }],
   },
 ] as const;
+
+export function locationWhatsapps(location: typeof locations[number]) {
+  return [location.whatsapp, ...location.additionalWhatsapps];
+}
 
 export const locationContent = {
   eyebrow: "AGYLLI EM CÂNDIDO SALES · BA",
