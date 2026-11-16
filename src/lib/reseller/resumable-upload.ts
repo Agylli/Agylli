@@ -24,7 +24,9 @@ export function storageUploadEndpoint(projectUrl: string): URL {
   if (/^[a-z0-9-]+\.supabase\.co$/.test(url.hostname)) {
     url.hostname = url.hostname.replace(".supabase.co", ".storage.supabase.co");
   }
-  return new URL("/storage/v1/upload/resumable", url.origin);
+  // Object-scoped x-signature tokens must use the signed TUS route.
+  // The unsigned route requires a user JWT and rejects this private-token flow.
+  return new URL("/storage/v1/upload/resumable/sign", url.origin);
 }
 
 function storageError(error: Error | DetailedError): string {

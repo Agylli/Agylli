@@ -37,7 +37,7 @@ describe("Upload retomavel privado e limitado", () => {
     const { api, result, config, attempt } = await begin();
     expect(attempt.start).toHaveBeenCalledOnce();
     expect(api).toMatchObject({
-      endpoint: "https://project.storage.supabase.co/storage/v1/upload/resumable", chunkSize: 6 * 1024 * 1024,
+      endpoint: "https://project.storage.supabase.co/storage/v1/upload/resumable/sign", chunkSize: 6 * 1024 * 1024,
       storeFingerprintForResuming: false, uploadDataDuringCreation: true,
       headers: { apikey: "sb_publishable_FICTICIO", "x-signature": "TOKEN-FICTICIO" },
       metadata: { bucketName: "reseller-materials", objectName: config.path, contentType: "application/pdf" },
@@ -48,6 +48,23 @@ describe("Upload retomavel privado e limitado", () => {
     api.onSuccess!({} as never);
     expect(await result).toEqual({ error: null });
     expect(vi.getTimerCount()).toBe(0);
+  });
+  it("PDF de 32 MB usa criacao e continuacao assinadas sem expor sessao", async () => {
+    const file = options().file;
+    Object.defineProperty(file, "size", { value: 32 * 1024 * 1024 });
+    const { api, result } = await begin({ file });
+    const endpoint = "https://project.storage.supabase.co/storage/v1/upload/resumable/sign";
+    expect(api.endpoint).toBe(endpoint);
+    for (const url of [endpoint, `${endpoint}/FICTICIO`])
+      expect(() => api.onBeforeRequest!({ getURL: () => url } as never)).not.toThrow();
+    expect(api.headers).not.toHaveProperty("authorization");
+    api.onProgress!(file.size, file.size); api.onSuccess!({} as never);
+    expect(await result).toEqual({ error: null });
+  });
+  it("nao envia token a continuacao da rota sem assinatura", async () => {
+    const { api, result } = await begin();
+    expect(() => api.onBeforeRequest!({ getURL: () => "https://project.storage.supabase.co/storage/v1/upload/resumable/FICTICIO" } as never)).toThrow("invalid_upload_destination");
+    expect((await result).error).toContain("ENVIO_DESTINO");
   });
   it("retenta falhas temporarias e nao retenta limite ou acesso recusado", async () => {
     const { api, result } = await begin();

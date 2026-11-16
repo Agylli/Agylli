@@ -29,7 +29,7 @@ where id in ('reseller-materials', 'reseller-products');
 ## Envio, segurança e recuperação
 
 1. O navegador confere campos, autorização e tamanho antes de iniciar. Uma Server Action autentica a equipe e cria um token temporário para um objeto novo, sem sobrescrita.
-2. `tus-js-client` envia blocos de 6 MB ao hostname direto do Storage para projetos `*.supabase.co`, usando `x-signature` e a chave publicável. A sessão permanece HTTP-only. Não há chave secreta ou JWT da equipe no navegador.
+2. `tus-js-client` envia blocos de 6 MB ao hostname direto do Storage para projetos `*.supabase.co`, pela rota `/storage/v1/upload/resumable/sign`, usando `x-signature` e a chave publicável. A sessão permanece HTTP-only. Não há chave secreta ou JWT da equipe no navegador. A rota sem `/sign` exige JWT de sessão e não deve ser usada com este token restrito.
 3. TUS retoma do último saldo de bytes confirmado após falhas transitórias, com tentativas limitadas. Erros de acesso/tamanho não são repetidos automaticamente. URLs/tokens de envio não são persistidos no armazenamento do navegador; retomada automática vale durante a tentativa com a página aberta.
 4. Inatividade por 90 segundos ou duração total de 15 minutos encerra o envio e libera o formulário. Preparação e confirmação têm prazo de 45 segundos; a conferência do cabeçalho no servidor tem 15 segundos. Progresso de rede não equivale à publicação.
 5. Cancelar interrompe o transporte e impede o início da publicação por essa tentativa. O botão só aparece durante o envio; confirmação já iniciada não oferece cancelamento. Sair da tela durante o transporte também o interrompe.
@@ -49,7 +49,9 @@ Objetos parciais ou enviados sem cadastro podem permanecer privados após interr
 | `ENVIO_HTTP_...` / `ENVIO_REDE` | Estado do serviço/conexão; não compartilhar URLs ou tokens |
 | Confirmação após envio demorou | Conferir lista e concluir com a mesma referência antes de reenviar |
 
-A causa remota exata da tentativa relatada como parada não foi comprovada por logs ou sessão autenticada. O fluxo anterior não tinha progresso nem prazo de transporte. A correção é validada com armazenamento simulado e precisa de homologação com arquivo real.
+Em 16/11/2026, a investigação de `ENVIO_ACESSO` com PDF de 32 MB identificou no código a rota TUS sem `/sign` recebendo um token de objeto. O exemplo oficial assinado e o código-fonte do Storage confirmam a rota específica com `/sign`; ela foi corrigida sem expor sessão, ampliar permissões ou alterar limites. O bucket em produção foi conferido por consulta: privado, PDF permitido e limite de 50 MB. Testes cobrem criação/continuação assinadas, ausência de JWT e PDF de 32 MB. A transferência/publicação real de um arquivo da loja exige a sessão da equipe e não é presumida pelos testes simulados.
+
+Referências da correção: [exemplo oficial com rota assinada](https://github.com/supabase/supabase/blob/master/examples/storage/resumable-upload-signed-uppy/index.html), [rotas TUS do Storage](https://github.com/supabase/storage/blob/master/src/http/routes/tus/index.ts) e [sufixo e validação de assinatura](https://github.com/supabase/storage/blob/master/src/http/routes/tus/lifecycle.ts).
 
 ## Homologação
 
